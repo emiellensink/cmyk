@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>6F1C6566-688C-4296-BE6D-8B2F42890257</string>
+	<key>IDESourceControlProjectName</key>
+	<string>CMYK</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>20D97C18-AF36-448A-A323-A2A453EE891A</key>
+		<string>https://home.emle.nl/git/cmyk.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>iOS/CMYK/CMYK.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>20D97C18-AF36-448A-A323-A2A453EE891A</key>
+		<string>../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://home.emle.nl/git/cmyk.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>20D97C18-AF36-448A-A323-A2A453EE891A</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>20D97C18-AF36-448A-A323-A2A453EE891A</string>
+			<key>IDESourceControlWCCName</key>
+			<string>CMYK</string>
+		</dict>
+	</array>
+</dict>
+</plist>
