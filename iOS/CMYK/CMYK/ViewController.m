@@ -8,11 +8,15 @@
 
 #import "ViewController.h"
 
+#import "QX3D/QX3DEngine.h"
+#import "Implementation/CMYKScene.h"
+
 @interface ViewController () {
 
 }
 
 @property (strong, nonatomic) EAGLContext *context;
+@property (strong, nonatomic) QX3DEngine *engine;
 
 - (void)setupGL;
 - (void)tearDownGL;
@@ -40,6 +44,8 @@
     view.context = self.context;
     view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
     
+	self.engine = [QX3DEngine engineWithScene:[CMYKScene new]];
+	
     [self setupGL];
 }
 
@@ -73,34 +79,35 @@
 - (void)setupGL
 {
     [EAGLContext setCurrentContext:self.context];
+	
+	[self.engine setupGL];
 }
 
 - (void)tearDownGL
 {
     [EAGLContext setCurrentContext:self.context];
+
+	[self.engine cleanupGL];
 }
 
 #pragma mark - GLKView and GLKViewController delegate methods
 
 - (void)update
 {
-    float aspect = fabsf(self.view.bounds.size.width / self.view.bounds.size.height);
-    GLKMatrix4 projectionMatrix = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(65.0f), aspect, 0.1f, 100.0f);
-    
-    GLKMatrix4 baseModelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, -4.0f);
-//    baseModelViewMatrix = GLKMatrix4Rotate(baseModelViewMatrix, _rotation, 0.0f, 1.0f, 0.0f);
+	[self.engine updateWithView:self.view interval:self.timeSinceLastUpdate];
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
 {
-    glClearColor(0.65f, 0.65f, 0.65f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	[self.engine renderInView:self.view rect:rect];
 }
 
 #pragma mark -  OpenGL ES 2 shader compilation
 
 - (BOOL)loadShaders
 {
+	return NO;
+	
 //    GLuint vertShader, fragShader;
 //    NSString *vertShaderPathname, *fragShaderPathname;
 //    
@@ -171,7 +178,9 @@
 
 - (BOOL)compileShader:(GLuint *)shader type:(GLenum)type file:(NSString *)file
 {
-//    GLint status;
+	return NO;
+	
+	//    GLint status;
 //    const GLchar *source;
 //    
 //    source = (GLchar *)[[NSString stringWithContentsOfFile:file encoding:NSUTF8StringEncoding error:nil] UTF8String];
@@ -206,6 +215,8 @@
 
 - (BOOL)linkProgram:(GLuint)prog
 {
+	return NO;
+	
 //    GLint status;
 //    glLinkProgram(prog);
 //    
@@ -230,6 +241,7 @@
 
 - (BOOL)validateProgram:(GLuint)prog
 {
+	return NO;
 //    GLint logLength, status;
 //    
 //    glValidateProgram(prog);
