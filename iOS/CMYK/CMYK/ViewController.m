@@ -14,6 +14,7 @@
 
 #import "Implementation/CMYKScene.h"
 #import "Implementation/CMYKRenderableSquare.h"
+#import "Implementation/CMYKRotationAnimator.h"
 
 @interface ViewController () {
 
@@ -49,16 +50,29 @@
     [self setupGL];
 	
 	CMYKScene *scene = (CMYKScene *)self.engine.scene;
-	
-	QX3DObject *obj = [QX3DObject new];
-	obj.orientation = GLKQuaternionMakeWithAngleAndAxis(0, 0, 0, 1);
-	
-	[obj attachToObject:scene];
-	
-	CMYKRenderableSquare *square = [CMYKRenderableSquare renderableForObject:obj];
-	[square warmup];
+		
 	QX3DMaterial *mat = [QX3DMaterial materialWithVertexProgram:@"subtractive" pixelProgram:@"subtractive" attributes:@{@"position": @(GLKVertexAttribPosition)}];
-	square.material = mat;
+	
+	for (int i = 0; i < 3; i++)
+	{
+		QX3DObject *obj = [QX3DObject new];
+		obj.orientation = GLKQuaternionMakeWithAngleAndAxis(0, 0, 0, 1);
+		obj.position = GLKVector3Make(-0.3 + (i * 0.3), 0, 0);
+		
+		[obj attachToObject:scene];
+		
+		CMYKRotationAnimator *anim = [CMYKRotationAnimator animatorForObject:obj];
+		anim.speed = i + 1;
+		
+		CMYKRenderableSquare *square = [CMYKRenderableSquare renderableForObject:obj];
+		if (i == 0) square.color = [UIColor colorWithRed:1 green:0 blue:0 alpha:1];
+		if (i == 1) square.color = [UIColor colorWithRed:0 green:1 blue:0 alpha:1];
+		if (i == 2) square.color = [UIColor colorWithRed:0 green:0 blue:1 alpha:1];
+		
+		[square warmup];
+
+		square.material = mat;
+	}
 }
 
 - (void)dealloc

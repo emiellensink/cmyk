@@ -10,4 +10,6 @@
 
 @interface CMYKRenderableSquare : QX3DRenderable
 
+@property (nonatomic, strong) UIColor *color;
+
 @end

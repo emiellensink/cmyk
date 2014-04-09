@@ -20,4 +20,6 @@
 
 - (void)updateWithInterval:(NSTimeInterval)timeInterval;
 
+@property (nonatomic, readonly) QX3DObject *target;
+
 @end

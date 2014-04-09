@@ -16,7 +16,7 @@
 	
 }
 
-@property (nonatomic, weak) QX3DObject *target;
+@property (nonatomic, weak) QX3DObject *internalTarget;
 
 @end
 
@@ -47,12 +47,17 @@
     return self;
 }
 
+- (QX3DObject *)target
+{
+	return self.internalTarget;
+}
+
 - (void)detach
 {
-	if (self.target)
+	if (self.internalTarget)
 	{
-		[self.target.internalAnimators removeObject:self];
-		self.target = nil;
+		[self.internalTarget.internalAnimators removeObject:self];
+		self.internalTarget = nil;
 	}
 }
 
@@ -60,8 +65,8 @@
 {
 	[self detach];
 
-	self.target = object;
-	[self.target.internalAnimators addObject:self];
+	self.internalTarget = object;
+	[self.internalTarget.internalAnimators addObject:self];
 }
 
 - (void)updateWithInterval:(NSTimeInterval)timeInterval

@@ -24,4 +24,7 @@
 - (void)detach;
 - (void)attachToObject:(id)object;
 
+// For use by animators and for rendering...
+@property (nonatomic, assign) GLKMatrix4 intermediateMatrix;
+
 @end

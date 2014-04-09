@@ -10,7 +10,6 @@
 
 #import "../QX3D/QX3DMaterial.h"
 #import "../QX3D/QX3DObject.h"
-#import "../QX3D/QX3DObjectInternals.h"
 
 #import <GLKit/GLKit.h>
 
@@ -25,10 +24,32 @@ GLfloat gSquareVD[18] =
 	0.5, -0.5, 0
 };
 
-@interface CMYKRenderableSquare ()
+@interface CMYKRenderableSquareBuffer : NSObject
 {
+@public
 	GLuint triangleArray;
 	GLuint triangleBuffer;
+}
+
+@end
+
+@implementation CMYKRenderableSquareBuffer
+
++ (instancetype)sharedBuffer
+{
+	static id instance;
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		instance = [[self alloc] init];
+	});
+
+	return instance;
+}
+
+@end
+
+@interface CMYKRenderableSquare ()
+{
 }
 
 @end
@@ -37,11 +58,13 @@ GLfloat gSquareVD[18] =
 
 - (void)warmup
 {
-	glGenVertexArraysOES(1, &triangleArray);
-    glBindVertexArrayOES(triangleArray);
+	CMYKRenderableSquareBuffer *buf = [CMYKRenderableSquareBuffer sharedBuffer];
+	
+	glGenVertexArraysOES(1, &buf->triangleArray);
+    glBindVertexArrayOES(buf->triangleArray);
     
-    glGenBuffers(1, &triangleBuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, triangleBuffer);
+    glGenBuffers(1, &buf->triangleBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, buf->triangleBuffer);
     glBufferData(GL_ARRAY_BUFFER, sizeof(gSquareVD), gSquareVD, GL_STATIC_DRAW);
     
     glEnableVertexAttribArray(GLKVertexAttribPosition);
@@ -52,16 +75,21 @@ GLfloat gSquareVD[18] =
 
 - (void)renderWithMatrix:(GLKMatrix4)matrix
 {
+	CMYKRenderableSquareBuffer *buf = [CMYKRenderableSquareBuffer sharedBuffer];
 	[super renderWithMatrix:matrix];
 	
-    glBindVertexArrayOES(triangleArray);
+    glBindVertexArrayOES(buf->triangleArray);
     
 	GLint matrixUni = [self.material uniformForParameter:@"modelViewProjectionMatrix"];
 	GLint colorUni = [self.material uniformForParameter:@"color"];
 	
 	glUniformMatrix4fv(matrixUni, 1, 0, matrix.m);
-	glUniform4f(colorUni, 1.0, 0.0, 0.0, 1.0);
-		
+	
+	CGFloat r, g, b, a;
+	[self.color getRed:&r green:&g blue:&b alpha:&a];
+	
+	glUniform4f(colorUni, r, g, b, a);
+	
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 

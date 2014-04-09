@@ -11,8 +11,6 @@
 
 @interface QX3DObject ()
 
-@property (nonatomic, assign) GLKMatrix4 intermediateMatrix;
-
 @property (nonatomic, strong) NSMutableArray *internalObjects;
 @property (nonatomic, strong) NSMutableArray *internalAnimators;
 @property (nonatomic, strong) NSMutableArray *internalRenderables;

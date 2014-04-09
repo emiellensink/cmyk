@@ -60,7 +60,13 @@
 {
 	GLKMatrix4 baseMatrix;
 	if (!self.targetIsSceneObject) baseMatrix = ((QX3DObject *)self.target).intermediateMatrix;
-	else baseMatrix = ((QX3DScene *)self.target).baseModelViewMatrix;
+	else
+	{
+		QX3DScene *scene = (QX3DScene *)self.target;
+		
+		baseMatrix = scene.baseModelViewMatrix;
+		baseMatrix = GLKMatrix4Multiply(scene.projectionMatrix, baseMatrix);	// Not sure if this is the right order!
+	}
 	
 	GLKVector3 v = self.position;
 	baseMatrix = GLKMatrix4Multiply(baseMatrix, GLKMatrix4MakeTranslation(v.x, v.y, v.z));
