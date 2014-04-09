@@ -36,6 +36,8 @@
 		177D101618F587C50055496E /* subtractive.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 177D101418F587C50055496E /* subtractive.fsh */; };
 		177D101718F587C50055496E /* subtractive.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 177D101518F587C50055496E /* subtractive.vsh */; };
 		177D101A18F5941F0055496E /* CMYKRotationAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 177D101918F5941F0055496E /* CMYKRotationAnimator.m */; };
+		177D101C18F59B740055496E /* flatcolor.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 177D101B18F59B740055496E /* flatcolor.fsh */; };
+		177D101F18F59C7C0055496E /* CMYKWaveAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 177D101E18F59C7C0055496E /* CMYKWaveAnimator.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +97,9 @@
 		177D101518F587C50055496E /* subtractive.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = subtractive.vsh; path = Shaders/subtractive.vsh; sourceTree = "<group>"; };
 		177D101818F5941F0055496E /* CMYKRotationAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMYKRotationAnimator.h; sourceTree = "<group>"; };
 		177D101918F5941F0055496E /* CMYKRotationAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMYKRotationAnimator.m; sourceTree = "<group>"; };
+		177D101B18F59B740055496E /* flatcolor.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = flatcolor.fsh; path = Shaders/flatcolor.fsh; sourceTree = "<group>"; };
+		177D101D18F59C7C0055496E /* CMYKWaveAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMYKWaveAnimator.h; sourceTree = "<group>"; };
+		177D101E18F59C7C0055496E /* CMYKWaveAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMYKWaveAnimator.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -235,6 +240,8 @@
 				177D101118F5795F0055496E /* CMYKRenderableSquare.m */,
 				177D101818F5941F0055496E /* CMYKRotationAnimator.h */,
 				177D101918F5941F0055496E /* CMYKRotationAnimator.m */,
+				177D101D18F59C7C0055496E /* CMYKWaveAnimator.h */,
+				177D101E18F59C7C0055496E /* CMYKWaveAnimator.m */,
 			);
 			path = Implementation;
 			sourceTree = "<group>";
@@ -242,6 +249,7 @@
 		177D101318F587AE0055496E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				177D101B18F59B740055496E /* flatcolor.fsh */,
 				177D101418F587C50055496E /* subtractive.fsh */,
 				177D101518F587C50055496E /* subtractive.vsh */,
 			);
@@ -335,6 +343,7 @@
 				177D0FCF18F44B8A0055496E /* Main_iPad.storyboard in Resources */,
 				177D101618F587C50055496E /* subtractive.fsh in Resources */,
 				177D101718F587C50055496E /* subtractive.vsh in Resources */,
+				177D101C18F59B740055496E /* flatcolor.fsh in Resources */,
 				177D0FCC18F44B8A0055496E /* Main_iPhone.storyboard in Resources */,
 				177D0FD818F44B8A0055496E /* Images.xcassets in Resources */,
 				177D0FC318F44B8A0055496E /* InfoPlist.strings in Resources */,
@@ -357,6 +366,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				177D100F18F56FD30055496E /* QX3DMaterial.m in Sources */,
+				177D101F18F59C7C0055496E /* CMYKWaveAnimator.m in Sources */,
 				177D0FD618F44B8A0055496E /* ViewController.m in Sources */,
 				177D0FFC18F4658A0055496E /* QX3DScene.m in Sources */,
 				177D100318F520800055496E /* QX3DObject.m in Sources */,

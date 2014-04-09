@@ -58,19 +58,24 @@ GLfloat gSquareVD[18] =
 
 - (void)warmup
 {
-	CMYKRenderableSquareBuffer *buf = [CMYKRenderableSquareBuffer sharedBuffer];
-	
-	glGenVertexArraysOES(1, &buf->triangleArray);
-    glBindVertexArrayOES(buf->triangleArray);
-    
-    glGenBuffers(1, &buf->triangleBuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, buf->triangleBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(gSquareVD), gSquareVD, GL_STATIC_DRAW);
-    
-    glEnableVertexAttribArray(GLKVertexAttribPosition);
-    glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 0, 0);
-    
-    glBindVertexArrayOES(0);
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+
+		CMYKRenderableSquareBuffer *buf = [CMYKRenderableSquareBuffer sharedBuffer];
+		
+		glGenVertexArraysOES(1, &buf->triangleArray);
+		glBindVertexArrayOES(buf->triangleArray);
+		
+		glGenBuffers(1, &buf->triangleBuffer);
+		glBindBuffer(GL_ARRAY_BUFFER, buf->triangleBuffer);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(gSquareVD), gSquareVD, GL_STATIC_DRAW);
+		
+		glEnableVertexAttribArray(GLKVertexAttribPosition);
+		glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 0, 0);
+		
+		glBindVertexArrayOES(0);
+		
+	});
 }
 
 - (void)renderWithMatrix:(GLKMatrix4)matrix

@@ -15,6 +15,7 @@
 #import "Implementation/CMYKScene.h"
 #import "Implementation/CMYKRenderableSquare.h"
 #import "Implementation/CMYKRotationAnimator.h"
+#import "Implementation/CMYKWaveAnimator.h"
 
 @interface ViewController () {
 
@@ -44,6 +45,7 @@
     GLKView *view = (GLKView *)self.view;
     view.context = self.context;
     view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
+	self.preferredFramesPerSecond = 60;
     
 	self.engine = [QX3DEngine engineWithScene:[CMYKScene new]];
 	
@@ -53,25 +55,33 @@
 		
 	QX3DMaterial *mat = [QX3DMaterial materialWithVertexProgram:@"subtractive" pixelProgram:@"subtractive" attributes:@{@"position": @(GLKVertexAttribPosition)}];
 	
-	for (int i = 0; i < 3; i++)
+	for (int x = 0; x < 3; x++)
+	{
+	for (int i = 0; i < 20; i++)
 	{
 		QX3DObject *obj = [QX3DObject new];
 		obj.orientation = GLKQuaternionMakeWithAngleAndAxis(0, 0, 0, 1);
-		obj.position = GLKVector3Make(-0.3 + (i * 0.3), 0, 0);
+		obj.position = GLKVector3Make(0, -1.0 + (i * (2.0 / 20.0)), 0);
 		
 		[obj attachToObject:scene];
 		
+		CMYKWaveAnimator *wave = [CMYKWaveAnimator animatorForObject:obj];
+		wave.speed = 2.2;
+		wave.amplitude = 1;
+		wave.offset = (x / 2.0) + (i / 10.0);
+		
 		CMYKRotationAnimator *anim = [CMYKRotationAnimator animatorForObject:obj];
-		anim.speed = i + 1;
+		anim.speed = 1;
 		
 		CMYKRenderableSquare *square = [CMYKRenderableSquare renderableForObject:obj];
-		if (i == 0) square.color = [UIColor colorWithRed:1 green:0 blue:0 alpha:1];
-		if (i == 1) square.color = [UIColor colorWithRed:0 green:1 blue:0 alpha:1];
-		if (i == 2) square.color = [UIColor colorWithRed:0 green:0 blue:1 alpha:1];
+		if (x == 0) square.color = [UIColor colorWithRed:0.5 green:0 blue:0 alpha:1];
+		if (x == 1) square.color = [UIColor colorWithRed:0 green:0.5 blue:0 alpha:1];
+		if (x == 2) square.color = [UIColor colorWithRed:0 green:0 blue:0.5 alpha:1];
 		
 		[square warmup];
 
 		square.material = mat;
+	}
 	}
 }
 
