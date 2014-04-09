@@ -17,8 +17,6 @@
 		177D0FC918F44B8A0055496E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 177D0FC818F44B8A0055496E /* AppDelegate.m */; };
 		177D0FCC18F44B8A0055496E /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 177D0FCA18F44B8A0055496E /* Main_iPhone.storyboard */; };
 		177D0FCF18F44B8A0055496E /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 177D0FCD18F44B8A0055496E /* Main_iPad.storyboard */; };
-		177D0FD118F44B8A0055496E /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 177D0FD018F44B8A0055496E /* Shader.fsh */; };
-		177D0FD318F44B8A0055496E /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 177D0FD218F44B8A0055496E /* Shader.vsh */; };
 		177D0FD618F44B8A0055496E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 177D0FD518F44B8A0055496E /* ViewController.m */; };
 		177D0FD818F44B8A0055496E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 177D0FD718F44B8A0055496E /* Images.xcassets */; };
 		177D0FDF18F44B8A0055496E /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 177D0FDE18F44B8A0055496E /* XCTest.framework */; };
@@ -30,6 +28,13 @@
 		177D0FF918F44D710055496E /* QX3DEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 177D0FF818F44D710055496E /* QX3DEngine.m */; };
 		177D0FFC18F4658A0055496E /* QX3DScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 177D0FFB18F4658A0055496E /* QX3DScene.m */; };
 		177D100018F4663D0055496E /* CMYKScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 177D0FFF18F4663D0055496E /* CMYKScene.m */; };
+		177D100318F520800055496E /* QX3DObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 177D100218F520800055496E /* QX3DObject.m */; };
+		177D100718F53D560055496E /* QX3DAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 177D100618F53D560055496E /* QX3DAnimator.m */; };
+		177D100B18F569240055496E /* QX3DRenderable.m in Sources */ = {isa = PBXBuildFile; fileRef = 177D100A18F569240055496E /* QX3DRenderable.m */; };
+		177D100F18F56FD30055496E /* QX3DMaterial.m in Sources */ = {isa = PBXBuildFile; fileRef = 177D100E18F56FD30055496E /* QX3DMaterial.m */; };
+		177D101218F5795F0055496E /* CMYKRenderableSquare.m in Sources */ = {isa = PBXBuildFile; fileRef = 177D101118F5795F0055496E /* CMYKRenderableSquare.m */; };
+		177D101618F587C50055496E /* subtractive.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 177D101418F587C50055496E /* subtractive.fsh */; };
+		177D101718F587C50055496E /* subtractive.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 177D101518F587C50055496E /* subtractive.vsh */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,8 +62,6 @@
 		177D0FC818F44B8A0055496E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		177D0FCB18F44B8A0055496E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
 		177D0FCE18F44B8A0055496E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
-		177D0FD018F44B8A0055496E /* Shader.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.fsh; path = Shaders/Shader.fsh; sourceTree = "<group>"; };
-		177D0FD218F44B8A0055496E /* Shader.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.vsh; path = Shaders/Shader.vsh; sourceTree = "<group>"; };
 		177D0FD418F44B8A0055496E /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		177D0FD518F44B8A0055496E /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		177D0FD718F44B8A0055496E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -74,6 +77,21 @@
 		177D0FFB18F4658A0055496E /* QX3DScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QX3DScene.m; sourceTree = "<group>"; };
 		177D0FFE18F4663D0055496E /* CMYKScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMYKScene.h; sourceTree = "<group>"; };
 		177D0FFF18F4663D0055496E /* CMYKScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMYKScene.m; sourceTree = "<group>"; };
+		177D100118F520800055496E /* QX3DObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QX3DObject.h; sourceTree = "<group>"; };
+		177D100218F520800055496E /* QX3DObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QX3DObject.m; sourceTree = "<group>"; };
+		177D100418F521000055496E /* QX3DObjectInternals.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QX3DObjectInternals.h; sourceTree = "<group>"; };
+		177D100518F53D560055496E /* QX3DAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QX3DAnimator.h; sourceTree = "<group>"; };
+		177D100618F53D560055496E /* QX3DAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QX3DAnimator.m; sourceTree = "<group>"; };
+		177D100818F548840055496E /* QX3DSceneInternals.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QX3DSceneInternals.h; sourceTree = "<group>"; };
+		177D100918F569240055496E /* QX3DRenderable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QX3DRenderable.h; sourceTree = "<group>"; };
+		177D100A18F569240055496E /* QX3DRenderable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QX3DRenderable.m; sourceTree = "<group>"; };
+		177D100C18F569720055496E /* QX3DRenderableInternals.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QX3DRenderableInternals.h; sourceTree = "<group>"; };
+		177D100D18F56FD30055496E /* QX3DMaterial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QX3DMaterial.h; sourceTree = "<group>"; };
+		177D100E18F56FD30055496E /* QX3DMaterial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QX3DMaterial.m; sourceTree = "<group>"; };
+		177D101018F5795F0055496E /* CMYKRenderableSquare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMYKRenderableSquare.h; sourceTree = "<group>"; };
+		177D101118F5795F0055496E /* CMYKRenderableSquare.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMYKRenderableSquare.m; sourceTree = "<group>"; };
+		177D101418F587C50055496E /* subtractive.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = subtractive.fsh; path = Shaders/subtractive.fsh; sourceTree = "<group>"; };
+		177D101518F587C50055496E /* subtractive.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = subtractive.vsh; path = Shaders/subtractive.vsh; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,14 +157,13 @@
 		177D0FBE18F44B8A0055496E /* CMYK */ = {
 			isa = PBXGroup;
 			children = (
+				177D101318F587AE0055496E /* Resources */,
 				177D0FFD18F466280055496E /* Implementation */,
 				177D0FF618F44D450055496E /* QX3D */,
 				177D0FC718F44B8A0055496E /* AppDelegate.h */,
 				177D0FC818F44B8A0055496E /* AppDelegate.m */,
 				177D0FCA18F44B8A0055496E /* Main_iPhone.storyboard */,
 				177D0FCD18F44B8A0055496E /* Main_iPad.storyboard */,
-				177D0FD018F44B8A0055496E /* Shader.fsh */,
-				177D0FD218F44B8A0055496E /* Shader.vsh */,
 				177D0FD418F44B8A0055496E /* ViewController.h */,
 				177D0FD518F44B8A0055496E /* ViewController.m */,
 				177D0FD718F44B8A0055496E /* Images.xcassets */,
@@ -190,7 +207,18 @@
 				177D0FF718F44D710055496E /* QX3DEngine.h */,
 				177D0FF818F44D710055496E /* QX3DEngine.m */,
 				177D0FFA18F4658A0055496E /* QX3DScene.h */,
+				177D100818F548840055496E /* QX3DSceneInternals.h */,
 				177D0FFB18F4658A0055496E /* QX3DScene.m */,
+				177D100118F520800055496E /* QX3DObject.h */,
+				177D100418F521000055496E /* QX3DObjectInternals.h */,
+				177D100218F520800055496E /* QX3DObject.m */,
+				177D100518F53D560055496E /* QX3DAnimator.h */,
+				177D100618F53D560055496E /* QX3DAnimator.m */,
+				177D100918F569240055496E /* QX3DRenderable.h */,
+				177D100C18F569720055496E /* QX3DRenderableInternals.h */,
+				177D100A18F569240055496E /* QX3DRenderable.m */,
+				177D100D18F56FD30055496E /* QX3DMaterial.h */,
+				177D100E18F56FD30055496E /* QX3DMaterial.m */,
 			);
 			path = QX3D;
 			sourceTree = "<group>";
@@ -200,8 +228,19 @@
 			children = (
 				177D0FFE18F4663D0055496E /* CMYKScene.h */,
 				177D0FFF18F4663D0055496E /* CMYKScene.m */,
+				177D101018F5795F0055496E /* CMYKRenderableSquare.h */,
+				177D101118F5795F0055496E /* CMYKRenderableSquare.m */,
 			);
 			path = Implementation;
+			sourceTree = "<group>";
+		};
+		177D101318F587AE0055496E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				177D101418F587C50055496E /* subtractive.fsh */,
+				177D101518F587C50055496E /* subtractive.vsh */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -288,12 +327,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				177D0FD118F44B8A0055496E /* Shader.fsh in Resources */,
 				177D0FCF18F44B8A0055496E /* Main_iPad.storyboard in Resources */,
+				177D101618F587C50055496E /* subtractive.fsh in Resources */,
+				177D101718F587C50055496E /* subtractive.vsh in Resources */,
 				177D0FCC18F44B8A0055496E /* Main_iPhone.storyboard in Resources */,
 				177D0FD818F44B8A0055496E /* Images.xcassets in Resources */,
 				177D0FC318F44B8A0055496E /* InfoPlist.strings in Resources */,
-				177D0FD318F44B8A0055496E /* Shader.vsh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -312,9 +351,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				177D100F18F56FD30055496E /* QX3DMaterial.m in Sources */,
 				177D0FD618F44B8A0055496E /* ViewController.m in Sources */,
 				177D0FFC18F4658A0055496E /* QX3DScene.m in Sources */,
+				177D100318F520800055496E /* QX3DObject.m in Sources */,
+				177D101218F5795F0055496E /* CMYKRenderableSquare.m in Sources */,
 				177D100018F4663D0055496E /* CMYKScene.m in Sources */,
+				177D100B18F569240055496E /* QX3DRenderable.m in Sources */,
+				177D100718F53D560055496E /* QX3DAnimator.m in Sources */,
 				177D0FF918F44D710055496E /* QX3DEngine.m in Sources */,
 				177D0FC918F44B8A0055496E /* AppDelegate.m in Sources */,
 				177D0FC518F44B8A0055496E /* main.m in Sources */,

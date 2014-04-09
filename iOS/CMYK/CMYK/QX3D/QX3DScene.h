@@ -18,4 +18,6 @@
 @property (nonatomic, assign) GLKMatrix4 projectionMatrix;
 @property (nonatomic, assign) GLKMatrix4 baseModelViewMatrix;
 
+@property (nonatomic, readonly) NSArray *objects;
+
 @end

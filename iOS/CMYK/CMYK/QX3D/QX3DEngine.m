@@ -10,12 +10,15 @@
 
 #import "QX3DScene.h"
 
+#import "QX3DObject.h"
+#import "QX3DObjectInternals.h"
+
 @interface QX3DEngine ()
 {
 	
 }
 
-@property (nonatomic, strong) QX3DScene *scene;
+@property (nonatomic, strong) QX3DScene *internalScene;
 
 @end
 
@@ -23,7 +26,7 @@
 
 + (instancetype)engineWithScene:(QX3DScene *)scene
 {
-	return [[QX3DEngine alloc] initWithScene:scene];
+	return [[self alloc] initWithScene:scene];
 }
 
 - (instancetype)initWithScene:(QX3DScene *)scene
@@ -31,19 +34,28 @@
     self = [super init];
     if (self)
 	{
-        self.scene = scene;
+        self.internalScene = scene;
     }
     return self;
 }
 
+- (QX3DScene *)scene
+{
+	return self.internalScene;
+}
+
 - (void)updateWithView:(UIView *)view interval:(NSTimeInterval)timeSinceLastUpdate
 {
-	[self.scene updateWithSize:view.bounds.size interval:timeSinceLastUpdate];
+	[self.internalScene updateWithSize:view.bounds.size interval:timeSinceLastUpdate];
 }
 
 - (void)renderInView:(UIView *)view rect:(CGRect)rect
 {
-	[self.scene prepareForRendering];
+	[self.internalScene prepareForRendering];
+	
+	[self.internalScene.objects enumerateObjectsUsingBlock:^(QX3DObject *obj, NSUInteger idx, BOOL *stop) {
+		[obj drawRenderables];
+	}];
 }
 
 - (void)setupGL

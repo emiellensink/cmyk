@@ -21,4 +21,6 @@
 - (void)setupGL;
 - (void)cleanupGL;
 
+@property (nonatomic, readonly) QX3DScene *scene;
+
 @end
