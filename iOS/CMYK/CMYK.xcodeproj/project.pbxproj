@@ -38,6 +38,8 @@
 		177D101A18F5941F0055496E /* CMYKRotationAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 177D101918F5941F0055496E /* CMYKRotationAnimator.m */; };
 		177D101C18F59B740055496E /* flatcolor.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 177D101B18F59B740055496E /* flatcolor.fsh */; };
 		177D101F18F59C7C0055496E /* CMYKWaveAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 177D101E18F59C7C0055496E /* CMYKWaveAnimator.m */; };
+		17D95BEE18F6D06B00843ED3 /* CMYKTileStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 17D95BED18F6D06B00843ED3 /* CMYKTileStack.m */; };
+		17D95BF118F6DF3100843ED3 /* CMYKTetromino.m in Sources */ = {isa = PBXBuildFile; fileRef = 17D95BF018F6DF3100843ED3 /* CMYKTetromino.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,6 +102,10 @@
 		177D101B18F59B740055496E /* flatcolor.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = flatcolor.fsh; path = Shaders/flatcolor.fsh; sourceTree = "<group>"; };
 		177D101D18F59C7C0055496E /* CMYKWaveAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMYKWaveAnimator.h; sourceTree = "<group>"; };
 		177D101E18F59C7C0055496E /* CMYKWaveAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMYKWaveAnimator.m; sourceTree = "<group>"; };
+		17D95BEC18F6D06B00843ED3 /* CMYKTileStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMYKTileStack.h; sourceTree = "<group>"; };
+		17D95BED18F6D06B00843ED3 /* CMYKTileStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMYKTileStack.m; sourceTree = "<group>"; };
+		17D95BEF18F6DF3100843ED3 /* CMYKTetromino.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMYKTetromino.h; sourceTree = "<group>"; };
+		17D95BF018F6DF3100843ED3 /* CMYKTetromino.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMYKTetromino.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -234,6 +240,8 @@
 		177D0FFD18F466280055496E /* Implementation */ = {
 			isa = PBXGroup;
 			children = (
+				17D95BEC18F6D06B00843ED3 /* CMYKTileStack.h */,
+				17D95BED18F6D06B00843ED3 /* CMYKTileStack.m */,
 				177D0FFE18F4663D0055496E /* CMYKScene.h */,
 				177D0FFF18F4663D0055496E /* CMYKScene.m */,
 				177D101018F5795F0055496E /* CMYKRenderableSquare.h */,
@@ -242,6 +250,8 @@
 				177D101918F5941F0055496E /* CMYKRotationAnimator.m */,
 				177D101D18F59C7C0055496E /* CMYKWaveAnimator.h */,
 				177D101E18F59C7C0055496E /* CMYKWaveAnimator.m */,
+				17D95BEF18F6DF3100843ED3 /* CMYKTetromino.h */,
+				17D95BF018F6DF3100843ED3 /* CMYKTetromino.m */,
 			);
 			path = Implementation;
 			sourceTree = "<group>";
@@ -371,6 +381,8 @@
 				177D0FFC18F4658A0055496E /* QX3DScene.m in Sources */,
 				177D100318F520800055496E /* QX3DObject.m in Sources */,
 				177D101A18F5941F0055496E /* CMYKRotationAnimator.m in Sources */,
+				17D95BF118F6DF3100843ED3 /* CMYKTetromino.m in Sources */,
+				17D95BEE18F6D06B00843ED3 /* CMYKTileStack.m in Sources */,
 				177D101218F5795F0055496E /* CMYKRenderableSquare.m in Sources */,
 				177D100018F4663D0055496E /* CMYKScene.m in Sources */,
 				177D100B18F569240055496E /* QX3DRenderable.m in Sources */,
@@ -598,6 +610,7 @@
 				177D0FF018F44B8A0055496E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		177D0FF118F44B8A0055496E /* Build configuration list for PBXNativeTarget "CMYKTests" */ = {
 			isa = XCConfigurationList;
@@ -606,6 +619,7 @@
 				177D0FF318F44B8A0055496E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

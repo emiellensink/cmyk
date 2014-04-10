@@ -17,8 +17,16 @@
 #import "Implementation/CMYKRotationAnimator.h"
 #import "Implementation/CMYKWaveAnimator.h"
 
+#import "Implementation/CMYKTileStack.h"
+#import "Implementation/CMYKTetromino.h"
+
 @interface ViewController () {
 
+	CMYKTileStack *tiles[5][5];
+	CMYKTetromino *tetromino;
+	
+	int px;
+	int py;
 }
 
 @property (strong, nonatomic) EAGLContext *context;
@@ -53,36 +61,42 @@
 	
 	CMYKScene *scene = (CMYKScene *)self.engine.scene;
 		
-	QX3DMaterial *mat = [QX3DMaterial materialWithVertexProgram:@"subtractive" pixelProgram:@"subtractive" attributes:@{@"position": @(GLKVertexAttribPosition)}];
-	
-	for (int x = 0; x < 3; x++)
-	{
-	for (int i = 0; i < 20; i++)
-	{
-		QX3DObject *obj = [QX3DObject new];
-		obj.orientation = GLKQuaternionMakeWithAngleAndAxis(0, 0, 0, 1);
-		obj.position = GLKVector3Make(0, -1.0 + (i * (2.0 / 20.0)), 0);
-		
-		[obj attachToObject:scene];
-		
-		CMYKWaveAnimator *wave = [CMYKWaveAnimator animatorForObject:obj];
-		wave.speed = 2.2;
-		wave.amplitude = 1;
-		wave.offset = (x / 2.0) + (i / 10.0);
-		
-		CMYKRotationAnimator *anim = [CMYKRotationAnimator animatorForObject:obj];
-		anim.speed = 1;
-		
-		CMYKRenderableSquare *square = [CMYKRenderableSquare renderableForObject:obj];
-		if (x == 0) square.color = [UIColor colorWithRed:0.5 green:0 blue:0 alpha:1];
-		if (x == 1) square.color = [UIColor colorWithRed:0 green:0.5 blue:0 alpha:1];
-		if (x == 2) square.color = [UIColor colorWithRed:0 green:0 blue:0.5 alpha:1];
-		
-		[square warmup];
+	QX3DMaterial *flatmat = [QX3DMaterial materialWithVertexProgram:@"subtractive" pixelProgram:@"flatcolor" attributes:@{@"position": @(GLKVertexAttribPosition)}];
 
-		square.material = mat;
+	QX3DMaterial *colormat = [QX3DMaterial materialWithVertexProgram:@"subtractive" pixelProgram:@"subtractive" attributes:@{@"position": @(GLKVertexAttribPosition)}];
+
+	for (int x = -2; x <= 2; x++)
+	{
+		for (int y = -2; y <= 2; y++)
+		{
+			QX3DObject *obj = [QX3DObject new];
+			obj.orientation = GLKQuaternionMakeWithAngleAndAxis(0, 0, 0, 1);
+			obj.position = GLKVector3Make(x * 1.1, -y * 1.1, 0);
+
+			CMYKRenderableSquare *square = [CMYKRenderableSquare renderableForObject:obj];
+			square.color = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1];
+			
+			[square warmup];
+			
+			square.material = flatmat;
+			[obj attachToObject:scene];
+		
+			CMYKTileStack *stack = [[CMYKTileStack alloc] initWithMaterial:colormat];
+			stack.position = GLKVector3Make(x * 1.1, -y * 1.1, 0);
+
+			[stack attachToObject:scene];
+			
+			tiles[x + 2][y + 2] = stack;
+		}
 	}
-	}
+	
+	tetromino = [[CMYKTetromino alloc] initWithMaterial:colormat];
+	tetromino.position = GLKVector3Make(px - 2, (-py + 2), 0);
+	[tetromino prepareWithTetromino:1];
+	[tetromino setColor:1];
+	[tetromino setRotation:1];
+	
+	[tetromino attachToObject:scene];
 }
 
 - (void)dealloc
@@ -136,6 +150,77 @@
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
 {
 	[self.engine renderInView:self.view rect:rect];
+}
+
+
+
+
+
+
+
+
+
+
+#pragma mark Prototype UI and gameplay
+
+- (IBAction)left:(id)sender
+{
+	if (px > 0) px -= 1;
+	tetromino.position = GLKVector3Make(px - 2, (-py + 2), 0);
+}
+
+- (IBAction)right:(id)sender
+{
+	if (px + tetromino.width < 4) px += 1;
+	tetromino.position = GLKVector3Make(px - 2, (-py + 2), 0);
+}
+
+- (IBAction)up:(id)sender
+{
+	if (py > 0) py -= 1;
+	tetromino.position = GLKVector3Make(px - 2, (-py + 2), 0);
+}
+
+- (IBAction)down:(id)sender
+{
+	if (py + tetromino.height < 4) py += 1;
+	tetromino.position = GLKVector3Make(px - 2, (-py + 2), 0);
+}
+
+- (IBAction)drop:(id)sender
+{
+	for (NSInteger i = 0; i < tetromino.dotCount; i++)
+	{
+		CGPoint p = [tetromino dotAtIndex:i];
+		NSInteger c = tetromino.color;
+		
+		NSLog(@"p.x: %d, p.y: %d", (int)p.x, (int)p.y);
+		NSLog(@"px: %d, py: %d", px, py);
+		
+		CMYKTileStack *t = tiles[(int)p.x + px][(int)p.y + py];
+		
+		if (c == 0) t.l1 = YES;
+		if (c == 1) t.l2 = YES;
+		if (c == 2) t.l3 = YES;
+	}
+	
+	[tetromino prepareWithTetromino:rand()];
+	[tetromino setRotation:rand()];
+	[tetromino setColor:rand()];
+	
+	px = py = 0;
+	tetromino.position = GLKVector3Make(px - 2, (-py + 2), 0);
+}
+
+
+- (IBAction)rotate:(id)sender
+{
+	[tetromino rotateRight];
+	
+	if (px + tetromino.width > 4) px = 4 - tetromino.width;
+	if (py + tetromino.height > 4) py = 4 - tetromino.height;
+	
+	tetromino.position = GLKVector3Make(px - 2, (-py + 2), 0);
 }
 
 @end

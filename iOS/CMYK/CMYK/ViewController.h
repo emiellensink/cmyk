@@ -11,4 +11,15 @@
 
 @interface ViewController : GLKViewController
 
+
+
+
+- (IBAction)left:(id)sender;
+- (IBAction)right:(id)sender;
+- (IBAction)up:(id)sender;
+- (IBAction)down:(id)sender;
+- (IBAction)drop:(id)sender;
+- (IBAction)rotate:(id)sender;
+
+
 @end

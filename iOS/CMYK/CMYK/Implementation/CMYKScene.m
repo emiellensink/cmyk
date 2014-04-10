@@ -24,8 +24,9 @@
 
 - (void)updateWithSize:(CGSize)size interval:(NSTimeInterval)timeSinceLastUpdate
 {
+	float range = 3;
 	float aspect = fabsf(size.height / size.width);
-    self.projectionMatrix = GLKMatrix4MakeOrtho(-1, 1, -1.0 * aspect, 1.0 * aspect, -100, 100);
+    self.projectionMatrix = GLKMatrix4MakeOrtho(-range, range, -range * aspect, range * aspect, -100, 100);
 
 	[super updateWithSize:size interval:timeSinceLastUpdate];
 }

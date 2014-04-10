@@ -59,7 +59,10 @@
 - (void)updateWithInterval:(NSTimeInterval)timeInterval
 {
 	GLKMatrix4 baseMatrix;
-	if (!self.targetIsSceneObject) baseMatrix = ((QX3DObject *)self.target).intermediateMatrix;
+	if (!self.targetIsSceneObject)
+	{
+		baseMatrix = ((QX3DObject *)self.target).intermediateMatrix;
+	}
 	else
 	{
 		QX3DScene *scene = (QX3DScene *)self.target;
@@ -122,7 +125,7 @@
 	
 	if ([object isKindOfClass:[QX3DObject class]])
 	{
-		QX3DObject *obj = self.target;
+		QX3DObject *obj = object;
 		[obj.internalObjects addObject:self];
 	}
 	else if ([object isKindOfClass:[QX3DScene class]])

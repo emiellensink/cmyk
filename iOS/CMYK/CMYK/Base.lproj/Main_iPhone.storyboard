@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5023" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="LVB-YS-i5n">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="LVB-YS-i5n">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
-        <!--class Prefix:identifier View Controller-->
+        <!--GLKit View Controller-->
         <scene sceneID="CtS-rA-C9T">
             <objects>
                 <glkViewController preferredFramesPerSecond="30" id="LVB-YS-i5n" customClass="ViewController" sceneMemberID="viewController">
@@ -15,7 +15,109 @@
                     <glkView key="view" contentMode="scaleToFill" id="bdc-N1-crn">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ALT-GL-lDN">
+                                <rect key="frame" x="20" y="518" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="OWe-mT-wsq"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="46" id="Vah-Yk-CA7"/>
+                                    <constraint firstAttribute="width" constant="46" id="yMM-E4-kQy"/>
+                                </constraints>
+                                <state key="normal" title="&lt;">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="left:" destination="LVB-YS-i5n" eventType="touchUpInside" id="4bS-gP-Na7"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oBN-v1-rkI">
+                                <rect key="frame" x="20" y="480" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="46" id="QFX-5p-UlL"/>
+                                    <constraint firstAttribute="width" constant="46" id="eha-fl-if2"/>
+                                    <constraint firstAttribute="height" constant="30" id="i81-Hi-0RJ"/>
+                                </constraints>
+                                <state key="normal" title="o">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="rotate:" destination="LVB-YS-i5n" eventType="touchUpInside" id="AqL-4C-0KD"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gec-65-IxD">
+                                <rect key="frame" x="74" y="518" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="46" id="INr-CZ-bpi"/>
+                                </constraints>
+                                <state key="normal" title=">">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="right:" destination="LVB-YS-i5n" eventType="touchUpInside" id="E6z-Wf-L4N"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eEe-yr-Jdy">
+                                <rect key="frame" x="128" y="518" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="46" id="g88-Cn-o4d"/>
+                                </constraints>
+                                <state key="normal" title="^">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="up:" destination="LVB-YS-i5n" eventType="touchUpInside" id="VVq-ah-0pc"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="POh-US-MuK">
+                                <rect key="frame" x="182" y="518" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="46" id="euZ-2X-aFn"/>
+                                </constraints>
+                                <state key="normal" title="v">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="down:" destination="LVB-YS-i5n" eventType="touchUpInside" id="kmv-su-mVt"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="egS-ae-v7d">
+                                <rect key="frame" x="236" y="518" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="46" id="UIi-V3-oGq"/>
+                                </constraints>
+                                <state key="normal" title="x">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="drop:" destination="LVB-YS-i5n" eventType="touchUpInside" id="pKI-Pr-2cm"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="egS-ae-v7d" firstAttribute="leading" secondItem="POh-US-MuK" secondAttribute="trailing" constant="8" id="1MH-Or-LuK"/>
+                            <constraint firstItem="Rbg-pb-c98" firstAttribute="top" secondItem="eEe-yr-Jdy" secondAttribute="bottom" constant="20" id="7C6-TT-aoT"/>
+                            <constraint firstItem="Rbg-pb-c98" firstAttribute="top" secondItem="ALT-GL-lDN" secondAttribute="bottom" constant="20" id="7ow-6w-1lR"/>
+                            <constraint firstItem="POh-US-MuK" firstAttribute="leading" secondItem="eEe-yr-Jdy" secondAttribute="trailing" constant="8" id="EcH-w6-i2o"/>
+                            <constraint firstItem="Rbg-pb-c98" firstAttribute="top" secondItem="POh-US-MuK" secondAttribute="bottom" constant="20" id="HTV-tl-4qL"/>
+                            <constraint firstItem="ALT-GL-lDN" firstAttribute="leading" secondItem="bdc-N1-crn" secondAttribute="leading" constant="20" id="ISC-O4-U7C"/>
+                            <constraint firstAttribute="trailing" secondItem="egS-ae-v7d" secondAttribute="trailing" constant="38" id="LRY-9b-sJz"/>
+                            <constraint firstItem="POh-US-MuK" firstAttribute="leading" secondItem="eEe-yr-Jdy" secondAttribute="trailing" constant="8" id="Plh-yl-dcX"/>
+                            <constraint firstItem="Gec-65-IxD" firstAttribute="leading" secondItem="ALT-GL-lDN" secondAttribute="trailing" constant="8" id="b0i-e4-rVO"/>
+                            <constraint firstItem="Rbg-pb-c98" firstAttribute="top" secondItem="egS-ae-v7d" secondAttribute="bottom" constant="20" id="ba3-bI-1HX"/>
+                            <constraint firstItem="oBN-v1-rkI" firstAttribute="leading" secondItem="bdc-N1-crn" secondAttribute="leading" constant="20" id="kHl-So-iO5"/>
+                            <constraint firstItem="Rbg-pb-c98" firstAttribute="top" secondItem="Gec-65-IxD" secondAttribute="bottom" constant="20" id="oaF-qu-DM8"/>
+                            <constraint firstItem="eEe-yr-Jdy" firstAttribute="leading" secondItem="Gec-65-IxD" secondAttribute="trailing" constant="8" id="pIO-mS-F0S"/>
+                            <constraint firstItem="egS-ae-v7d" firstAttribute="leading" secondItem="POh-US-MuK" secondAttribute="trailing" constant="8" id="qbo-nV-mxX"/>
+                            <constraint firstItem="eEe-yr-Jdy" firstAttribute="leading" secondItem="Gec-65-IxD" secondAttribute="trailing" constant="8" id="rDl-iQ-477"/>
+                            <constraint firstItem="ALT-GL-lDN" firstAttribute="top" secondItem="oBN-v1-rkI" secondAttribute="bottom" constant="8" id="rQ4-ao-7KK"/>
+                        </constraints>
                     </glkView>
                 </glkViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="btX-cZ-eVz" sceneMemberID="firstResponder"/>
