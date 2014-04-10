@@ -46,14 +46,14 @@ char *tetrominos[] =
 
 @interface CMYKTetromino ()
 {
-	NSInteger w;
-	NSInteger h;
+	NSUInteger w;
+	NSUInteger h;
 
-	NSInteger t;		// Base tetromino (0-6)
-	NSInteger o;		// Rotation (0-3)
-	NSInteger c;		// Color (0-2)
+	NSUInteger t;		// Base tetromino (0-6)
+	NSUInteger o;		// Rotation (0-3)
+	NSUInteger c;		// Color (0-2)
 	
-	NSInteger dc;		// Dot count
+	NSUInteger dc;		// Dot count
 	
 	CMYKTileStack *objects[4];
 }
@@ -82,46 +82,46 @@ char *tetrominos[] =
     return self;
 }
 
-- (NSInteger)width
+- (NSUInteger)width
 {
 	return w;
 }
 
-- (NSInteger)height
+- (NSUInteger)height
 {
 	return h;
 }
 
-- (NSInteger)color
+- (NSUInteger)color
 {
 	return c;
 }
 
-- (NSInteger)dotCount
+- (NSUInteger)dotCount
 {
 	return dc;
 }
 
-- (CGPoint)dotAtIndex:(NSInteger)index
+- (CGPoint)dotAtIndex:(NSUInteger)index
 {
 	GLKVector3 v = objects[index].position;
 	
 	return CGPointMake(v.x, -v.y);
 }
 
-- (void)prepareWithTetromino:(NSInteger)tetromino
+- (void)prepareWithTetromino:(NSUInteger)tetromino
 {
-	t = tetromino % 7;
+	t = abs(tetromino) % 7;
 	[self updateContents];
 }
 
-- (void)setRotation:(NSInteger)rotation
+- (void)setRotation:(NSUInteger)rotation
 {
 	o = rotation % 4;
 	[self updateContents];
 }
 
-- (void)setColor:(NSInteger)color
+- (void)setColor:(NSUInteger)color
 {
 	c = color % 3;
 	[self updateContents];

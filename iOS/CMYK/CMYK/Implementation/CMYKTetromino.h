@@ -14,18 +14,18 @@
 
 - (instancetype)initWithMaterial:(QX3DMaterial *)material;
 
-- (void)prepareWithTetromino:(NSInteger)tetromino;
-- (void)setRotation:(NSInteger)rotation;
-- (void)setColor:(NSInteger)color;
+- (void)prepareWithTetromino:(NSUInteger)tetromino;
+- (void)setRotation:(NSUInteger)rotation;
+- (void)setColor:(NSUInteger)color;
 
 - (void)rotateRight;
 
-@property (nonatomic, readonly) NSInteger width;
-@property (nonatomic, readonly) NSInteger height;
-@property (nonatomic, readonly) NSInteger color;
+@property (nonatomic, readonly) NSUInteger width;
+@property (nonatomic, readonly) NSUInteger height;
+@property (nonatomic, readonly) NSUInteger color;
 
-@property (nonatomic, readonly) NSInteger dotCount;
-- (CGPoint)dotAtIndex:(NSInteger)index;
+@property (nonatomic, readonly) NSUInteger dotCount;
+- (CGPoint)dotAtIndex:(NSUInteger)index;
 
 
 @end

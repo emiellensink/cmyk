@@ -189,6 +189,22 @@
 
 - (IBAction)drop:(id)sender
 {
+	BOOL allowed = YES;
+	
+	for (NSInteger i = 0; i < tetromino.dotCount; i++)
+	{
+		CGPoint p = [tetromino dotAtIndex:i];
+		NSInteger c = tetromino.color;
+				
+		CMYKTileStack *t = tiles[(int)p.x + px][(int)p.y + py];
+		
+		if (c == 0 && t.l1) allowed = NO;
+		if (c == 1 && t.l2) allowed = NO;
+		if (c == 2 && t.l3) allowed = NO;
+	}
+
+	if (!allowed) return;
+	
 	for (NSInteger i = 0; i < tetromino.dotCount; i++)
 	{
 		CGPoint p = [tetromino dotAtIndex:i];
@@ -204,9 +220,23 @@
 		if (c == 2) t.l3 = YES;
 	}
 	
-	[tetromino prepareWithTetromino:rand()];
-	[tetromino setRotation:rand()];
-	[tetromino setColor:rand()];
+	for (int x = 0; x < 5; x++)
+	{
+		for (int y = 0; y < 5; y++)
+		{
+			CMYKTileStack *stack = tiles[x][y];
+			if (stack.l1 && stack.l2 && stack.l3)
+			{
+				stack.l1 = NO;
+				stack.l2 = NO;
+				stack.l3 = NO;
+			}
+		}
+	}
+	
+	[tetromino prepareWithTetromino:arc4random()];
+	[tetromino setRotation:arc4random()];
+	[tetromino setColor:arc4random()];
 	
 	px = py = 0;
 	tetromino.position = GLKVector3Make(px - 2, (-py + 2), 0);
