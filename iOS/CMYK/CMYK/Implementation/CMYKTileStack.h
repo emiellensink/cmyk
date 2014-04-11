@@ -18,4 +18,6 @@
 @property (nonatomic, assign) BOOL l2;
 @property (nonatomic, assign) BOOL l3;
 
++ (UIColor *)colorForLayer:(NSUInteger)layer;
+
 @end

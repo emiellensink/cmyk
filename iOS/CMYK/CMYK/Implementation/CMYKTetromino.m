@@ -12,37 +12,7 @@
 #import "../QX3D/QX3DMaterial.h"
 
 #import "CMYKTileStack.h"
-
-char *tetrominos[] =
-{
-	"oxo", "xxo", "oxo", "xxo",
-	"xxo", "oxx", "xxo", "oxx",
-	"xoo", "ooo", "xoo", "ooo",
-	
-	"xoo", "oxx", "xoo", "oxx",
-	"xxo", "xxo", "xxo", "xxo",
-	"oxo", "ooo", "oxo", "ooo",
-	
-	"xoo", "xxx", "xxo", "oox",
-	"xoo", "xoo", "oxo", "xxx",
-	"xxo", "ooo", "oxo", "ooo",
-	
-	"oxo", "xoo", "xxo", "xxx",
-	"oxo", "xxx", "xoo", "oox",
-	"xxo", "ooo", "xoo", "ooo",
-	
-	"xoo", "xxx", "xoo", "xxx",
-	"xoo", "ooo", "xoo", "ooo",
-	"xoo", "ooo", "xoo", "ooo",
-	
-	"xxo", "xxo", "xxo", "xxo",
-	"xxo", "xxo", "xxo", "xxo",
-	"ooo", "ooo", "ooo", "ooo",
-	
-	"xoo", "xxx", "oxo", "oxo",
-	"xxo", "oxo", "xxo", "xxx",
-	"xoo", "ooo", "oxo", "ooo",
-};
+#import "CMYKTetrominoData.h"
 
 @interface CMYKTetromino ()
 {
@@ -145,7 +115,6 @@ char *tetrominos[] =
 		if (c == 2) { obj.l1 = NO; obj.l2 = NO; obj.l3 = YES; }
 	}
 	
-	int offset = t * 12 + o;
 	int object = 0;
 	
 	w = 0;
@@ -153,15 +122,17 @@ char *tetrominos[] =
 	
 	for (int y = 0; y < 3; y++)
 	{
-		char *line = tetrominos[offset + y * 4];
-		
 		for (int x = 0; x < 3; x++)
 		{
-			if (line[x] == 'x')
+			if ([CMYKTetrominoData tetrominoValueForTetromino:t withRotation:o x:x y:y])
 			{
 				objects[object].position = GLKVector3Make(x, -y, 0);
 				[objects[object] attachToObject:self];
 				object++;
+				if (object > 4)
+				{
+					NSLog(@"ehm");
+				}
 				if (x > w) w = x;
 				if (y > h) h = y;
 			}
