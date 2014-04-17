@@ -24,9 +24,11 @@
 
 - (void)updateWithSize:(CGSize)size interval:(NSTimeInterval)timeSinceLastUpdate
 {
-	float range = 3;
-	float aspect = fabsf(size.height / size.width);
-    self.projectionMatrix = GLKMatrix4MakeOrtho(-range, range, -range * aspect, range * aspect, -100, 100);
+//	float range = 3;
+//	float aspect = fabsf(size.height / size.width);
+	float rangeX = size.width / 2.0;
+	float rangeY = size.height / 2.0;
+    self.projectionMatrix = GLKMatrix4MakeOrtho(-rangeX, rangeX, -rangeY, rangeY, -100, 100);
 
 	[super updateWithSize:size interval:timeSinceLastUpdate];
 }
@@ -37,10 +39,6 @@
 	
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	
-	
-	
-	
 }
 
 @end
