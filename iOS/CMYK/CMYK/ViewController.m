@@ -20,6 +20,8 @@
 #import "Implementation/CMYKTileStack.h"
 #import "Implementation/CMYKTetromino.h"
 
+#import "Implementation/CMYKRenderableTexturedSquare.h"
+
 @interface ViewController () {
 
 	CMYKTileStack *tiles[5][5];
@@ -61,10 +63,12 @@
 	
 	CMYKScene *scene = (CMYKScene *)self.engine.scene;
 		
-	QX3DMaterial *flatmat = [QX3DMaterial materialWithVertexProgram:@"subtractive" pixelProgram:@"flatcolor" attributes:@{@"position": @(GLKVertexAttribPosition)}];
+	QX3DMaterial *flatmat = [QX3DMaterial materialWithVertexProgram:@"simplevertex" pixelProgram:@"flatcolor" attributes:@{@"position": @(GLKVertexAttribPosition)}];
 
-	QX3DMaterial *colormat = [QX3DMaterial materialWithVertexProgram:@"subtractive" pixelProgram:@"subtractive" attributes:@{@"position": @(GLKVertexAttribPosition)}];
+	QX3DMaterial *colormat = [QX3DMaterial materialWithVertexProgram:@"simplevertex" pixelProgram:@"subtractive" attributes:@{@"position": @(GLKVertexAttribPosition)}];
 
+	QX3DMaterial *texturemat = [QX3DMaterial materialWithVertexProgram:@"texturedvertex" pixelProgram:@"textured" attributes:@{@"position": @(GLKVertexAttribPosition), @"texturecoordinate": @(GLKVertexAttribTexCoord0)}];
+	
 	for (int x = -2; x <= 2; x++)
 	{
 		for (int y = -2; y <= 2; y++)
@@ -97,6 +101,19 @@
 	[tetromino setRotation:1];
 	
 	[tetromino attachToObject:scene];
+
+// Texture test
+	
+	QX3DObject *sq = [QX3DObject new];
+	sq.orientation = GLKQuaternionMakeWithAngleAndAxis(0, 0, 0, 1);
+	sq.position = GLKVector3Make(0, 0, 0);
+	
+	CMYKRenderableTexturedSquare *tsq = [CMYKRenderableTexturedSquare renderableForObject:sq];
+	[tsq warmup];
+	tsq.texture = @"tetromino0@2x";
+	
+	tsq.material = texturemat;
+	[sq attachToObject:scene];
 }
 
 - (void)dealloc

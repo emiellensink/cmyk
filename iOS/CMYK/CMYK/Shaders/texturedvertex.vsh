@@ -7,12 +7,14 @@
 //
 
 attribute vec4 position;
-attribute vec4 color;
+attribute vec2 texturecoordinate;
 
 uniform mat4 modelViewProjectionMatrix;
-uniform mat3 normalMatrix;
+
+varying vec2 vtc;
 
 void main()
 {
     gl_Position = modelViewProjectionMatrix * position;
+	vtc = texturecoordinate;
 }

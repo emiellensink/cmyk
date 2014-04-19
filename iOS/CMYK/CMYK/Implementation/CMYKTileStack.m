@@ -52,14 +52,12 @@
 {
 	UIColor *res = nil;
 	
-	if (layer == 0) [UIColor colorWithRed:1.0 green:0.0 blue:0.0 alpha:1];
-	if (layer == 1) [UIColor colorWithRed:0.0 green:1.0 blue:0.0 alpha:1];
-	if (layer == 2) [UIColor colorWithRed:0.0 green:0.0 blue:1.0 alpha:1];
+	if (layer == 0) res = [UIColor colorWithRed:1.0 green:0.0 blue:0.0 alpha:1.0];
+	if (layer == 1) res = [UIColor colorWithRed:0.0 green:1.0 blue:0.0 alpha:1.0];
+	if (layer == 2) res = [UIColor colorWithRed:0.0 green:0.0 blue:1.0 alpha:1.0];
 
 	return res;
 }
-
-
 
 - (BOOL)l1
 {
