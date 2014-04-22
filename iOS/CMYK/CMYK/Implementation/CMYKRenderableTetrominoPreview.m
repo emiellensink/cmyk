@@ -74,6 +74,30 @@ GLfloat gTetrominoPreviewVD[6 * 3 * 4] =
 
 @implementation CMYKRenderableTetrominoPreview
 
+- (instancetype)initWithObject:(QX3DObject *)object
+{
+	if (self = [super initWithObject:object])
+	{
+		buffer = malloc(sizeof(gTetrominoPreviewVD));
+		for (int i = 0; i < sizeof(gTetrominoPreviewVD) / sizeof(GLfloat); i++)
+			buffer[i] = gTetrominoPreviewVD[i];
+		
+		glGenVertexArraysOES(1, &triangleArray);
+		glBindVertexArrayOES(triangleArray);
+		
+		glGenBuffers(1, &triangleBuffer);
+		glBindBuffer(GL_ARRAY_BUFFER, triangleBuffer);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(gTetrominoPreviewVD), buffer, GL_DYNAMIC_DRAW);
+		
+		glEnableVertexAttribArray(GLKVertexAttribPosition);
+		glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 0, 0);
+		
+		glBindVertexArrayOES(0);
+	}
+
+	return self;
+}
+
 - (void)dealloc
 {
 	glDeleteBuffers(1, &triangleBuffer);
@@ -143,25 +167,6 @@ GLfloat gTetrominoPreviewVD[6 * 3 * 4] =
 			}
 		}
 	}
-}
-
-- (void)warmup
-{
-	buffer = malloc(sizeof(gTetrominoPreviewVD));
-	for (int i = 0; i < sizeof(gTetrominoPreviewVD) / sizeof(GLfloat); i++)
-		buffer[i] = gTetrominoPreviewVD[i];
-	
-	glGenVertexArraysOES(1, &triangleArray);
-	glBindVertexArrayOES(triangleArray);
-	
-	glGenBuffers(1, &triangleBuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, triangleBuffer);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(gTetrominoPreviewVD), buffer, GL_DYNAMIC_DRAW);
-	
-	glEnableVertexAttribArray(GLKVertexAttribPosition);
-	glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 0, 0);
-	
-	glBindVertexArrayOES(0);		
 }
 
 - (void)renderWithMatrix:(GLKMatrix4)matrix

@@ -60,7 +60,7 @@
 
 - (void)setupGL
 {
-	
+	[self.scene initialize];
 }
 
 - (void)cleanupGL

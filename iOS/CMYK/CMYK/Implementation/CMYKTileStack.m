@@ -29,17 +29,14 @@
 		self.orientation = GLKQuaternionMakeWithAngleAndAxis(0, 0, 0, 1);
 		
 		CMYKRenderableSquare *square1 = [CMYKRenderableSquare renderableForObject:nil];
-		[square1 warmup];
 		square1.color = [[self class] colorForLayer:0];
 		square1.material = material;
 
 		CMYKRenderableSquare *square2 = [CMYKRenderableSquare renderableForObject:nil];
-		[square2 warmup];
 		square2.color = [[self class] colorForLayer:1];
 		square2.material = material;
 
 		CMYKRenderableSquare *square3 = [CMYKRenderableSquare renderableForObject:nil];
-		[square3 warmup];
 		square3.color = [[self class] colorForLayer:2];
 		square3.material = material;
 

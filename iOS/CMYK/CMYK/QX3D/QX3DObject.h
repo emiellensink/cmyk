@@ -14,6 +14,7 @@
 
 @property (nonatomic, assign) GLKVector3 position;
 @property (nonatomic, assign) GLKQuaternion orientation;
+@property (nonatomic, assign) GLfloat scale;
 
 @property (nonatomic, readonly) NSArray *renderables;
 @property (nonatomic, readonly) NSArray *animators;

@@ -40,16 +40,6 @@
     return self;
 }
 
-- (instancetype)init
-{
-    self = [super init];
-    if (self)
-	{
-        
-    }
-    return self;
-}
-
 - (void)detach
 {
 	if (self.target)
@@ -70,11 +60,6 @@
 - (void)renderWithMatrix:(GLKMatrix4)matrix
 {
 	[self.material activate];
-}
-
-- (void)warmup
-{
-	
 }
 
 @end

@@ -10,4 +10,11 @@
 
 @interface CMYKScene : QX3DScene
 
+- (void)left:(id)sender;
+- (void)right:(id)sender;
+- (void)up:(id)sender;
+- (void)down:(id)sender;
+- (void)drop:(id)sender;
+- (void)rotate:(id)sender;
+
 @end

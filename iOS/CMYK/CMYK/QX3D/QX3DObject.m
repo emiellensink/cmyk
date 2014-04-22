@@ -37,6 +37,8 @@
         self.internalObjects = [NSMutableArray array];
 		self.internalRenderables = [NSMutableArray array];
 		self.internalAnimators = [NSMutableArray array];
+		
+		self.scale = 1.0f;
     }
     return self;
 }
@@ -74,6 +76,13 @@
 	GLKVector3 v = self.position;
 	baseMatrix = GLKMatrix4Multiply(baseMatrix, GLKMatrix4MakeTranslation(v.x, v.y, v.z));
 	baseMatrix = GLKMatrix4Multiply(baseMatrix, GLKMatrix4MakeWithQuaternion(self.orientation));
+
+	if (self.scale != 1.0f)
+	{
+		CGFloat scale = self.scale;
+		baseMatrix = GLKMatrix4Multiply(baseMatrix, GLKMatrix4MakeScale(scale, scale, scale));
+	}
+	
 	self.intermediateMatrix = baseMatrix;
 	
 	// Update animators (they can change all the object's properties)

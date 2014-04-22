@@ -11,5 +11,6 @@
 @interface CMYKRenderableTexturedSquare : QX3DRenderable
 
 @property (nonatomic, strong) NSString *texture;
+@property (nonatomic, strong) GLKTextureInfo *glkTexture;
 
 @end

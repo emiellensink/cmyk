@@ -21,7 +21,6 @@
 - (void)detach;
 - (void)attachToObject:(QX3DObject *)object;
 
-- (void)warmup;
 - (void)renderWithMatrix:(GLKMatrix4)matrix;
 
 @property (nonatomic, strong) QX3DMaterial *material;

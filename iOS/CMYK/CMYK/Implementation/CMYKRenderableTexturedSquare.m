@@ -53,6 +53,7 @@ GLfloat gTSquareVD[30] =
 @interface CMYKRenderableTexturedSquare ()
 {
 	NSString *_texture;
+	CGFloat screenScale;
 }
 
 @property (nonatomic, strong) GLKTextureInfo *ti;
@@ -61,28 +62,46 @@ GLfloat gTSquareVD[30] =
 
 @implementation CMYKRenderableTexturedSquare
 
-- (void)warmup
+- (instancetype)initWithObject:(QX3DObject *)object
 {
-	static dispatch_once_t onceToken;
-	dispatch_once(&onceToken, ^{
+	if (self = [super initWithObject:object])
+	{
+		static dispatch_once_t onceToken;
+		dispatch_once(&onceToken, ^{
+			
+			CMYKRenderableTexturedSquareBuffer *buf = [CMYKRenderableTexturedSquareBuffer sharedBuffer];
+			
+			glGenVertexArraysOES(1, &buf->triangleArray);
+			glBindVertexArrayOES(buf->triangleArray);
+			
+			glGenBuffers(1, &buf->triangleBuffer);
+			glBindBuffer(GL_ARRAY_BUFFER, buf->triangleBuffer);
+			glBufferData(GL_ARRAY_BUFFER, sizeof(gTSquareVD), gTSquareVD, GL_STATIC_DRAW);
+			
+			glEnableVertexAttribArray(GLKVertexAttribPosition);
+			glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), 0);
+			
+			glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
+			glVertexAttribPointer(GLKVertexAttribTexCoord0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), BUFFER_OFFSET(sizeof(GLfloat) * 3));
+			
+			glBindVertexArrayOES(0);
+		});
+		
+		screenScale = 2.0;			// If we always feed it retina gfx, this will work.
+	}
+	
+	return self;
+}
 
-		CMYKRenderableTexturedSquareBuffer *buf = [CMYKRenderableTexturedSquareBuffer sharedBuffer];
-		
-		glGenVertexArraysOES(1, &buf->triangleArray);
-		glBindVertexArrayOES(buf->triangleArray);
-		
-		glGenBuffers(1, &buf->triangleBuffer);
-		glBindBuffer(GL_ARRAY_BUFFER, buf->triangleBuffer);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(gTSquareVD), gTSquareVD, GL_STATIC_DRAW);
-		
-		glEnableVertexAttribArray(GLKVertexAttribPosition);
-		glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), 0);
-		
-		glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
-		glVertexAttribPointer(GLKVertexAttribTexCoord0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), BUFFER_OFFSET(sizeof(GLfloat) * 3));
-				
-		glBindVertexArrayOES(0);
-	});
+- (void)setGlkTexture:(GLKTextureInfo *)glkTexture
+{
+	_ti = glkTexture;
+	_texture = nil;
+}
+
+- (GLKTextureInfo *)glkTexture
+{
+	return _ti;
 }
 
 - (void)setTexture:(NSString *)texture
@@ -103,6 +122,12 @@ GLfloat gTSquareVD[30] =
 - (void)renderWithMatrix:(GLKMatrix4)matrix
 {
 	CMYKRenderableTexturedSquareBuffer *buf = [CMYKRenderableTexturedSquareBuffer sharedBuffer];
+	
+	GLuint width = self.ti.width / screenScale;
+	GLuint height = self.ti.height / screenScale;
+	
+	matrix = GLKMatrix4Multiply(matrix, GLKMatrix4MakeScale(width, height, 1));
+	
 	[super renderWithMatrix:matrix];
 	
     glBindVertexArrayOES(buf->triangleArray);
