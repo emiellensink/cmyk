@@ -35,6 +35,14 @@
 	CGSize size;
 	
 	GLKTextureInfo *tetrominoTextures[7];
+	GLKTextureInfo *colorCircles[3];
+	
+	QX3DObject *sources[4];
+	CMYKRenderableTexturedSquare *sourceCircleMaterials[4];
+	CMYKRenderableTexturedSquare *sourceTetrominoMaterials[4];
+	NSUInteger sourcerotations[4];
+	NSUInteger sourcecolors[4];
+	NSUInteger sourcetetrominos[4];
 }
 
 @end
@@ -68,7 +76,7 @@
 {
 	[super prepareForRendering];
 	
-	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
@@ -83,6 +91,14 @@
 		NSString *texPath = [[NSBundle mainBundle] pathForResource:name ofType:@"png"];
 		tetrominoTextures[i] = [GLKTextureLoader textureWithContentsOfFile:texPath options:@{GLKTextureLoaderOriginBottomLeft: @(YES)} error:&err];
 	}
+	
+	NSArray *arr = @[@"cyan_circle@2x", @"yellow_circle@2x", @"magenta_circle@2x"];
+	[arr enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+		NSError *err;
+		
+		NSString *texPath = [[NSBundle mainBundle] pathForResource:obj ofType:@"png"];
+		colorCircles[idx] = [GLKTextureLoader textureWithContentsOfFile:texPath options:@{GLKTextureLoaderOriginBottomLeft: @(YES)} error:&err];
+	}];
 	
 	QX3DMaterial *flatmat = [QX3DMaterial materialWithVertexProgram:@"simplevertex" pixelProgram:@"flatcolor" attributes:@{@"position": @(GLKVertexAttribPosition)}];
 	
@@ -104,7 +120,7 @@
 			obj.position = GLKVector3Make(x * 1.1, -y * 1.1, 0);
 			
 			CMYKRenderableSquare *square = [CMYKRenderableSquare renderableForObject:obj];
-			square.color = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1];
+			square.color = [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1];
 			
 			square.material = flatmat;
 			[obj attachToObject:scale];
@@ -117,17 +133,37 @@
 			tiles[x + 2][y + 2] = stack;
 		}
 	}
-	
+
+/*
 	tetromino = [[CMYKTetromino alloc] initWithMaterial:colormat];
 	tetromino.position = GLKVector3Make(px - 2, (-py + 2), 0);
 	[tetromino prepareWithTetromino:1];
 	[tetromino setColor:1];
 	[tetromino setRotation:1];
-	
 	[tetromino attachToObject:scale];
+*/
+	
+	for (NSInteger i = 0; i < 4; i++)
+	{
+		QX3DObject *obj = [QX3DObject new];
+		obj.orientation = GLKQuaternionMakeWithAngleAndAxis(0, 0, 0, 1);
+		obj.position = GLKVector3Make(-111 + (i * 74), -200, 0);
+				
+		CMYKRenderableTexturedSquare *s = [CMYKRenderableTexturedSquare renderableForObject:obj];
+		s.material = texturemat;
+		s.glkTexture = colorCircles[arc4random() % 3];
+		sourceCircleMaterials[i] = s;
+		
+		CMYKRenderableTexturedSquare *t = [CMYKRenderableTexturedSquare renderableForObject:obj];
+		t.material = texturemat;
+		t.glkTexture = tetrominoTextures[arc4random() % 7];
+		sourceTetrominoMaterials[i] = t;
+		
+		[obj attachToObject:self];
+	}
 	
 	// Texture test
-	
+	/*
 	QX3DObject *sq = [QX3DObject new];
 	sq.orientation = GLKQuaternionMakeWithAngleAndAxis(0, 0, 0, 1);
 	sq.position = GLKVector3Make(0, 0, 0);
@@ -137,6 +173,7 @@
 
 	tsq.material = texturemat;
 	[sq attachToObject:self];
+	*/
 }
 
 - (void)left:(id)sender

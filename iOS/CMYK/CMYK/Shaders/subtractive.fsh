@@ -13,7 +13,11 @@ uniform lowp vec4 color;
 void main()
 {
 	lowp vec4 c = color;
-	c = gl_LastFragData[0].rgba - color;
+	lowp vec4 src = gl_LastFragData[0].rgba;
+	
+	if (src.r < 0.5 && src.g < 0.5 && src.b < 0.5) src.rgba = vec4(1, 1, 1, 1);
+	
+	c = src - color;
 	
     gl_FragColor = c;
 }
