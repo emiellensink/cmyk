@@ -10,11 +10,10 @@
 
 @interface CMYKScene : QX3DScene
 
-- (void)left:(id)sender;
-- (void)right:(id)sender;
-- (void)up:(id)sender;
-- (void)down:(id)sender;
-- (void)drop:(id)sender;
-- (void)rotate:(id)sender;
+- (void)beginTrackingFromButton:(NSUInteger)index withFrameSize:(CGSize)size position:(CGPoint)position;
+- (void)beginTrackingWithFrameSize:(CGSize)size position:(CGPoint)position;
+- (void)endTrackingWithFrameSize:(CGSize)size position:(CGPoint)position;
+- (void)cancelTracking;
+- (void)moveTrackingWithFrameSize:(CGSize)size position:(CGPoint)position;
 
 @end

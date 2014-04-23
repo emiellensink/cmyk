@@ -13,7 +13,8 @@
 
 @interface ViewController ()
 {
-
+	BOOL trackFromButton;
+	NSUInteger trackButtonIndex;
 }
 
 @property (strong, nonatomic) EAGLContext *context;
@@ -102,41 +103,53 @@
 
 #pragma mark Prototype UI and gameplay
 
-- (IBAction)left:(id)sender
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-	CMYKScene *scn = (CMYKScene *)self.engine.scene;
-	[scn left:self];
+	NSArray *buttons = @[self.b1, self.b2, self.b3, self.b4];
+	
+	CGPoint loc = [[touches anyObject] locationInView:self.view];
+
+	[buttons enumerateObjectsUsingBlock:^(UIButton *obj, NSUInteger idx, BOOL *stop)
+	{
+		if (CGRectContainsPoint(obj.frame, loc))
+		{
+			trackFromButton = YES;
+			trackButtonIndex = idx;
+		}
+	}];
+	
+	CMYKScene *scene = (CMYKScene *)self.engine.scene;
+	if (trackFromButton)[scene beginTrackingFromButton:trackButtonIndex withFrameSize:self.view.frame.size position:loc];
+	else
+		[scene beginTrackingWithFrameSize:self.view.frame.size position:loc];
 }
 
-- (IBAction)right:(id)sender
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
-	CMYKScene *scn = (CMYKScene *)self.engine.scene;
-	[scn right:self];
+	CGPoint loc = [[touches anyObject] locationInView:self.view];
+
+	CMYKScene *scene = (CMYKScene *)self.engine.scene;
+	[scene moveTrackingWithFrameSize:self.view.frame.size position:loc];
 }
 
-- (IBAction)up:(id)sender
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-	CMYKScene *scn = (CMYKScene *)self.engine.scene;
-	[scn up:self];
+	CGPoint loc = [[touches anyObject] locationInView:self.view];
+	
+	CMYKScene *scene = (CMYKScene *)self.engine.scene;
+	[scene endTrackingWithFrameSize:self.view.frame.size position:loc];
+	
+	trackFromButton = NO;
+	trackButtonIndex = 0;
 }
 
-- (IBAction)down:(id)sender
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
 {
-	CMYKScene *scn = (CMYKScene *)self.engine.scene;
-	[scn down:self];
-}
-
-- (IBAction)drop:(id)sender
-{
-	CMYKScene *scn = (CMYKScene *)self.engine.scene;
-	[scn drop:self];
-}
-
-
-- (IBAction)rotate:(id)sender
-{
-	CMYKScene *scn = (CMYKScene *)self.engine.scene;
-	[scn rotate:self];
+	CMYKScene *scene = (CMYKScene *)self.engine.scene;
+	[scene cancelTracking];
+	
+	trackFromButton = NO;
+	trackButtonIndex = 0;
 }
 
 @end

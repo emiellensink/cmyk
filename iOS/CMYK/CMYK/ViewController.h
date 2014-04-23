@@ -11,15 +11,9 @@
 
 @interface ViewController : GLKViewController
 
-
-
-
-- (IBAction)left:(id)sender;
-- (IBAction)right:(id)sender;
-- (IBAction)up:(id)sender;
-- (IBAction)down:(id)sender;
-- (IBAction)drop:(id)sender;
-- (IBAction)rotate:(id)sender;
-
+@property (nonatomic, strong) IBOutlet UIButton *b1;
+@property (nonatomic, strong) IBOutlet UIButton *b2;
+@property (nonatomic, strong) IBOutlet UIButton *b3;
+@property (nonatomic, strong) IBOutlet UIButton *b4;
 
 @end

@@ -22,6 +22,8 @@
 
 #import "CMYKRenderableTexturedSquare.h"
 
+#define PI 3.141592654
+
 @interface CMYKScene ()
 {
 	CMYKTileStack *tiles[5][5];
@@ -43,6 +45,15 @@
 	NSUInteger sourcerotations[4];
 	NSUInteger sourcecolors[4];
 	NSUInteger sourcetetrominos[4];
+	
+	BOOL trackingFromButton;
+	NSUInteger trackingButtonIndex;
+	
+	CGPoint startPoint;
+	
+	GLfloat rotation;
+	GLfloat targetRotation;
+	BOOL finalizingRotation;
 }
 
 @end
@@ -69,7 +80,103 @@
 
 	scale.scale = rangeX / 3.0;
 	
+	if (targetRotation > rotation) rotation += ((targetRotation - rotation) / 5.0);
+	if (targetRotation < rotation) rotation -= ((rotation - targetRotation) / 5.0);
+	
+	if (finalizingRotation && fabs(targetRotation - rotation) < 0.01)
+	{
+		NSLog(@"finalizing complete");
+		
+		[self normalizeRotationWithTarget:targetRotation];
+		
+		rotation = 0;
+		targetRotation = 0;
+		finalizingRotation = NO;
+	}
+	
+	scale.orientation = GLKQuaternionMakeWithAngleAndAxis(rotation, 0, 0, 1);
+	
 	[super updateWithSize:size interval:timeSinceLastUpdate];
+}
+
+- (void)normalizeRotationWithTarget:(GLfloat)target
+{
+	char temp[5][5];
+	char res[5][5];
+	
+	for (NSInteger x = 0; x < 5; x++)
+	{
+		for (NSInteger y = 0; y < 5; y++)
+		{
+			char l1 = tiles[x][y].l1 ? 1 : 0;
+			char l2 = tiles[x][y].l2 ? 1 : 0;
+			char l3 = tiles[x][y].l3 ? 1 : 0;
+			char t = l1 | (l2 << 1) | (l3 << 2);
+			
+			temp[x][y] = t;
+		}
+	}
+		
+	if (target < -0.25 * PI && target > -0.75 * PI)
+	{
+		// rotate right
+		for (NSInteger x = 0; x < 5; x++)
+		{
+			for (NSInteger y = 0; y < 5; y++)
+			{
+				res[4 - y][x] = temp[x][y];
+			}
+		}
+	}
+	
+	if (target > 0.25 * PI && target < 0.75 * PI)
+	{
+		// rotate left
+		for (NSInteger x = 0; x < 5; x++)
+		{
+			for (NSInteger y = 0; y < 5; y++)
+			{
+				res[y][4 - x] = temp[x][y];
+			}
+		}
+	}
+		
+	if (target >= -0.25 * PI && target <= 0.25 * PI)
+	{
+		for (NSInteger x = 0; x < 5; x++)
+		{
+			for (NSInteger y = 0; y < 5; y++)
+			{
+				res[x][y] = temp[x][y];
+			}
+		}
+	}
+		
+	if (target <= -0.75 * PI || target >= 0.75 * PI)
+	{
+		// rotate left twice
+		for (NSInteger x = 0; x < 5; x++)
+		{
+			for (NSInteger y = 0; y < 5; y++)
+			{
+				res[4 - x][4 - y] = temp[x][y];
+			}
+		}
+	}
+	
+	for (NSInteger x = 0; x < 5; x++)
+	{
+		for (NSInteger y = 0; y < 5; y++)
+		{
+			char l1 = res[x][y] & 1;
+			char l2 = res[x][y] & (1 << 1);
+			char l3 = res[x][y] & (1 << 2);
+			
+			tiles[x][y].l1 = l1;
+			tiles[x][y].l2 = l2;
+			tiles[x][y].l3 = l3;
+		}
+	}
 }
 
 - (void)prepareForRendering
@@ -107,7 +214,7 @@
 	QX3DMaterial *texturemat = [QX3DMaterial materialWithVertexProgram:@"texturedvertex" pixelProgram:@"textured" attributes:@{@"position": @(GLKVertexAttribPosition), @"texturecoordinate": @(GLKVertexAttribTexCoord0)}];
 
 	scale = [QX3DObject new];
-	scale.orientation = GLKQuaternionMakeWithAngleAndAxis(0, 0, 0, 1);
+	scale.orientation = GLKQuaternionMakeWithAngleAndAxis(rotation, 0, 0, 1);
 	scale.position = GLKVector3Make(0, 0, 0);
 	[scale attachToObject:self];
 	
@@ -127,6 +234,10 @@
 			
 			CMYKTileStack *stack = [[CMYKTileStack alloc] initWithMaterial:colormat];
 			stack.position = GLKVector3Make(x * 1.1, -y * 1.1, 0);
+			
+			stack.l1 = x % 3;
+			stack.l2 = (x == 2);
+			stack.l3 = (y == 1);
 			
 			[stack attachToObject:scale];
 			
@@ -176,30 +287,7 @@
 	*/
 }
 
-- (void)left:(id)sender
-{
-	if (px > 0) px -= 1;
-	tetromino.position = GLKVector3Make(px - 2, (-py + 2), 0);
-}
-
-- (void)right:(id)sender
-{
-	if (px + tetromino.width < 4) px += 1;
-	tetromino.position = GLKVector3Make(px - 2, (-py + 2), 0);
-}
-
-- (void)up:(id)sender
-{
-	if (py > 0) py -= 1;
-	tetromino.position = GLKVector3Make(px - 2, (-py + 2), 0);
-}
-
-- (void)down:(id)sender
-{
-	if (py + tetromino.height < 4) py += 1;
-	tetromino.position = GLKVector3Make(px - 2, (-py + 2), 0);
-}
-
+/*
 - (void)drop:(id)sender
 {
 	BOOL allowed = YES;
@@ -251,17 +339,80 @@
 	px = py = 0;
 	tetromino.position = GLKVector3Make(px - 2, (-py + 2), 0);
 }
+*/
 
-
-- (void)rotate:(id)sender
+- (void)beginTrackingFromButton:(NSUInteger)index withFrameSize:(CGSize)size position:(CGPoint)position
 {
-	[tetromino rotateRight];
-	
-	if (px + tetromino.width > 4) px = 4 - tetromino.width;
-	if (py + tetromino.height > 4) py = 4 - tetromino.height;
-	
-	tetromino.position = GLKVector3Make(px - 2, (-py + 2), 0);
+	trackingFromButton = YES;
+	trackingButtonIndex = index;
 }
 
+- (void)beginTrackingWithFrameSize:(CGSize)size position:(CGPoint)position
+{
+	trackingFromButton = NO;
+	startPoint = position;
+}
+
+- (void)endTrackingWithFrameSize:(CGSize)size position:(CGPoint)position
+{
+	if (!trackingFromButton)
+	{
+		if (!finalizingRotation)
+		{
+			NSLog(@"%f", targetRotation);
+			
+			if (targetRotation < -0.25 * PI && targetRotation > -0.75 * PI)
+				targetRotation = -0.5 * PI;
+			if (targetRotation > 0.25 * PI && targetRotation < 0.75 * PI)
+				targetRotation = 0.5 * PI;
+			if (targetRotation >= -0.25 * PI && targetRotation <= 0.25 * PI)
+				targetRotation = 0;
+			if (targetRotation <= -0.75 * PI) targetRotation = -PI;
+			if (targetRotation >= 0.75 * PI) targetRotation = PI;
+			
+			finalizingRotation = YES;
+			trackingFromButton = NO;
+		}
+	}
+}
+
+- (void)moveTrackingWithFrameSize:(CGSize)size position:(CGPoint)position
+{
+	if (!trackingFromButton)
+	{
+		if (!finalizingRotation)
+		{
+			targetRotation -= (position.x - startPoint.x) / 100.0;
+			startPoint = position;
+		}
+	}
+	else
+	{
+
+	}
+}
+
+- (void)cancelTracking
+{
+	if (!trackingFromButton)
+	{
+		if (!finalizingRotation)
+		{
+			NSLog(@"%f", targetRotation);
+			
+			if (targetRotation < -0.25 * PI && targetRotation > -0.75 * PI)
+				targetRotation = -0.5 * PI;
+			if (targetRotation > 0.25 * PI && targetRotation < 0.75 * PI)
+				targetRotation = 0.5 * PI;
+			if (targetRotation >= -0.25 * PI && targetRotation <= 0.25 * PI)
+				targetRotation = 0;
+			if (targetRotation <= -0.75 * PI) targetRotation = -PI;
+			if (targetRotation >= 0.75 * PI) targetRotation = PI;
+			
+			finalizingRotation = YES;
+			trackingFromButton = NO;
+		}
+	}
+}
 
 @end
