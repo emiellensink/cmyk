@@ -58,9 +58,9 @@
 	}];
 }
 
-- (void)setupGL
+- (void)setupGLWithSize:(CGSize)newSize
 {
-	[self.scene initialize];
+	[self.scene initializeWithSize:newSize];
 }
 
 - (void)cleanupGL

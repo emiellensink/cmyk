@@ -12,7 +12,7 @@
 
 @interface QX3DScene : NSObject
 
-- (void)initialize;
+- (void)initializeWithSize:(CGSize)newSize;
 
 - (void)updateWithSize:(CGSize)size interval:(NSTimeInterval)timeSinceLastUpdate;
 - (void)prepareForRendering;

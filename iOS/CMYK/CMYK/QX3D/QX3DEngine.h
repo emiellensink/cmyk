@@ -18,7 +18,7 @@
 - (void)updateWithView:(UIView *)view interval:(NSTimeInterval)timeSinceLastUpdate;
 - (void)renderInView:(UIView *)view rect:(CGRect)rect;
 
-- (void)setupGL;
+- (void)setupGLWithSize:(CGSize)newSize;
 - (void)cleanupGL;
 
 @property (nonatomic, readonly) QX3DScene *scene;

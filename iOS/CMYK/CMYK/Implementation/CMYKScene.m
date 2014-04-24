@@ -53,6 +53,9 @@
 	
 	GLfloat rotation;
 	GLfloat targetRotation;
+	GLfloat buttonY[4];
+	GLfloat buttonTargetY[4];
+	
 	BOOL finalizingRotation;
 }
 
@@ -79,6 +82,7 @@
     self.projectionMatrix = GLKMatrix4MakeOrtho(-rangeX, rangeX, -rangeY, rangeY, -100, 100);
 
 	scale.scale = rangeX / 3.0;
+	tetromino.scale = rangeX / 3.0;
 	
 	if (targetRotation > rotation) rotation += ((targetRotation - rotation) / 5.0);
 	if (targetRotation < rotation) rotation -= ((rotation - targetRotation) / 5.0);
@@ -95,6 +99,14 @@
 	}
 	
 	scale.orientation = GLKQuaternionMakeWithAngleAndAxis(rotation, 0, 0, 1);
+	
+	for (NSInteger i = 0; i < 4; i++)
+	{
+		if (buttonTargetY[i] > buttonY[i]) buttonY[i] += ((buttonTargetY[i] - buttonY[i]) / 7.0);
+		if (buttonTargetY[i] < buttonY[i]) buttonY[i] -= ((buttonY[i] - buttonTargetY[i]) / 7.0);
+		
+		sources[i].position = GLKVector3Make(sources[i].position.x, buttonY[i], 0);
+	}
 	
 	[super updateWithSize:size interval:timeSinceLastUpdate];
 }
@@ -187,8 +199,10 @@
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-- (void)initialize
+- (void)initializeWithSize:(CGSize)newSize
 {
+	size = newSize;
+	
 	for (int i = 0; i < 7; i++)
 	{
 		NSString *name = [NSString stringWithFormat:@"tetromino%d@2x", i];
@@ -199,7 +213,7 @@
 		tetrominoTextures[i] = [GLKTextureLoader textureWithContentsOfFile:texPath options:@{GLKTextureLoaderOriginBottomLeft: @(YES)} error:&err];
 	}
 	
-	NSArray *arr = @[@"cyan_circle@2x", @"yellow_circle@2x", @"magenta_circle@2x"];
+	NSArray *arr = @[@"cyan_circle@2x", @"magenta_circle@2x", @"yellow_circle@2x"];
 	[arr enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 		NSError *err;
 		
@@ -245,46 +259,39 @@
 		}
 	}
 
-/*
 	tetromino = [[CMYKTetromino alloc] initWithMaterial:colormat];
-	tetromino.position = GLKVector3Make(px - 2, (-py + 2), 0);
-	[tetromino prepareWithTetromino:1];
-	[tetromino setColor:1];
-	[tetromino setRotation:1];
-	[tetromino attachToObject:scale];
-*/
+	[tetromino setRotation:0];
+//	[tetromino attachToObject:self];
 	
 	for (NSInteger i = 0; i < 4; i++)
 	{
 		QX3DObject *obj = [QX3DObject new];
 		obj.orientation = GLKQuaternionMakeWithAngleAndAxis(0, 0, 0, 1);
-		obj.position = GLKVector3Make(-111 + (i * 74), -200, 0);
-				
+		obj.position = GLKVector3Make(-111 + (i * 74), -500, 0);
+		sources[i] = obj;
+		
+		buttonY[i] = -500;
+		buttonTargetY[i] = (-size.height / 2.0) + 40.0;
+		
+		NSLog(@"%f", (-size.height / 2.0) + 40.0);
+		
+		NSInteger random3 = arc4random() % 3;
+		NSInteger random7 = arc4random() % 7;
+		
 		CMYKRenderableTexturedSquare *s = [CMYKRenderableTexturedSquare renderableForObject:obj];
 		s.material = texturemat;
-		s.glkTexture = colorCircles[arc4random() % 3];
+		s.glkTexture = colorCircles[random3];
 		sourceCircleMaterials[i] = s;
+		sourcecolors[i] = random3;
 		
 		CMYKRenderableTexturedSquare *t = [CMYKRenderableTexturedSquare renderableForObject:obj];
 		t.material = texturemat;
-		t.glkTexture = tetrominoTextures[arc4random() % 7];
+		t.glkTexture = tetrominoTextures[random7];
 		sourceTetrominoMaterials[i] = t;
+		sourcetetrominos[i] = random7;
 		
 		[obj attachToObject:self];
 	}
-	
-	// Texture test
-	/*
-	QX3DObject *sq = [QX3DObject new];
-	sq.orientation = GLKQuaternionMakeWithAngleAndAxis(0, 0, 0, 1);
-	sq.position = GLKVector3Make(0, 0, 0);
-
-	CMYKRenderableTexturedSquare *tsq = [CMYKRenderableTexturedSquare renderableForObject:sq];
-	tsq.glkTexture = tetrominoTextures[2];
-
-	tsq.material = texturemat;
-	[sq attachToObject:self];
-	*/
 }
 
 /*
@@ -341,10 +348,21 @@
 }
 */
 
-- (void)beginTrackingFromButton:(NSUInteger)index withFrameSize:(CGSize)size position:(CGPoint)position
+- (void)beginTrackingFromButton:(NSUInteger)index withFrameSize:(CGSize)newSize position:(CGPoint)position
 {
 	trackingFromButton = YES;
 	trackingButtonIndex = index;
+	
+	[tetromino prepareWithTetromino:sourcetetrominos[trackingButtonIndex]];
+	[tetromino setColor:sourcecolors[trackingButtonIndex]];
+	[tetromino attachToObject:self];
+	
+	float rangeX = size.width / 2.0;
+	float rangeY = size.height / 2.0;
+	
+	tetromino.position = GLKVector3Make(position.x - rangeX, (size.height - position.y) - rangeY, 0);
+	
+	buttonTargetY[trackingButtonIndex] = (-size.height / 2.0) - 100.0;
 }
 
 - (void)beginTrackingWithFrameSize:(CGSize)size position:(CGPoint)position
@@ -353,7 +371,7 @@
 	startPoint = position;
 }
 
-- (void)endTrackingWithFrameSize:(CGSize)size position:(CGPoint)position
+- (void)endTrackingWithFrameSize:(CGSize)newSize position:(CGPoint)position
 {
 	if (!trackingFromButton)
 	{
@@ -374,9 +392,26 @@
 			trackingFromButton = NO;
 		}
 	}
+	else
+	{
+		// Initialize button with new values
+		
+		NSInteger random3 = arc4random() % 3;
+		NSInteger random7 = arc4random() % 7;
+		
+		sourceCircleMaterials[trackingButtonIndex].glkTexture = colorCircles[random3];
+		sourcecolors[trackingButtonIndex] = random3;
+		
+		sourceTetrominoMaterials[trackingButtonIndex].glkTexture = tetrominoTextures[random7];
+		sourcetetrominos[trackingButtonIndex] = random7;
+				
+		[tetromino detach];
+		
+		buttonTargetY[trackingButtonIndex] = (-size.height / 2.0) + 40.0;
+	}
 }
 
-- (void)moveTrackingWithFrameSize:(CGSize)size position:(CGPoint)position
+- (void)moveTrackingWithFrameSize:(CGSize)newSize position:(CGPoint)position
 {
 	if (!trackingFromButton)
 	{
@@ -388,7 +423,10 @@
 	}
 	else
 	{
-
+		float rangeX = size.width / 2.0;
+		float rangeY = size.height / 2.0;
+		
+		tetromino.position = GLKVector3Make(position.x - rangeX, (size.height - position.y) - rangeY, 0);
 	}
 }
 
@@ -412,6 +450,11 @@
 			finalizingRotation = YES;
 			trackingFromButton = NO;
 		}
+	}
+	else
+	{
+		// Move button to original position...
+		buttonTargetY[trackingButtonIndex] = (-size.height / 2.0) + 40.0;
 	}
 }
 

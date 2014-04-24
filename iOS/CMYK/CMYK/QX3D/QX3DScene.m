@@ -48,7 +48,7 @@
 
 }
 
-- (void)initialize
+- (void)initializeWithSize:(CGSize)newSize
 {
 	
 }

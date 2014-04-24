@@ -79,7 +79,7 @@
 {
     [EAGLContext setCurrentContext:self.context];
 	
-	[self.engine setupGL];
+	[self.engine setupGLWithSize:self.view.frame.size];
 }
 
 - (void)tearDownGL
