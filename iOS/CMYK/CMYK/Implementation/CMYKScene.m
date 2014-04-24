@@ -31,9 +31,6 @@
 	
 	QX3DObject *scale;
 	
-	int px;
-	int py;
-	
 	CGSize size;
 	
 	GLKTextureInfo *tetrominoTextures[7];
@@ -53,6 +50,8 @@
 	
 	GLfloat rotation;
 	GLfloat targetRotation;
+	GLfloat rotationDirection;
+	
 	GLfloat buttonY[4];
 	GLfloat buttonTargetY[4];
 	
@@ -248,11 +247,11 @@
 			
 			CMYKTileStack *stack = [[CMYKTileStack alloc] initWithMaterial:colormat];
 			stack.position = GLKVector3Make(x * 1.1, -y * 1.1, 0);
-			
+			/*
 			stack.l1 = x % 3;
 			stack.l2 = (x == 2);
 			stack.l3 = (y == 1);
-			
+			*/
 			[stack attachToObject:scale];
 			
 			tiles[x + 2][y + 2] = stack;
@@ -261,7 +260,6 @@
 
 	tetromino = [[CMYKTetromino alloc] initWithMaterial:colormat];
 	[tetromino setRotation:0];
-//	[tetromino attachToObject:self];
 	
 	for (NSInteger i = 0; i < 4; i++)
 	{
@@ -348,6 +346,21 @@
 }
 */
 
+- (void)moveTetrominoToPoint:(CGPoint)point
+{
+	float rangeX = size.width / 2.0;
+	float rangeY = size.height / 2.0;
+	
+	CGFloat w = tetromino.width;
+	CGFloat h = tetromino.height;
+	CGFloat oscale = tetromino.scale;
+	
+	CGFloat offX = -(w / 2.0) * oscale;
+	CGFloat offY = h * oscale + (oscale / 2.0);
+		
+	tetromino.position = GLKVector3Make(point.x - rangeX + offX, (size.height - point.y) - rangeY + offY, 0);
+}
+
 - (void)beginTrackingFromButton:(NSUInteger)index withFrameSize:(CGSize)newSize position:(CGPoint)position
 {
 	trackingFromButton = YES;
@@ -357,18 +370,17 @@
 	[tetromino setColor:sourcecolors[trackingButtonIndex]];
 	[tetromino attachToObject:self];
 	
-	float rangeX = size.width / 2.0;
-	float rangeY = size.height / 2.0;
-	
-	tetromino.position = GLKVector3Make(position.x - rangeX, (size.height - position.y) - rangeY, 0);
-	
+	[self moveTetrominoToPoint:position];
+		
 	buttonTargetY[trackingButtonIndex] = (-size.height / 2.0) - 100.0;
 }
 
-- (void)beginTrackingWithFrameSize:(CGSize)size position:(CGPoint)position
+- (void)beginTrackingWithFrameSize:(CGSize)newSize position:(CGPoint)position
 {
 	trackingFromButton = NO;
 	startPoint = position;
+	if (position.y > size.height / 2.0) rotationDirection = 1.0;
+	else rotationDirection = -1.0;
 }
 
 - (void)endTrackingWithFrameSize:(CGSize)newSize position:(CGPoint)position
@@ -394,20 +406,92 @@
 	}
 	else
 	{
-		// Initialize button with new values
-		
-		NSInteger random3 = arc4random() % 3;
-		NSInteger random7 = arc4random() % 7;
-		
-		sourceCircleMaterials[trackingButtonIndex].glkTexture = colorCircles[random3];
-		sourcecolors[trackingButtonIndex] = random3;
-		
-		sourceTetrominoMaterials[trackingButtonIndex].glkTexture = tetrominoTextures[random7];
-		sourcetetrominos[trackingButtonIndex] = random7;
+		{
+			// Calculate tetromino's position on grid...
+			
+			GLfloat tileScale = scale.scale * 1.1;
+			CGPoint topLeft = CGPointMake(size.width / 2.0 - 2.5 * tileScale, size.height / 2.0 - 2.5* tileScale);
+			
+			CGPoint tetrominoTopLeft = CGPointMake(tetromino.position.x - tetromino.scale / 2.0, (-tetromino.position.y) - tetromino.scale / 2.0);
+			tetrominoTopLeft.x = tetrominoTopLeft.x + size.width / 2.0;
+			tetrominoTopLeft.y = tetrominoTopLeft.y + size.height / 2.0;
+			
+			CGFloat tX = (tetrominoTopLeft.x - topLeft.x /*+ (oscale / 2.0)*/) / tileScale;
+			CGFloat tY = (tetrominoTopLeft.y - topLeft.y /*+ (oscale / 2.0)*/) / tileScale;
+			
+			NSInteger iX = roundf(tX);
+			NSInteger iY = roundf(tY);
+			
+			// See if it fits
+			
+			BOOL allowed = YES;
+
+			if (iX < 0 || iY < 0) allowed = NO;
+			if (iX + tetromino.width > 4) allowed = NO;
+			if (iY + tetromino.height > 4) allowed = NO;
+			
+			if (allowed)
+				for (NSInteger i = 0; i < tetromino.dotCount; i++)
+				{
+					CGPoint p = [tetromino dotAtIndex:i];
+					NSInteger c = tetromino.color;
+					
+					CMYKTileStack *t = tiles[(int)p.x + iX][(int)p.y + iY];
+					
+					if (c == 0 && t.l1) allowed = NO;
+					if (c == 1 && t.l2) allowed = NO;
+					if (c == 2 && t.l3) allowed = NO;
+				}
+			
+			if (allowed)
+			{
+				for (NSInteger i = 0; i < tetromino.dotCount; i++)
+				{
+					CGPoint p = [tetromino dotAtIndex:i];
+					NSInteger c = tetromino.color;
+					
+					CMYKTileStack *t = tiles[(int)p.x + iX][(int)p.y + iY];
+					
+					if (c == 0) t.l1 = YES;
+					if (c == 1) t.l2 = YES;
+					if (c == 2) t.l3 = YES;
+				}
 				
-		[tetromino detach];
-		
-		buttonTargetY[trackingButtonIndex] = (-size.height / 2.0) + 40.0;
+				for (int x = 0; x < 5; x++)
+				{
+					for (int y = 0; y < 5; y++)
+					{
+						CMYKTileStack *stack = tiles[x][y];
+						if (stack.l1 && stack.l2 && stack.l3)
+						{
+							stack.l1 = NO;
+							stack.l2 = NO;
+							stack.l3 = NO;
+						}
+					}
+				}
+
+				// Initialize button with new values
+				
+				NSInteger random3 = arc4random() % 3;
+				NSInteger random7 = arc4random() % 7;
+				
+				sourceCircleMaterials[trackingButtonIndex].glkTexture = colorCircles[random3];
+				sourcecolors[trackingButtonIndex] = random3;
+				
+				sourceTetrominoMaterials[trackingButtonIndex].glkTexture = tetrominoTextures[random7];
+				sourcetetrominos[trackingButtonIndex] = random7;
+				
+				[tetromino detach];
+				
+				buttonTargetY[trackingButtonIndex] = (-size.height / 2.0) + 40.0;
+			}
+			else
+			{
+				[tetromino detach];
+				buttonTargetY[trackingButtonIndex] = (-size.height / 2.0) + 40.0;
+			}
+		}
 	}
 }
 
@@ -417,16 +501,13 @@
 	{
 		if (!finalizingRotation)
 		{
-			targetRotation -= (position.x - startPoint.x) / 100.0;
+			targetRotation += rotationDirection * ((position.x - startPoint.x) / 100.0);
 			startPoint = position;
 		}
 	}
 	else
 	{
-		float rangeX = size.width / 2.0;
-		float rangeY = size.height / 2.0;
-		
-		tetromino.position = GLKVector3Make(position.x - rangeX, (size.height - position.y) - rangeY, 0);
+		[self moveTetrominoToPoint:position];
 	}
 }
 
