@@ -50,11 +50,7 @@ GLfloat gSquareVD[18] =
 
 @interface CMYKRenderableSquare ()
 {
-	/*
-	GLfloat offset;
-	GLfloat speed;
-	GLfloat amplitude;
-	 */
+
 }
 
 @end
@@ -83,12 +79,6 @@ GLfloat gSquareVD[18] =
 			glBindVertexArrayOES(0);
 			
 		});
-
-		/*
-		offset = rand() % 50;
-		speed = 5;
-		amplitude = 2;
-		*/
 	}
 	
 	return self;
@@ -98,15 +88,6 @@ GLfloat gSquareVD[18] =
 {
 	CMYKRenderableSquareBuffer *buf = [CMYKRenderableSquareBuffer sharedBuffer];
 
-	/*
-	// Jiggle...
-	offset += speed;
-	GLfloat dx = sin(offset / 10.0) * (amplitude / 100.0);
-	GLfloat dy = cos(offset / 10.0) * (amplitude / 100.0);
-
-	matrix = GLKMatrix4Multiply(matrix, GLKMatrix4MakeTranslation(dx, dy, 0));
-	*/
-	
 	[super renderWithMatrix:matrix];
 	
     glBindVertexArrayOES(buf->triangleArray);

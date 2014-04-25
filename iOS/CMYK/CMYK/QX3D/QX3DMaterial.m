@@ -53,7 +53,7 @@
 	NSNumber *num = self.uniforms[name];
 	GLint res = 0;
 	
-	if (num) res = [num integerValue];
+	if (num) res = (GLint)[num integerValue];
 	
 	return res;
 }

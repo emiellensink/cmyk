@@ -57,7 +57,7 @@ GLfloat gTetrominoPreviewVD[6 * 3 * 4] =
 	NSUInteger o;		// Rotation (0-3)
 	NSUInteger c;		// Color (0-2)
 	
-	NSUInteger dc;		// Dot count
+	NSInteger dc;		// Dot count
 
 	NSUInteger w;
 	NSUInteger h;
@@ -128,7 +128,7 @@ GLfloat gTetrominoPreviewVD[6 * 3 * 4] =
 
 - (void)prepareWithTetromino:(NSUInteger)tetromino
 {
-	t = abs(tetromino) % 7;
+	t = abs((int)tetromino) % 7;
 	[self updateContents];
 }
 
@@ -149,7 +149,7 @@ GLfloat gTetrominoPreviewVD[6 * 3 * 4] =
 	{
 		for (int x = 0; x < 3; x++)
 		{
-			int offset = dc * 6 * 3;
+			NSUInteger offset = dc * 6 * 3;
 			
 			if ([CMYKTetrominoData tetrominoValueForTetromino:t withRotation:o x:x y:y])
 			{
@@ -185,7 +185,7 @@ GLfloat gTetrominoPreviewVD[6 * 3 * 4] =
 	
 	glUniform4f(colorUni, r, g, b, a);
 	
-	glDrawArrays(GL_TRIANGLES, 0, 6 * dc);
+	glDrawArrays(GL_TRIANGLES, 0, 6 * (int)dc);
 }
 
 @end

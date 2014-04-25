@@ -18,6 +18,7 @@ void main()
 	if (src.r < 0.5 && src.g < 0.5 && src.b < 0.5) src.rgba = vec4(1, 1, 1, 1);
 	
 	c = src - color;
+	c.a = 1.0;
 	
     gl_FragColor = c;
 }

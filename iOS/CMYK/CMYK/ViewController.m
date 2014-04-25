@@ -11,14 +11,21 @@
 #import "QX3D/QX3DEngine.h"
 #import "Implementation/CMYKScene.h"
 
+#import <GameKit/GameKit.h>
+
 @interface ViewController ()
 {
 	BOOL trackFromButton;
 	NSUInteger trackButtonIndex;
+	
+	GKPlayer *localPlayer;
 }
 
 @property (strong, nonatomic) EAGLContext *context;
 @property (strong, nonatomic) QX3DEngine *engine;
+
+@property (strong, nonatomic) GKLocalPlayer *player;
+@property (assign, nonatomic) BOOL playerAuthenticated;
 
 - (void)setupGL;
 - (void)tearDownGL;
@@ -46,10 +53,33 @@
 	self.engine = [QX3DEngine engineWithScene:[CMYKScene new]];
 	
     [self setupGL];
+	
+	self.player = [GKLocalPlayer localPlayer];
+	__weak GKLocalPlayer *weakPlayer = self.player;
+	__weak typeof(self) weakSelf = self;
+	
+	self.player.authenticateHandler = ^(UIViewController *viewController, NSError *error)
+	{
+		if (viewController != nil)
+		{
+			[weakSelf presentViewController:viewController animated:YES completion:^{
+				
+			}];
+		}
+		else if (weakPlayer.isAuthenticated)
+		{
+			//authenticatedPlayer: is an example method name. Create your own method that is called after the loacal player is authenticated.
+			weakSelf.playerAuthenticated = YES;
+		}
+		else
+		{
+			// Disable game center
+		}
+	};
 }
 
 - (void)dealloc
-{    
+{
     [self tearDownGL];
     
     if ([EAGLContext currentContext] == self.context)
@@ -151,5 +181,9 @@
 	trackFromButton = NO;
 	trackButtonIndex = 0;
 }
+
+#pragma mark Game center stuff
+
+
 
 @end

@@ -81,7 +81,7 @@
 
 - (void)prepareWithTetromino:(NSUInteger)tetromino
 {
-	t = abs(tetromino) % 7;
+	t = abs((int)tetromino) % 7;
 	[self updateContents];
 }
 

@@ -148,7 +148,7 @@ GLfloat gTSquareVD[30] =
 	
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 	
-	glDisable(GL_BLEND);
+//	glDisable(GL_BLEND);
 }
 
 @end

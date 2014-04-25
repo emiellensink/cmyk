@@ -12,6 +12,8 @@
 #import "QX3DObject.h"
 #import "QX3DObjectInternals.h"
 
+#import <GameKit/GameKit.h>
+
 @interface QX3DScene ()
 {
 	

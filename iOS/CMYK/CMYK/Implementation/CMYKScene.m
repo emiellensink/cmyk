@@ -16,6 +16,7 @@
 #import "CMYKRenderableSquare.h"
 #import "CMYKRotationAnimator.h"
 #import "CMYKWaveAnimator.h"
+#import "CMYKFadeFromWhiteAnimator.h"
 
 #import "CMYKTileStack.h"
 #import "CMYKTetromino.h"
@@ -61,6 +62,10 @@ typedef struct tileArray
 	GLfloat buttonTargetY[4];
 	
 	BOOL finalizingRotation;
+	
+	QX3DMaterial *flatmat;
+	QX3DMaterial *colormat;
+	QX3DMaterial *texturemat;
 }
 
 @end
@@ -93,8 +98,6 @@ typedef struct tileArray
 	
 	if (finalizingRotation && fabs(targetRotation - rotation) < 0.01)
 	{
-		NSLog(@"finalizing complete");
-		
 		[self normalizeRotationWithTarget:targetRotation];
 		
 		rotation = 0;
@@ -305,11 +308,11 @@ typedef struct tileArray
 		colorCircles[idx] = [GLKTextureLoader textureWithContentsOfFile:texPath options:@{GLKTextureLoaderOriginBottomLeft: @(YES)} error:&err];
 	}];
 	
-	QX3DMaterial *flatmat = [QX3DMaterial materialWithVertexProgram:@"simplevertex" pixelProgram:@"flatcolor" attributes:@{@"position": @(GLKVertexAttribPosition)}];
+	flatmat = [QX3DMaterial materialWithVertexProgram:@"simplevertex" pixelProgram:@"flatcolor" attributes:@{@"position": @(GLKVertexAttribPosition)}];
 	
-	QX3DMaterial *colormat = [QX3DMaterial materialWithVertexProgram:@"simplevertex" pixelProgram:@"subtractive" attributes:@{@"position": @(GLKVertexAttribPosition)}];
+	colormat = [QX3DMaterial materialWithVertexProgram:@"simplevertex" pixelProgram:@"subtractive" attributes:@{@"position": @(GLKVertexAttribPosition)}];
 	
-	QX3DMaterial *texturemat = [QX3DMaterial materialWithVertexProgram:@"texturedvertex" pixelProgram:@"textured" attributes:@{@"position": @(GLKVertexAttribPosition), @"texturecoordinate": @(GLKVertexAttribTexCoord0)}];
+	texturemat = [QX3DMaterial materialWithVertexProgram:@"texturedvertex" pixelProgram:@"textured" attributes:@{@"position": @(GLKVertexAttribPosition), @"texturecoordinate": @(GLKVertexAttribTexCoord0)}];
 
 	scale = [QX3DObject new];
 	scale.orientation = GLKQuaternionMakeWithAngleAndAxis(rotation, 0, 0, 1);
@@ -352,8 +355,6 @@ typedef struct tileArray
 		buttonY[i] = -500;
 		buttonTargetY[i] = (-size.height / 2.0) + 40.0;
 		
-		NSLog(@"%f", (-size.height / 2.0) + 40.0);
-		
 		NSInteger random3 = arc4random() % 3;
 		NSInteger random7 = arc4random() % 7;
 		
@@ -388,6 +389,101 @@ typedef struct tileArray
 	tetromino.position = GLKVector3Make(point.x - rangeX + offX, (size.height - point.y) - rangeY + offY, 0);
 }
 
+- (void)dropTetrominoIfAllowed
+{
+	GLfloat tileScale = scale.scale * 1.1;
+	CGPoint topLeft = CGPointMake(size.width / 2.0 - 2.5 * tileScale, size.height / 2.0 - 2.5* tileScale);
+	
+	CGPoint tetrominoTopLeft = CGPointMake(tetromino.position.x - tetromino.scale / 2.0, (-tetromino.position.y) - tetromino.scale / 2.0);
+	tetrominoTopLeft.x = tetrominoTopLeft.x + size.width / 2.0;
+	tetrominoTopLeft.y = tetrominoTopLeft.y + size.height / 2.0;
+	
+	CGFloat tX = (tetrominoTopLeft.x - topLeft.x) / tileScale;
+	CGFloat tY = (tetrominoTopLeft.y - topLeft.y) / tileScale;
+	
+	NSInteger iX = roundf(tX);
+	NSInteger iY = roundf(tY);
+	
+	// See if it fits
+	BOOL allowed = YES;
+	
+	if (iX < 0 || iY < 0) allowed = NO;
+	if (iX + tetromino.width > 4) allowed = NO;
+	if (iY + tetromino.height > 4) allowed = NO;
+	
+	if (allowed)
+		allowed = [self tetrominoFitsAtPosition:CGPointMake(iX, iY) withTileArray:[self tilesToTileArray]];
+	
+	if (allowed)
+	{
+		for (NSInteger i = 0; i < tetromino.dotCount; i++)
+		{
+			CGPoint p = [tetromino dotAtIndex:i];
+			NSInteger c = tetromino.color;
+			
+			CMYKTileStack *t = tiles[(int)p.x + iX][(int)p.y + iY];
+			
+			if (c == 0) t.l1 = YES;
+			if (c == 1) t.l2 = YES;
+			if (c == 2) t.l3 = YES;
+		}
+		
+		for (int x = 0; x < 5; x++)
+		{
+			for (int y = 0; y < 5; y++)
+			{
+				CMYKTileStack *stack = tiles[x][y];
+				if (stack.l1 && stack.l2 && stack.l3)
+				{
+					stack.l1 = NO;
+					stack.l2 = NO;
+					stack.l3 = NO;
+				}
+			}
+		}
+		
+		// Create flash objects
+		for (NSInteger i = 0; i < tetromino.dotCount; i++)
+		{
+			CGPoint p = [tetromino dotAtIndex:i];
+			
+			p.x += iX; p.y += iY;
+			p.x -= 2; p.y -= 2;
+			p.x *= 1.1; p.y *= 1.1;
+			
+			QX3DObject *obj = [QX3DObject new];
+			CMYKRenderableSquare *sq = [CMYKRenderableSquare renderableForObject:obj];
+			sq.material = flatmat;
+			CMYKFadeFromWhiteAnimator *anim = [CMYKFadeFromWhiteAnimator animatorForObject:obj];
+			[anim attachToObject:obj];	// A bit redundant...
+			
+			obj.orientation = GLKQuaternionMakeWithAngleAndAxis(0, 0, 0, 1);
+			obj.position = GLKVector3Make(p.x, -p.y, 0);
+			
+			[obj attachToObject:scale];
+		}
+		
+		// Initialize button with new values
+		NSInteger random3 = arc4random() % 3;
+		NSInteger random7 = arc4random() % 7;
+		
+		sourceCircleMaterials[trackingButtonIndex].glkTexture = colorCircles[random3];
+		sourcecolors[trackingButtonIndex] = random3;
+		
+		sourceTetrominoMaterials[trackingButtonIndex].glkTexture = tetrominoTextures[random7];
+		sourcetetrominos[trackingButtonIndex] = random7;
+		
+		[tetromino detach];
+		
+		buttonTargetY[trackingButtonIndex] = (-size.height / 2.0) + 40.0;
+	}
+	else
+	{
+		[tetromino detach];
+		buttonTargetY[trackingButtonIndex] = (-size.height / 2.0) + 40.0;
+	}
+}
+
 
 - (void)beginTrackingFromButton:(NSUInteger)index withFrameSize:(CGSize)newSize position:(CGPoint)position
 {
@@ -417,8 +513,6 @@ typedef struct tileArray
 	{
 		if (!finalizingRotation)
 		{
-			NSLog(@"%f", targetRotation);
-			
 			if (targetRotation < -0.25 * PI && targetRotation > -0.75 * PI)
 				targetRotation = -0.5 * PI;
 			if (targetRotation > 0.25 * PI && targetRotation < 0.75 * PI)
@@ -435,82 +529,10 @@ typedef struct tileArray
 	else
 	{
 		{
-			// Calculate tetromino's position on grid...
-			
-			GLfloat tileScale = scale.scale * 1.1;
-			CGPoint topLeft = CGPointMake(size.width / 2.0 - 2.5 * tileScale, size.height / 2.0 - 2.5* tileScale);
-			
-			CGPoint tetrominoTopLeft = CGPointMake(tetromino.position.x - tetromino.scale / 2.0, (-tetromino.position.y) - tetromino.scale / 2.0);
-			tetrominoTopLeft.x = tetrominoTopLeft.x + size.width / 2.0;
-			tetrominoTopLeft.y = tetrominoTopLeft.y + size.height / 2.0;
-			
-			CGFloat tX = (tetrominoTopLeft.x - topLeft.x) / tileScale;
-			CGFloat tY = (tetrominoTopLeft.y - topLeft.y) / tileScale;
-			
-			NSInteger iX = roundf(tX);
-			NSInteger iY = roundf(tY);
-			
-			// See if it fits
-			BOOL allowed = YES;
+			[self dropTetrominoIfAllowed];
 
-			if (iX < 0 || iY < 0) allowed = NO;
-			if (iX + tetromino.width > 4) allowed = NO;
-			if (iY + tetromino.height > 4) allowed = NO;
-			
-			if (allowed)
-				allowed = [self tetrominoFitsAtPosition:CGPointMake(iX, iY) withTileArray:[self tilesToTileArray]];
-				
-			if (allowed)
-			{
-				for (NSInteger i = 0; i < tetromino.dotCount; i++)
-				{
-					CGPoint p = [tetromino dotAtIndex:i];
-					NSInteger c = tetromino.color;
-					
-					CMYKTileStack *t = tiles[(int)p.x + iX][(int)p.y + iY];
-					
-					if (c == 0) t.l1 = YES;
-					if (c == 1) t.l2 = YES;
-					if (c == 2) t.l3 = YES;
-				}
-				
-				for (int x = 0; x < 5; x++)
-				{
-					for (int y = 0; y < 5; y++)
-					{
-						CMYKTileStack *stack = tiles[x][y];
-						if (stack.l1 && stack.l2 && stack.l3)
-						{
-							stack.l1 = NO;
-							stack.l2 = NO;
-							stack.l3 = NO;
-						}
-					}
-				}
-
-				// Initialize button with new values
-				
-				NSInteger random3 = arc4random() % 3;
-				NSInteger random7 = arc4random() % 7;
-				
-				sourceCircleMaterials[trackingButtonIndex].glkTexture = colorCircles[random3];
-				sourcecolors[trackingButtonIndex] = random3;
-				
-				sourceTetrominoMaterials[trackingButtonIndex].glkTexture = tetrominoTextures[random7];
-				sourcetetrominos[trackingButtonIndex] = random7;
-				
-				[tetromino detach];
-				
-				buttonTargetY[trackingButtonIndex] = (-size.height / 2.0) + 40.0;
-				
-				BOOL gameOver = [self checkGameOver];
-				if (gameOver) NSLog(@"GAME OVER");
-			}
-			else
-			{
-				[tetromino detach];
-				buttonTargetY[trackingButtonIndex] = (-size.height / 2.0) + 40.0;
-			}
+			BOOL gameOver = [self checkGameOver];
+			if (gameOver) NSLog(@"GAME OVER");
 		}
 	}
 }
@@ -537,8 +559,6 @@ typedef struct tileArray
 	{
 		if (!finalizingRotation)
 		{
-			NSLog(@"%f", targetRotation);
-			
 			if (targetRotation < -0.25 * PI && targetRotation > -0.75 * PI)
 				targetRotation = -0.5 * PI;
 			if (targetRotation > 0.25 * PI && targetRotation < 0.75 * PI)

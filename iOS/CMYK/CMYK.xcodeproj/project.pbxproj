@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		173A2D68190A9DCB00BED095 /* CMYKFadeFromWhiteAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 173A2D67190A9DCB00BED095 /* CMYKFadeFromWhiteAnimator.m */; };
 		174A0D801902BD6100988D91 /* textured.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 174A0D7F1902BD6100988D91 /* textured.fsh */; };
 		174A0D821902BE5600988D91 /* texturedvertex.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 174A0D811902BE5600988D91 /* texturedvertex.vsh */; };
 		174A0D851902BFC600988D91 /* CMYKRenderableTexturedSquare.m in Sources */ = {isa = PBXBuildFile; fileRef = 174A0D841902BFC600988D91 /* CMYKRenderableTexturedSquare.m */; };
@@ -47,7 +48,7 @@
 		177D0FE118F44B8A0055496E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 177D0FB818F44B8A0055496E /* UIKit.framework */; };
 		177D0FE918F44B8A0055496E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 177D0FE718F44B8A0055496E /* InfoPlist.strings */; };
 		177D0FEB18F44B8A0055496E /* CMYKTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 177D0FEA18F44B8A0055496E /* CMYKTests.m */; };
-		177D0FF518F44BAC0055496E /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 177D0FF418F44BAC0055496E /* GameKit.framework */; };
+		177D0FF518F44BAC0055496E /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 177D0FF418F44BAC0055496E /* GameKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		177D0FF918F44D710055496E /* QX3DEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 177D0FF818F44D710055496E /* QX3DEngine.m */; };
 		177D0FFC18F4658A0055496E /* QX3DScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 177D0FFB18F4658A0055496E /* QX3DScene.m */; };
 		177D100018F4663D0055496E /* CMYKScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 177D0FFF18F4663D0055496E /* CMYKScene.m */; };
@@ -78,6 +79,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		173A2D66190A9DCB00BED095 /* CMYKFadeFromWhiteAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMYKFadeFromWhiteAnimator.h; sourceTree = "<group>"; };
+		173A2D67190A9DCB00BED095 /* CMYKFadeFromWhiteAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMYKFadeFromWhiteAnimator.m; sourceTree = "<group>"; };
 		174A0D7F1902BD6100988D91 /* textured.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = textured.fsh; path = Shaders/textured.fsh; sourceTree = "<group>"; };
 		174A0D811902BE5600988D91 /* texturedvertex.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = texturedvertex.vsh; path = Shaders/texturedvertex.vsh; sourceTree = "<group>"; };
 		174A0D831902BFC600988D91 /* CMYKRenderableTexturedSquare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMYKRenderableTexturedSquare.h; sourceTree = "<group>"; };
@@ -339,6 +342,8 @@
 				17D95BF018F6DF3100843ED3 /* CMYKTetromino.m */,
 				17D95BF218F830A700843ED3 /* CMYKTetrominoData.h */,
 				17D95BF318F830A700843ED3 /* CMYKTetrominoData.m */,
+				173A2D66190A9DCB00BED095 /* CMYKFadeFromWhiteAnimator.h */,
+				173A2D67190A9DCB00BED095 /* CMYKFadeFromWhiteAnimator.m */,
 			);
 			path = Implementation;
 			sourceTree = "<group>";
@@ -502,6 +507,7 @@
 				177D100718F53D560055496E /* QX3DAnimator.m in Sources */,
 				177D0FF918F44D710055496E /* QX3DEngine.m in Sources */,
 				17D95BF418F830A700843ED3 /* CMYKTetrominoData.m in Sources */,
+				173A2D68190A9DCB00BED095 /* CMYKFadeFromWhiteAnimator.m in Sources */,
 				177D0FC918F44B8A0055496E /* AppDelegate.m in Sources */,
 				177D0FC518F44B8A0055496E /* main.m in Sources */,
 			);
