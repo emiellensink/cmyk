@@ -24,6 +24,11 @@
 
 #define PI 3.141592654
 
+typedef struct tileArray
+{
+	char data[5][5];
+} tileArray;
+
 @interface CMYKScene ()
 {
 	CMYKTileStack *tiles[5][5];
@@ -110,11 +115,63 @@
 	[super updateWithSize:size interval:timeSinceLastUpdate];
 }
 
-- (void)normalizeRotationWithTarget:(GLfloat)target
+- (tileArray)rotateLeft:(tileArray)input
 {
-	char temp[5][5];
-	char res[5][5];
+	tileArray res;
 	
+	// rotate left
+	for (NSInteger x = 0; x < 5; x++)
+	{
+		for (NSInteger y = 0; y < 5; y++)
+		{
+			res.data[y][4 - x] = input.data[x][y];
+		}
+	}
+
+	return res;
+}
+
+- (tileArray)rotateRight:(tileArray)input
+{
+	tileArray res;
+	
+	// rotate right
+	for (NSInteger x = 0; x < 5; x++)
+	{
+		for (NSInteger y = 0; y < 5; y++)
+		{
+			res.data[4 - y][x] = input.data[x][y];
+		}
+	}
+	
+	return res;
+}
+
+- (tileArray)rotateTwice:(tileArray)input
+{
+	tileArray res;
+	
+	// rotate left twice
+	for (NSInteger x = 0; x < 5; x++)
+	{
+		for (NSInteger y = 0; y < 5; y++)
+		{
+			res.data[4 - x][4 - y] = input.data[x][y];
+		}
+	}
+
+	return res;
+}
+
+- (tileArray)rotateNone:(tileArray)input
+{
+	return input;
+}
+
+- (tileArray)tilesToTileArray
+{
+	tileArray res;
+
 	for (NSInteger x = 0; x < 5; x++)
 	{
 		for (NSInteger y = 0; y < 5; y++)
@@ -124,70 +181,98 @@
 			char l3 = tiles[x][y].l3 ? 1 : 0;
 			char t = l1 | (l2 << 1) | (l3 << 2);
 			
-			temp[x][y] = t;
-		}
-	}
-		
-	if (target < -0.25 * PI && target > -0.75 * PI)
-	{
-		// rotate right
-		for (NSInteger x = 0; x < 5; x++)
-		{
-			for (NSInteger y = 0; y < 5; y++)
-			{
-				res[4 - y][x] = temp[x][y];
-			}
+			res.data[x][y] = t;
 		}
 	}
 	
-	if (target > 0.25 * PI && target < 0.75 * PI)
-	{
-		// rotate left
-		for (NSInteger x = 0; x < 5; x++)
-		{
-			for (NSInteger y = 0; y < 5; y++)
-			{
-				res[y][4 - x] = temp[x][y];
-			}
-		}
-	}
-		
-	if (target >= -0.25 * PI && target <= 0.25 * PI)
-	{
-		for (NSInteger x = 0; x < 5; x++)
-		{
-			for (NSInteger y = 0; y < 5; y++)
-			{
-				res[x][y] = temp[x][y];
-			}
-		}
-	}
-		
-	if (target <= -0.75 * PI || target >= 0.75 * PI)
-	{
-		// rotate left twice
-		for (NSInteger x = 0; x < 5; x++)
-		{
-			for (NSInteger y = 0; y < 5; y++)
-			{
-				res[4 - x][4 - y] = temp[x][y];
-			}
-		}
-	}
-	
+	return res;
+}
+
+- (void)tileArrayToTiles:(tileArray)input
+{
 	for (NSInteger x = 0; x < 5; x++)
 	{
 		for (NSInteger y = 0; y < 5; y++)
 		{
-			char l1 = res[x][y] & 1;
-			char l2 = res[x][y] & (1 << 1);
-			char l3 = res[x][y] & (1 << 2);
+			char l1 = input.data[x][y] & 1;
+			char l2 = input.data[x][y] & (1 << 1);
+			char l3 = input.data[x][y] & (1 << 2);
 			
 			tiles[x][y].l1 = l1;
 			tiles[x][y].l2 = l2;
 			tiles[x][y].l3 = l3;
 		}
 	}
+}
+
+- (void)normalizeRotationWithTarget:(GLfloat)target
+{
+	tileArray temp;
+	tileArray res;
+	
+	temp = [self tilesToTileArray];
+
+	if (target < -0.25 * PI && target > -0.75 * PI) res = [self rotateRight:temp];
+	if (target > 0.25 * PI && target < 0.75 * PI) res = [self rotateLeft:temp];
+	if (target >= -0.25 * PI && target <= 0.25 * PI) res = [self rotateNone:temp];
+	if (target <= -0.75 * PI || target >= 0.75 * PI) res = [self rotateTwice:temp];
+	
+	[self tileArrayToTiles:res];
+}
+
+- (BOOL)tetrominoFitsAtPosition:(CGPoint)pos withTileArray:(tileArray)array
+{
+	BOOL res = YES;
+	
+	for (NSInteger i = 0; i < tetromino.dotCount; i++)
+	{
+		CGPoint p = [tetromino dotAtIndex:i];
+		NSInteger c = tetromino.color;
+		
+		char x = array.data[(int)pos.x + (int)p.x][(int)pos.y + (int)p.y];
+		
+		char l1 = x & 1;
+		char l2 = x & (1 << 1);
+		char l3 = x & (1 << 2);
+		
+		if (c == 0 && l1) res = NO;
+		if (c == 1 && l2) res = NO;
+		if (c == 2 && l3) res = NO;
+	}
+
+	return res;
+}
+
+- (BOOL)checkGameOver
+{
+	// OK, this is a bit inefficient, but since no animations are running,
+	//  we can get away with it...
+	
+	tileArray now = [self tilesToTileArray];
+	
+	BOOL allowed = NO;
+	
+	for (int z = 0; z < 4; z++)
+	{
+		now = [self rotateLeft:now];
+		
+		for (int i = 0; i < 4; i++)
+		{
+			[tetromino prepareWithTetromino:sourcetetrominos[i]];
+			[tetromino setColor:sourcecolors[i]];
+
+			for (int x = 0; x < 5 - tetromino.width; x++)
+			{
+				for (int y = 0; y < 5 - tetromino.height; y++)
+				{
+					if ([self tetrominoFitsAtPosition:CGPointMake(x, y) withTileArray:now])
+						allowed = YES;
+				}
+			}
+		}
+	}
+
+	return !allowed;
 }
 
 - (void)prepareForRendering
@@ -247,11 +332,7 @@
 			
 			CMYKTileStack *stack = [[CMYKTileStack alloc] initWithMaterial:colormat];
 			stack.position = GLKVector3Make(x * 1.1, -y * 1.1, 0);
-			/*
-			stack.l1 = x % 3;
-			stack.l2 = (x == 2);
-			stack.l3 = (y == 1);
-			*/
+
 			[stack attachToObject:scale];
 			
 			tiles[x + 2][y + 2] = stack;
@@ -292,60 +373,6 @@
 	}
 }
 
-/*
-- (void)drop:(id)sender
-{
-	BOOL allowed = YES;
-	
-	for (NSInteger i = 0; i < tetromino.dotCount; i++)
-	{
-		CGPoint p = [tetromino dotAtIndex:i];
-		NSInteger c = tetromino.color;
-		
-		CMYKTileStack *t = tiles[(int)p.x + px][(int)p.y + py];
-		
-		if (c == 0 && t.l1) allowed = NO;
-		if (c == 1 && t.l2) allowed = NO;
-		if (c == 2 && t.l3) allowed = NO;
-	}
-	
-	if (!allowed) return;
-	
-	for (NSInteger i = 0; i < tetromino.dotCount; i++)
-	{
-		CGPoint p = [tetromino dotAtIndex:i];
-		NSInteger c = tetromino.color;
-		
-		CMYKTileStack *t = tiles[(int)p.x + px][(int)p.y + py];
-		
-		if (c == 0) t.l1 = YES;
-		if (c == 1) t.l2 = YES;
-		if (c == 2) t.l3 = YES;
-	}
-	
-	for (int x = 0; x < 5; x++)
-	{
-		for (int y = 0; y < 5; y++)
-		{
-			CMYKTileStack *stack = tiles[x][y];
-			if (stack.l1 && stack.l2 && stack.l3)
-			{
-				stack.l1 = NO;
-				stack.l2 = NO;
-				stack.l3 = NO;
-			}
-		}
-	}
-	
-	[tetromino prepareWithTetromino:arc4random()];
-	[tetromino setRotation:arc4random()];
-	[tetromino setColor:arc4random()];
-	
-	px = py = 0;
-	tetromino.position = GLKVector3Make(px - 2, (-py + 2), 0);
-}
-*/
-
 - (void)moveTetrominoToPoint:(CGPoint)point
 {
 	float rangeX = size.width / 2.0;
@@ -360,6 +387,7 @@
 		
 	tetromino.position = GLKVector3Make(point.x - rangeX + offX, (size.height - point.y) - rangeY + offY, 0);
 }
+
 
 - (void)beginTrackingFromButton:(NSUInteger)index withFrameSize:(CGSize)newSize position:(CGPoint)position
 {
@@ -416,14 +444,13 @@
 			tetrominoTopLeft.x = tetrominoTopLeft.x + size.width / 2.0;
 			tetrominoTopLeft.y = tetrominoTopLeft.y + size.height / 2.0;
 			
-			CGFloat tX = (tetrominoTopLeft.x - topLeft.x /*+ (oscale / 2.0)*/) / tileScale;
-			CGFloat tY = (tetrominoTopLeft.y - topLeft.y /*+ (oscale / 2.0)*/) / tileScale;
+			CGFloat tX = (tetrominoTopLeft.x - topLeft.x) / tileScale;
+			CGFloat tY = (tetrominoTopLeft.y - topLeft.y) / tileScale;
 			
 			NSInteger iX = roundf(tX);
 			NSInteger iY = roundf(tY);
 			
 			// See if it fits
-			
 			BOOL allowed = YES;
 
 			if (iX < 0 || iY < 0) allowed = NO;
@@ -431,18 +458,8 @@
 			if (iY + tetromino.height > 4) allowed = NO;
 			
 			if (allowed)
-				for (NSInteger i = 0; i < tetromino.dotCount; i++)
-				{
-					CGPoint p = [tetromino dotAtIndex:i];
-					NSInteger c = tetromino.color;
-					
-					CMYKTileStack *t = tiles[(int)p.x + iX][(int)p.y + iY];
-					
-					if (c == 0 && t.l1) allowed = NO;
-					if (c == 1 && t.l2) allowed = NO;
-					if (c == 2 && t.l3) allowed = NO;
-				}
-			
+				allowed = [self tetrominoFitsAtPosition:CGPointMake(iX, iY) withTileArray:[self tilesToTileArray]];
+				
 			if (allowed)
 			{
 				for (NSInteger i = 0; i < tetromino.dotCount; i++)
@@ -485,6 +502,9 @@
 				[tetromino detach];
 				
 				buttonTargetY[trackingButtonIndex] = (-size.height / 2.0) + 40.0;
+				
+				BOOL gameOver = [self checkGameOver];
+				if (gameOver) NSLog(@"GAME OVER");
 			}
 			else
 			{
