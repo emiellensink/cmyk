@@ -17,6 +17,7 @@
 #import "CMYKRotationAnimator.h"
 #import "CMYKWaveAnimator.h"
 #import "CMYKFadeFromWhiteAnimator.h"
+#import "CMYKDarkenAnimator.h"
 
 #import "CMYKTileStack.h"
 #import "CMYKTetromino.h"
@@ -68,6 +69,15 @@ typedef struct tileArray
 	QX3DMaterial *texturemat;
 	
 	NSTimeInterval idleTimer;
+	NSTimeInterval dragTimer;
+	
+	NSInteger blockcount;
+	NSInteger score;
+	
+	BOOL gameOverState;
+	BOOL playingIntroState;
+	
+	QX3DObject *darkOverlay;
 }
 
 @end
@@ -88,11 +98,9 @@ typedef struct tileArray
 {
 	size = _size;
 	idleTimer += timeSinceLastUpdate;
-	if (idleTimer > 1.0 && idleTimer < 10000000.0)
-	{
-		[self.delegate becomeIdle];
-		idleTimer = 10000001.0;
-	}
+	dragTimer += timeSinceLastUpdate;
+	
+	if (idleTimer > 1.0) [self.delegate becomeIdle];
 	
 	float rangeX = size.width / 2.0;
 	float rangeY = size.height / 2.0;
@@ -286,6 +294,95 @@ typedef struct tileArray
 	return !allowed;
 }
 
+- (void)gameOver
+{
+	gameOverState = YES;
+
+	for (NSInteger i = 0; i < 4; i++)
+	{
+		//buttonTargetY[i] = (-size.height / 2.0) - 100.0;
+	}
+	
+	[self.delegate gameCompletedWithScore:score];
+	
+	QX3DObject *obj = [QX3DObject new];
+	
+	CMYKRenderableSquare *sq = [CMYKRenderableSquare renderableForObject:obj];
+	sq.material = flatmat;
+	CMYKDarkenAnimator *anim = [CMYKDarkenAnimator animatorForObject:obj];
+	[anim attachToObject:obj];	// A bit redundant...
+	
+	obj.orientation = GLKQuaternionMakeWithAngleAndAxis(0, 0, 0, 1);
+	obj.position = GLKVector3Make(0, 0, 0);
+	obj.scale = 6.0;
+	
+	[obj attachToObject:scale];
+	darkOverlay = obj;
+}
+
+- (void)restartGame
+{
+	idleTimer = 0;
+	[self.delegate becomeActive];
+
+	[self performSelector:@selector(restartGameImpl) withObject:nil afterDelay:0.3];
+}
+
+- (void)restartGameImpl
+{
+	if (darkOverlay) [darkOverlay detach];
+	darkOverlay = nil;
+	
+	idleTimer = 0;
+	score = 0;
+	blockcount = 0;
+	
+	CGPoint p;
+	
+	for (NSInteger x = 0; x < 5; x++)
+	{
+		for (NSInteger y = 0; y < 5; y++)
+		{
+			p.x = x; p.y = y;
+			p.x -= 2; p.y -= 2;
+			p.x *= 1.1; p.y *= 1.1;
+			
+			QX3DObject *obj = [QX3DObject new];
+			CMYKRenderableSquare *sq = [CMYKRenderableSquare renderableForObject:obj];
+			sq.material = flatmat;
+			CMYKFadeFromWhiteAnimator *anim = [CMYKFadeFromWhiteAnimator animatorForObject:obj];
+			[anim attachToObject:obj];	// A bit redundant...
+			
+			obj.orientation = GLKQuaternionMakeWithAngleAndAxis(0, 0, 0, 1);
+			obj.position = GLKVector3Make(p.x, -p.y, 0);
+			
+			[obj attachToObject:scale];
+
+			tiles[x][y].l1 = NO;
+			tiles[x][y].l2 = NO;
+			tiles[x][y].l3 = NO;
+		}
+	}
+	
+	for (NSInteger i = 0; i < 4; i++)
+	{
+		// Initialize button with new values
+		NSInteger random3 = arc4random() % 3;
+		NSInteger random7 = arc4random() % 7;
+		
+		sourceCircleMaterials[i].glkTexture = colorCircles[random3];
+		sourcecolors[i] = random3;
+		
+		sourceTetrominoMaterials[i].glkTexture = tetrominoTextures[random7];
+		sourcetetrominos[i] = random7;
+		
+		buttonTargetY[i] = (-size.height / 2.0) + 40.0;
+	}
+	
+	[tetromino detach];
+	gameOverState = NO;
+}
+
 - (void)prepareForRendering
 {
 	[super prepareForRendering];
@@ -399,6 +496,8 @@ typedef struct tileArray
 
 - (void)dropTetrominoIfAllowed
 {
+	NSInteger subscore = 0;
+	
 	GLfloat tileScale = scale.scale * 1.1;
 	CGPoint topLeft = CGPointMake(size.width / 2.0 - 2.5 * tileScale, size.height / 2.0 - 2.5* tileScale);
 	
@@ -424,6 +523,8 @@ typedef struct tileArray
 	
 	if (allowed)
 	{
+		subscore += 100.0 / dragTimer;
+		
 		for (NSInteger i = 0; i < tetromino.dotCount; i++)
 		{
 			CGPoint p = [tetromino dotAtIndex:i];
@@ -431,9 +532,9 @@ typedef struct tileArray
 			
 			CMYKTileStack *t = tiles[(int)p.x + iX][(int)p.y + iY];
 			
-			if (c == 0) t.l1 = YES;
-			if (c == 1) t.l2 = YES;
-			if (c == 2) t.l3 = YES;
+			if (c == 0) { t.l1 = YES; }
+			if (c == 1) { t.l2 = YES; }
+			if (c == 2) { t.l3 = YES; }
 		}
 		
 		for (int x = 0; x < 5; x++)
@@ -446,6 +547,8 @@ typedef struct tileArray
 					stack.l1 = NO;
 					stack.l2 = NO;
 					stack.l3 = NO;
+					
+					subscore += 100.0;
 				}
 			}
 		}
@@ -484,6 +587,14 @@ typedef struct tileArray
 		[tetromino detach];
 		
 		buttonTargetY[trackingButtonIndex] = (-size.height / 2.0) + 40.0;
+		
+		blockcount++;
+		subscore += blockcount * 4.0;
+		
+		dragTimer = 0;
+		
+		score += subscore;
+		NSLog(@"Score: %ld (%ld)", (long)score, (long)subscore);
 	}
 	else
 	{
@@ -492,125 +603,138 @@ typedef struct tileArray
 	}
 }
 
-
 - (void)beginTrackingFromButton:(NSUInteger)index withFrameSize:(CGSize)newSize position:(CGPoint)position
 {
-	idleTimer = 0;
-	[self.delegate becomeActive];
+	if (!gameOverState)
+	{
+		idleTimer = 0;
+		[self.delegate becomeActive];
 
-	trackingFromButton = YES;
-	trackingButtonIndex = index;
-	
-	[tetromino prepareWithTetromino:sourcetetrominos[trackingButtonIndex]];
-	[tetromino setColor:sourcecolors[trackingButtonIndex]];
-	[tetromino attachToObject:self];
-	
-	[self moveTetrominoToPoint:position];
+		trackingFromButton = YES;
+		trackingButtonIndex = index;
 		
-	buttonTargetY[trackingButtonIndex] = (-size.height / 2.0) - 100.0;
+		[tetromino prepareWithTetromino:sourcetetrominos[trackingButtonIndex]];
+		[tetromino setColor:sourcecolors[trackingButtonIndex]];
+		[tetromino attachToObject:self];
+		
+		[self moveTetrominoToPoint:position];
+			
+		buttonTargetY[trackingButtonIndex] = (-size.height / 2.0) - 100.0;
+	}
 }
 
 - (void)beginTrackingWithFrameSize:(CGSize)newSize position:(CGPoint)position
 {
-	idleTimer = 0;
-	[self.delegate becomeActive];
+	if (!gameOverState)
+	{
+		idleTimer = 0;
+		[self.delegate becomeActive];
 
-	trackingFromButton = NO;
-	startPoint = position;
-//	if (position.y > size.height / 2.0) rotationDirection = 1.0;
-//	else rotationDirection = -1.0;
+		trackingFromButton = NO;
+		startPoint = position;
+	//	if (position.y > size.height / 2.0) rotationDirection = 1.0;
+	//	else rotationDirection = -1.0;
+	}
 }
-
 - (void)endTrackingWithFrameSize:(CGSize)newSize position:(CGPoint)position
 {
-	idleTimer = 0;
-	[self.delegate becomeActive];
-
-	if (!trackingFromButton)
+	if (!gameOverState)
 	{
-		if (!finalizingRotation)
+		idleTimer = 0;
+		[self.delegate becomeActive];
+
+		if (!trackingFromButton)
 		{
-			if (targetRotation < -0.25 * PI && targetRotation > -0.75 * PI)
-				targetRotation = -0.5 * PI;
-			if (targetRotation > 0.25 * PI && targetRotation < 0.75 * PI)
-				targetRotation = 0.5 * PI;
-			if (targetRotation >= -0.25 * PI && targetRotation <= 0.25 * PI)
-				targetRotation = 0;
-			if (targetRotation <= -0.75 * PI) targetRotation = -PI;
-			if (targetRotation >= 0.75 * PI) targetRotation = PI;
-			
-			finalizingRotation = YES;
-			trackingFromButton = NO;
+			if (!finalizingRotation)
+			{
+				if (targetRotation < -0.25 * PI && targetRotation > -0.75 * PI)
+					targetRotation = -0.5 * PI;
+				if (targetRotation > 0.25 * PI && targetRotation < 0.75 * PI)
+					targetRotation = 0.5 * PI;
+				if (targetRotation >= -0.25 * PI && targetRotation <= 0.25 * PI)
+					targetRotation = 0;
+				if (targetRotation <= -0.75 * PI) targetRotation = -PI;
+				if (targetRotation >= 0.75 * PI) targetRotation = PI;
+				
+				finalizingRotation = YES;
+				trackingFromButton = NO;
+			}
 		}
-	}
-	else
-	{
+		else
 		{
-			[self dropTetrominoIfAllowed];
+			{
+				[self dropTetrominoIfAllowed];
 
-			BOOL gameOver = [self checkGameOver];
-			if (gameOver) NSLog(@"GAME OVER");
+				BOOL gameOver = [self checkGameOver];
+				if (gameOver) [self gameOver];
+			}
 		}
 	}
 }
 
 - (void)moveTrackingWithFrameSize:(CGSize)newSize position:(CGPoint)position
 {
-	idleTimer = 0;
-	[self.delegate becomeActive];
-	
-	if (!trackingFromButton)
+	if (!gameOverState)
 	{
-		if (!finalizingRotation)
+		idleTimer = 0;
+		[self.delegate becomeActive];
+		
+		if (!trackingFromButton)
 		{
-			GLKVector3 v1 = GLKVector3Make(startPoint.x - (size.width / 2.0), startPoint.y - (size.height / 2.0), 0);
-			GLKVector3 v2 = GLKVector3Make(position.x - (size.width / 2.0), position.y - (size.height / 2.0), 0);
-			
-			v1 = GLKVector3Normalize(v1);
-			v2 = GLKVector3Normalize(v2);
-			
-			GLKVector3 v3 = GLKVector3CrossProduct(v1, v2);
-			
-			GLfloat dot = GLKVector3DotProduct(v1, v2);
-			GLfloat f = acos(dot);
-			GLfloat fac = v3.z > 0 ? -1.0 : 1.0;
-			
-			targetRotation = f * fac;
-			rotation = f * fac;
+			if (!finalizingRotation)
+			{
+				GLKVector3 v1 = GLKVector3Make(startPoint.x - (size.width / 2.0), startPoint.y - (size.height / 2.0), 0);
+				GLKVector3 v2 = GLKVector3Make(position.x - (size.width / 2.0), position.y - (size.height / 2.0), 0);
+				
+				v1 = GLKVector3Normalize(v1);
+				v2 = GLKVector3Normalize(v2);
+				
+				GLKVector3 v3 = GLKVector3CrossProduct(v1, v2);
+				
+				GLfloat dot = GLKVector3DotProduct(v1, v2);
+				GLfloat f = acos(dot);
+				GLfloat fac = v3.z > 0 ? -1.0 : 1.0;
+				
+				targetRotation = f * fac;
+				rotation = f * fac;
+			}
 		}
-	}
-	else
-	{
-		[self moveTetrominoToPoint:position];
+		else
+		{
+			[self moveTetrominoToPoint:position];
+		}
 	}
 }
 
 - (void)cancelTracking
 {
-	idleTimer = 0;
-	[self.delegate becomeActive];
-	
-	if (!trackingFromButton)
+	if (!gameOverState)
 	{
-		if (!finalizingRotation)
+		idleTimer = 0;
+		[self.delegate becomeActive];
+		
+		if (!trackingFromButton)
 		{
-			if (targetRotation < -0.25 * PI && targetRotation > -0.75 * PI)
-				targetRotation = -0.5 * PI;
-			if (targetRotation > 0.25 * PI && targetRotation < 0.75 * PI)
-				targetRotation = 0.5 * PI;
-			if (targetRotation >= -0.25 * PI && targetRotation <= 0.25 * PI)
-				targetRotation = 0;
-			if (targetRotation <= -0.75 * PI) targetRotation = -PI;
-			if (targetRotation >= 0.75 * PI) targetRotation = PI;
-			
-			finalizingRotation = YES;
-			trackingFromButton = NO;
+			if (!finalizingRotation)
+			{
+				if (targetRotation < -0.25 * PI && targetRotation > -0.75 * PI)
+					targetRotation = -0.5 * PI;
+				if (targetRotation > 0.25 * PI && targetRotation < 0.75 * PI)
+					targetRotation = 0.5 * PI;
+				if (targetRotation >= -0.25 * PI && targetRotation <= 0.25 * PI)
+					targetRotation = 0;
+				if (targetRotation <= -0.75 * PI) targetRotation = -PI;
+				if (targetRotation >= 0.75 * PI) targetRotation = PI;
+				
+				finalizingRotation = YES;
+				trackingFromButton = NO;
+			}
 		}
-	}
-	else
-	{
-		// Move button to original position...
-		buttonTargetY[trackingButtonIndex] = (-size.height / 2.0) + 40.0;
+		else
+		{
+			// Move button to original position...
+			buttonTargetY[trackingButtonIndex] = (-size.height / 2.0) + 40.0;
+		}
 	}
 }
 

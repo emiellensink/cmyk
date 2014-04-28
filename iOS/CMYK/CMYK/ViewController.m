@@ -188,18 +188,15 @@
 	trackButtonIndex = 0;
 }
 
-#pragma mark Game center stuff
-
-
-
-
-
 #pragma mark CMYK scene delegate
 
 - (void)becomeIdle
 {
-	NSLog(@"Became idle");
-	self.preferredFramesPerSecond = 3;
+	if (self.preferredFramesPerSecond != 10)
+	{
+		NSLog(@"Became idle");
+		self.preferredFramesPerSecond = 10;
+	}
 }
 
 - (void)becomeActive
@@ -213,12 +210,33 @@
 
 - (void)gameCompletedWithScore:(NSUInteger)score
 {
-	
+	if (self.playerAuthenticated)
+	{
+		[self.player loadDefaultLeaderboardIdentifierWithCompletionHandler:^(NSString *leaderboardIdentifier, NSError *error) {
+			if (!error)
+			{
+				GKScore *scoreReporter = [[GKScore alloc] initWithLeaderboardIdentifier:leaderboardIdentifier];
+				scoreReporter.value = score;
+				
+				[GKScore reportScores:@[scoreReporter] withCompletionHandler:^(NSError *error) {
+					NSLog(@"Score sent.");
+				}];
+			}
+		}];
+	}
 }
 
 - (void)achievementObtained:(NSInteger)achievement
 {
 	
+}
+
+#pragma mark UI
+
+- (void)restartTapped:(id)sender
+{
+	CMYKScene *scene = (CMYKScene *)self.engine.scene;
+	[scene restartGame];
 }
 
 @end

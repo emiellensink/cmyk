@@ -18,4 +18,8 @@
 @property (nonatomic, strong) IBOutlet UIButton *b3;
 @property (nonatomic, strong) IBOutlet UIButton *b4;
 
+@property (nonatomic, strong) IBOutlet UIButton *restart;
+- (IBAction)restartTapped:(id)sender;
+
+
 @end

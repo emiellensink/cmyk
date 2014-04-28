@@ -17,6 +17,8 @@
 - (void)cancelTracking;
 - (void)moveTrackingWithFrameSize:(CGSize)size position:(CGPoint)position;
 
+- (void)restartGame;
+
 @property (nonatomic, weak) id<CMYKSceneDelegate> delegate;
 
 @end
