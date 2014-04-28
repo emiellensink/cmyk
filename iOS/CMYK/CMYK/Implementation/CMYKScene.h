@@ -7,6 +7,7 @@
 //
 
 #import "QX3DScene.h"
+#import "CMYKSceneDelegate.h"
 
 @interface CMYKScene : QX3DScene
 
@@ -15,5 +16,7 @@
 - (void)endTrackingWithFrameSize:(CGSize)size position:(CGPoint)position;
 - (void)cancelTracking;
 - (void)moveTrackingWithFrameSize:(CGSize)size position:(CGPoint)position;
+
+@property (nonatomic, weak) id<CMYKSceneDelegate> delegate;
 
 @end

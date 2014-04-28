@@ -51,6 +51,8 @@
 	self.preferredFramesPerSecond = 60;
     
 	self.engine = [QX3DEngine engineWithScene:[CMYKScene new]];
+	CMYKScene *scene = (CMYKScene *)self.engine.scene;
+	scene.delegate = self;
 	
     [self setupGL];
 	
@@ -68,7 +70,6 @@
 		}
 		else if (weakPlayer.isAuthenticated)
 		{
-			//authenticatedPlayer: is an example method name. Create your own method that is called after the loacal player is authenticated.
 			weakSelf.playerAuthenticated = YES;
 		}
 		else
@@ -84,6 +85,11 @@
     
     if ([EAGLContext currentContext] == self.context)
         [EAGLContext setCurrentContext:nil];
+}
+
+-(UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
 }
 
 - (void)didReceiveMemoryWarning
@@ -185,5 +191,34 @@
 #pragma mark Game center stuff
 
 
+
+
+
+#pragma mark CMYK scene delegate
+
+- (void)becomeIdle
+{
+	NSLog(@"Became idle");
+	self.preferredFramesPerSecond = 3;
+}
+
+- (void)becomeActive
+{
+	if (self.preferredFramesPerSecond != 60)
+	{
+		NSLog(@"Became active");
+		self.preferredFramesPerSecond = 60;
+	}
+}
+
+- (void)gameCompletedWithScore:(NSUInteger)score
+{
+	
+}
+
+- (void)achievementObtained:(NSInteger)achievement
+{
+	
+}
 
 @end

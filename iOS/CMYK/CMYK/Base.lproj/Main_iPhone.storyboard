@@ -7,7 +7,7 @@
         <!--GLKit View Controller-->
         <scene sceneID="CtS-rA-C9T">
             <objects>
-                <glkViewController preferredFramesPerSecond="30" id="LVB-YS-i5n" customClass="ViewController" sceneMemberID="viewController">
+                <glkViewController preferredFramesPerSecond="60" id="LVB-YS-i5n" customClass="ViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Xaj-7Y-aV7"/>
                         <viewControllerLayoutGuide type="bottom" id="Rbg-pb-c98"/>

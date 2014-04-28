@@ -66,6 +66,8 @@ typedef struct tileArray
 	QX3DMaterial *flatmat;
 	QX3DMaterial *colormat;
 	QX3DMaterial *texturemat;
+	
+	NSTimeInterval idleTimer;
 }
 
 @end
@@ -85,6 +87,12 @@ typedef struct tileArray
 - (void)updateWithSize:(CGSize)_size interval:(NSTimeInterval)timeSinceLastUpdate
 {
 	size = _size;
+	idleTimer += timeSinceLastUpdate;
+	if (idleTimer > 1.0 && idleTimer < 10000000.0)
+	{
+		[self.delegate becomeIdle];
+		idleTimer = 10000001.0;
+	}
 	
 	float rangeX = size.width / 2.0;
 	float rangeY = size.height / 2.0;
@@ -487,6 +495,9 @@ typedef struct tileArray
 
 - (void)beginTrackingFromButton:(NSUInteger)index withFrameSize:(CGSize)newSize position:(CGPoint)position
 {
+	idleTimer = 0;
+	[self.delegate becomeActive];
+
 	trackingFromButton = YES;
 	trackingButtonIndex = index;
 	
@@ -501,14 +512,20 @@ typedef struct tileArray
 
 - (void)beginTrackingWithFrameSize:(CGSize)newSize position:(CGPoint)position
 {
+	idleTimer = 0;
+	[self.delegate becomeActive];
+
 	trackingFromButton = NO;
 	startPoint = position;
-	if (position.y > size.height / 2.0) rotationDirection = 1.0;
-	else rotationDirection = -1.0;
+//	if (position.y > size.height / 2.0) rotationDirection = 1.0;
+//	else rotationDirection = -1.0;
 }
 
 - (void)endTrackingWithFrameSize:(CGSize)newSize position:(CGPoint)position
 {
+	idleTimer = 0;
+	[self.delegate becomeActive];
+
 	if (!trackingFromButton)
 	{
 		if (!finalizingRotation)
@@ -539,12 +556,26 @@ typedef struct tileArray
 
 - (void)moveTrackingWithFrameSize:(CGSize)newSize position:(CGPoint)position
 {
+	idleTimer = 0;
+	[self.delegate becomeActive];
+	
 	if (!trackingFromButton)
 	{
 		if (!finalizingRotation)
 		{
-			targetRotation += rotationDirection * ((position.x - startPoint.x) / 100.0);
-			startPoint = position;
+			GLKVector3 v1 = GLKVector3Make(startPoint.x - (size.width / 2.0), startPoint.y - (size.height / 2.0), 0);
+			GLKVector3 v2 = GLKVector3Make(position.x - (size.width / 2.0), position.y - (size.height / 2.0), 0);
+			
+			v1 = GLKVector3Normalize(v1);
+			v2 = GLKVector3Normalize(v2);
+			
+			GLKVector3 v3 = GLKVector3CrossProduct(v1, v2);
+			
+			GLfloat dot = GLKVector3DotProduct(v1, v2);
+			GLfloat f = acos(dot);
+			GLfloat fac = v3.z > 0 ? -1.0 : 1.0;
+			
+			targetRotation = f * fac;
 		}
 	}
 	else
@@ -555,6 +586,9 @@ typedef struct tileArray
 
 - (void)cancelTracking
 {
+	idleTimer = 0;
+	[self.delegate becomeActive];
+	
 	if (!trackingFromButton)
 	{
 		if (!finalizingRotation)

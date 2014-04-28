@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5023" systemVersion="13A603" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="BV1-FR-VrT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="BV1-FR-VrT">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
-        <!--class Prefix:identifier View Controller-->
+        <!--GLKit View Controller-->
         <scene sceneID="tXr-a1-R10">
             <objects>
                 <glkViewController preferredFramesPerSecond="30" id="BV1-FR-VrT" customClass="ViewController" sceneMemberID="viewController">
@@ -15,8 +15,70 @@
                     <glkView key="view" contentMode="scaleToFill" id="3se-qz-xqx">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E8i-oc-gjg">
+                                <rect key="frame" x="224" y="944" width="80" height="80"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="JZW-Pw-oTB"/>
+                                    <constraint firstAttribute="width" constant="80" id="sgM-SQ-X8t"/>
+                                </constraints>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yao-wF-Ore">
+                                <rect key="frame" x="304" y="944" width="80" height="80"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="G2z-QW-EEU"/>
+                                    <constraint firstAttribute="height" constant="80" id="YHE-WN-s5E"/>
+                                </constraints>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h22-ZO-ghZ">
+                                <rect key="frame" x="392" y="944" width="80" height="80"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="EU4-hy-d48"/>
+                                    <constraint firstAttribute="height" constant="80" id="XSe-NE-GFe"/>
+                                </constraints>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KoZ-07-ih4">
+                                <rect key="frame" x="472" y="944" width="80" height="80"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="NGP-4Y-19r"/>
+                                    <constraint firstAttribute="width" constant="80" id="ged-wo-7XZ"/>
+                                </constraints>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="nZC-s9-Y68" firstAttribute="top" secondItem="h22-ZO-ghZ" secondAttribute="bottom" id="6Dm-fK-Sgt"/>
+                            <constraint firstItem="h22-ZO-ghZ" firstAttribute="leading" secondItem="yao-wF-Ore" secondAttribute="trailing" constant="8" id="9pU-zc-Gfy"/>
+                            <constraint firstItem="KoZ-07-ih4" firstAttribute="leading" secondItem="h22-ZO-ghZ" secondAttribute="trailing" id="Atu-F7-kcH"/>
+                            <constraint firstAttribute="bottom" secondItem="E8i-oc-gjg" secondAttribute="bottom" id="LWc-HP-3Qt"/>
+                            <constraint firstAttribute="bottom" secondItem="yao-wF-Ore" secondAttribute="bottom" id="ejL-Rh-Tu0"/>
+                            <constraint firstItem="nZC-s9-Y68" firstAttribute="top" secondItem="KoZ-07-ih4" secondAttribute="bottom" id="g2i-tp-Tz4"/>
+                            <constraint firstItem="yao-wF-Ore" firstAttribute="leading" secondItem="E8i-oc-gjg" secondAttribute="trailing" id="p8Y-GI-skb"/>
+                            <constraint firstItem="E8i-oc-gjg" firstAttribute="leading" secondItem="3se-qz-xqx" secondAttribute="leading" constant="224" id="ttp-mj-6DY"/>
+                        </constraints>
                     </glkView>
+                    <connections>
+                        <outlet property="b1" destination="E8i-oc-gjg" id="xXc-Dv-FZQ"/>
+                        <outlet property="b2" destination="yao-wF-Ore" id="FOz-1t-71H"/>
+                        <outlet property="b3" destination="h22-ZO-ghZ" id="ldr-WS-pGM"/>
+                        <outlet property="b4" destination="KoZ-07-ih4" id="Bnl-Rq-qEt"/>
+                    </connections>
                 </glkViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>

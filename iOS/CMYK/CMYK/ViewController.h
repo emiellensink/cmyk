@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 #import <GLKit/GLKit.h>
 
-@interface ViewController : GLKViewController
+#import "Implementation/CMYKSceneDelegate.h"
+
+@interface ViewController : GLKViewController<CMYKSceneDelegate>
 
 @property (nonatomic, strong) IBOutlet UIButton *b1;
 @property (nonatomic, strong) IBOutlet UIButton *b2;
