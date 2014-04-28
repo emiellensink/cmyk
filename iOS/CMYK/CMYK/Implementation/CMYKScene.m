@@ -576,6 +576,7 @@ typedef struct tileArray
 			GLfloat fac = v3.z > 0 ? -1.0 : 1.0;
 			
 			targetRotation = f * fac;
+			rotation = f * fac;
 		}
 	}
 	else
