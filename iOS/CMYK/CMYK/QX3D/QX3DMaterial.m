@@ -96,7 +96,7 @@
 	// Bind attribute locations.
 	// This needs to be done prior to linking.
 	[attribLocations enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSNumber *obj, BOOL *stop) {
-		glBindAttribLocation(program, (GLint)[obj integerValue], [key cStringUsingEncoding:NSUTF8StringEncoding]);
+		glBindAttribLocation(self->program, (GLint)[obj integerValue], [key cStringUsingEncoding:NSUTF8StringEncoding]);
 	}];
 		
 	// Link program.

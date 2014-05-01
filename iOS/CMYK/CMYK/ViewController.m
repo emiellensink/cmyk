@@ -149,8 +149,8 @@
 	{
 		if (CGRectContainsPoint(obj.frame, loc))
 		{
-			trackFromButton = YES;
-			trackButtonIndex = idx;
+			self->trackFromButton = YES;
+			self->trackButtonIndex = idx;
 		}
 	}];
 	
@@ -218,7 +218,7 @@
 				GKScore *scoreReporter = [[GKScore alloc] initWithLeaderboardIdentifier:leaderboardIdentifier];
 				scoreReporter.value = score;
 				
-				[GKScore reportScores:@[scoreReporter] withCompletionHandler:^(NSError *error) {
+				[GKScore reportScores:@[scoreReporter] withCompletionHandler:^(NSError *reporterror) {
 					NSLog(@"Score sent.");
 				}];
 			}

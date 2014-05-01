@@ -370,8 +370,8 @@ typedef struct tileArray
 		NSInteger random3 = arc4random() % 3;
 		NSInteger random7 = arc4random() % 7;
 		
-		sourceCircleMaterials[i].glkTexture = colorCircles[random3];
-		sourcecolors[i] = random3;
+		sourceCircleMaterials[i].glkTexture = colorCircles[i < 3 ? i : random3];
+		sourcecolors[i] = i < 3 ? i : random3;
 		
 		sourceTetrominoMaterials[i].glkTexture = tetrominoTextures[random7];
 		sourcetetrominos[i] = random7;
@@ -410,12 +410,12 @@ typedef struct tileArray
 		NSError *err;
 		
 		NSString *texPath = [[NSBundle mainBundle] pathForResource:obj ofType:@"png"];
-		colorCircles[idx] = [GLKTextureLoader textureWithContentsOfFile:texPath options:@{GLKTextureLoaderOriginBottomLeft: @(YES)} error:&err];
+		self->colorCircles[idx] = [GLKTextureLoader textureWithContentsOfFile:texPath options:@{GLKTextureLoaderOriginBottomLeft: @(YES)} error:&err];
 	}];
 	
 	flatmat = [QX3DMaterial materialWithVertexProgram:@"simplevertex" pixelProgram:@"flatcolor" attributes:@{@"position": @(GLKVertexAttribPosition)}];
 	
-	colormat = [QX3DMaterial materialWithVertexProgram:@"simplevertex" pixelProgram:@"subtractive" attributes:@{@"position": @(GLKVertexAttribPosition)}];
+	colormat = [QX3DMaterial materialWithVertexProgram:@"simplevertex" pixelProgram:@"additive" attributes:@{@"position": @(GLKVertexAttribPosition)}];
 	
 	texturemat = [QX3DMaterial materialWithVertexProgram:@"texturedvertex" pixelProgram:@"textured" attributes:@{@"position": @(GLKVertexAttribPosition), @"texturecoordinate": @(GLKVertexAttribTexCoord0)}];
 
@@ -465,9 +465,9 @@ typedef struct tileArray
 		
 		CMYKRenderableTexturedSquare *s = [CMYKRenderableTexturedSquare renderableForObject:obj];
 		s.material = texturemat;
-		s.glkTexture = colorCircles[random3];
+		s.glkTexture = colorCircles[i < 3 ? i : random3];
 		sourceCircleMaterials[i] = s;
-		sourcecolors[i] = random3;
+		sourcecolors[i] = i < 3 ? i : random3;
 		
 		CMYKRenderableTexturedSquare *t = [CMYKRenderableTexturedSquare renderableForObject:obj];
 		t.material = texturemat;
@@ -575,11 +575,23 @@ typedef struct tileArray
 		}
 		
 		// Initialize button with new values
-		NSInteger random3 = arc4random() % 3;
 		NSInteger random7 = arc4random() % 7;
 		
-		sourceCircleMaterials[trackingButtonIndex].glkTexture = colorCircles[random3];
-		sourcecolors[trackingButtonIndex] = random3;
+		if (blockcount < 250)
+		{
+			NSInteger diff = 0;
+			while(diff != 7)
+			{
+				NSInteger random3 = arc4random() % 3;
+				sourceCircleMaterials[trackingButtonIndex].glkTexture = colorCircles[random3];
+				sourcecolors[trackingButtonIndex] = random3;
+			
+				diff = 0;
+				
+				for (int i = 0; i < 4; i++)
+					diff |= (1 << sourcecolors[i]);
+			}
+		}
 		
 		sourceTetrominoMaterials[trackingButtonIndex].glkTexture = tetrominoTextures[random7];
 		sourcetetrominos[trackingButtonIndex] = random7;
