@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="LVB-YS-i5n">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="LVB-YS-i5n">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -89,7 +89,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="APM-a0-txn" secondAttribute="trailing" constant="20" id="6uN-sX-b8a"/>
@@ -118,10 +118,10 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="btX-cZ-eVz" sceneMemberID="firstResponder"/>
             </objects>
         </scene>
-        <!--View Controller-->
+        <!--Info View Controller-->
         <scene sceneID="jsf-LJ-mrw">
             <objects>
-                <viewController id="4T6-2s-RdJ" sceneMemberID="viewController">
+                <viewController id="4T6-2s-RdJ" customClass="InfoViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="yxT-gM-h9z"/>
                         <viewControllerLayoutGuide type="bottom" id="x6q-LA-g6M"/>
@@ -130,39 +130,136 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cAV-m6-cFw">
-                                <rect key="frame" x="163" y="454" width="137" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cAV-m6-cFw">
+                                <rect key="frame" x="20" y="518" width="129" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="3Mo-Qc-arr"/>
+                                </constraints>
                                 <state key="normal" title="Restore purchases">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="tappedRestore:" destination="4T6-2s-RdJ" eventType="touchUpInside" id="5Rh-el-6h7"/>
+                                </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Zu-Ha-z3i">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Zu-Ha-z3i">
                                 <rect key="frame" x="263" y="518" width="37" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="8OE-NQ-pAP"/>
+                                </constraints>
                                 <state key="normal" title="Done">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="tappedDone:" destination="4T6-2s-RdJ" eventType="touchUpInside" id="tJc-DX-p6G"/>
+                                </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bWn-eS-cyO">
-                                <rect key="frame" x="113" y="384" width="46" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bWn-eS-cyO">
+                                <rect key="frame" x="20" y="390" width="280" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="Un4-yn-58t"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <inset key="contentEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="  Cyan Magenta Yellow" image="cmyk_graph.png">
+                                    <color key="titleColor" cyan="0.0" magenta="1" yellow="0.0" black="0.0" alpha="1" colorSpace="custom" customColorSpace="genericCMYKColorSpace"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="tappedCMYK:" destination="4T6-2s-RdJ" eventType="touchUpInside" id="KHy-ct-fyi"/>
+                                </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NBm-Po-6GA">
+                                <rect key="frame" x="20" y="430" width="280" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="kLB-4c-Scb"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <inset key="contentEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="  Purchase Red Green Blue" image="rgbw_graph.png">
+                                    <color key="titleColor" cyan="0.0" magenta="1" yellow="0.0" black="0.0" alpha="1" colorSpace="custom" customColorSpace="genericCMYKColorSpace"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="tappedRGB:" destination="4T6-2s-RdJ" eventType="touchUpInside" id="07y-FB-AB6"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3FA-ge-Qew">
+                                <rect key="frame" x="20" y="470" width="280" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="dVY-td-Gnv"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <inset key="contentEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="  Purchase Red Yellow Blue" image="rybb_graph.png">
+                                    <color key="titleColor" cyan="0.0" magenta="1" yellow="0.0" black="0.0" alpha="1" colorSpace="custom" customColorSpace="genericCMYKColorSpace"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="tappedRYB:" destination="4T6-2s-RdJ" eventType="touchUpInside" id="DdK-xH-hQk"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="9" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="Yoa-KY-rdd">
+                                <rect key="frame" x="20" y="240" width="280" height="139"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="139" id="xeZ-ga-Z0m"/>
+                                </constraints>
+                                <string key="text">This game is completely free to download, and free to play. It does not contain any advertisements, analytics or any other method that makes money for me automatically. If you like it, please consider donating by buying one or both of the alternate color sets. Thank you!</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="3FA-ge-Qew" secondAttribute="trailing" constant="20" id="26h-r3-0yK"/>
+                            <constraint firstItem="3FA-ge-Qew" firstAttribute="leading" secondItem="ulF-D7-Fv1" secondAttribute="leading" constant="20" id="3D7-R1-DQP"/>
+                            <constraint firstAttribute="trailing" secondItem="NBm-Po-6GA" secondAttribute="trailing" constant="20" id="4uF-O4-hUp"/>
+                            <constraint firstItem="NBm-Po-6GA" firstAttribute="leading" secondItem="ulF-D7-Fv1" secondAttribute="leading" constant="20" id="9N0-zc-DaD"/>
+                            <constraint firstItem="NBm-Po-6GA" firstAttribute="top" secondItem="bWn-eS-cyO" secondAttribute="bottom" constant="8" id="9lr-yW-T9n"/>
+                            <constraint firstAttribute="trailing" secondItem="bWn-eS-cyO" secondAttribute="trailing" constant="20" id="Hwk-N3-LOE"/>
+                            <constraint firstItem="bWn-eS-cyO" firstAttribute="top" secondItem="Yoa-KY-rdd" secondAttribute="bottom" constant="11" id="IkS-UA-dJL"/>
+                            <constraint firstAttribute="trailing" secondItem="4Zu-Ha-z3i" secondAttribute="trailing" constant="20" id="LBf-eU-1tt"/>
+                            <constraint firstItem="x6q-LA-g6M" firstAttribute="top" secondItem="4Zu-Ha-z3i" secondAttribute="bottom" constant="20" id="LjY-2r-vwK"/>
+                            <constraint firstAttribute="trailing" secondItem="Yoa-KY-rdd" secondAttribute="trailing" constant="20" id="QOt-eA-jSg"/>
+                            <constraint firstItem="NBm-Po-6GA" firstAttribute="top" secondItem="bWn-eS-cyO" secondAttribute="bottom" constant="8" id="Qvo-4s-5b2"/>
+                            <constraint firstItem="Yoa-KY-rdd" firstAttribute="leading" secondItem="ulF-D7-Fv1" secondAttribute="leading" constant="20" id="T6W-vJ-cgC"/>
+                            <constraint firstItem="4Zu-Ha-z3i" firstAttribute="top" secondItem="3FA-ge-Qew" secondAttribute="bottom" constant="16" id="UNa-Tb-4es"/>
+                            <constraint firstItem="cAV-m6-cFw" firstAttribute="top" secondItem="3FA-ge-Qew" secondAttribute="bottom" constant="16" id="Yf3-Z0-tNp"/>
+                            <constraint firstItem="x6q-LA-g6M" firstAttribute="top" secondItem="cAV-m6-cFw" secondAttribute="bottom" constant="20" id="gSL-AW-KE7"/>
+                            <constraint firstItem="3FA-ge-Qew" firstAttribute="top" secondItem="NBm-Po-6GA" secondAttribute="bottom" constant="8" id="gjK-eG-Nyt"/>
+                            <constraint firstItem="bWn-eS-cyO" firstAttribute="top" secondItem="Yoa-KY-rdd" secondAttribute="bottom" constant="11" id="hlG-xb-KSH"/>
+                            <constraint firstItem="cAV-m6-cFw" firstAttribute="leading" secondItem="ulF-D7-Fv1" secondAttribute="leading" constant="20" id="iGS-2a-T83"/>
+                            <constraint firstItem="4Zu-Ha-z3i" firstAttribute="top" secondItem="3FA-ge-Qew" secondAttribute="bottom" constant="16" id="iyk-ac-ctB"/>
+                            <constraint firstItem="bWn-eS-cyO" firstAttribute="leading" secondItem="ulF-D7-Fv1" secondAttribute="leading" constant="20" id="mmO-dk-7Ut"/>
+                            <constraint firstItem="3FA-ge-Qew" firstAttribute="top" secondItem="NBm-Po-6GA" secondAttribute="bottom" constant="8" id="vhC-LW-4dG"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="CMYKButton" destination="bWn-eS-cyO" id="JfB-o3-nbq"/>
+                        <outlet property="DoneButton" destination="4Zu-Ha-z3i" id="qYj-Do-tAK"/>
+                        <outlet property="RGBButton" destination="NBm-Po-6GA" id="6KK-02-c1t"/>
+                        <outlet property="RYBButton" destination="3FA-ge-Qew" id="kcZ-fj-h4q"/>
+                        <outlet property="RestoreButton" destination="cAV-m6-cFw" id="Aau-Um-yI8"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Ff-ef-vSM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="690" y="-74"/>
+            <point key="canvasLocation" x="852" y="53"/>
         </scene>
     </scenes>
     <resources>
+        <image name="cmyk_graph.png" width="34" height="32"/>
         <image name="info_circle.png" width="32" height="32"/>
         <image name="recycle_circle.png" width="31" height="30"/>
+        <image name="rgbw_graph.png" width="34" height="32"/>
+        <image name="rybb_graph.png" width="34" height="32"/>
     </resources>
     <color key="tintColor" cyan="0.0" magenta="1" yellow="0.0" black="0.0" alpha="1" colorSpace="custom" customColorSpace="genericCMYKColorSpace"/>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

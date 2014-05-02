@@ -31,6 +31,13 @@
 		174A0DF81903196F00988D91 /* tetromino6@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 174A0DE41903196F00988D91 /* tetromino6@2x.png */; };
 		174A0DF91903196F00988D91 /* yellow_circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 174A0DE51903196F00988D91 /* yellow_circle.png */; };
 		174A0DFA1903196F00988D91 /* yellow_circle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 174A0DE61903196F00988D91 /* yellow_circle@2x.png */; };
+		1755ABBC1913CA8F00C0A3A2 /* cmyk_graph.png in Resources */ = {isa = PBXBuildFile; fileRef = 1755ABB61913CA8F00C0A3A2 /* cmyk_graph.png */; };
+		1755ABBD1913CA8F00C0A3A2 /* cmyk_graph@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1755ABB71913CA8F00C0A3A2 /* cmyk_graph@2x.png */; };
+		1755ABBE1913CA8F00C0A3A2 /* rgbw_graph.png in Resources */ = {isa = PBXBuildFile; fileRef = 1755ABB81913CA8F00C0A3A2 /* rgbw_graph.png */; };
+		1755ABBF1913CA8F00C0A3A2 /* rgbw_graph@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1755ABB91913CA8F00C0A3A2 /* rgbw_graph@2x.png */; };
+		1755ABC01913CA8F00C0A3A2 /* rybb_graph.png in Resources */ = {isa = PBXBuildFile; fileRef = 1755ABBA1913CA8F00C0A3A2 /* rybb_graph.png */; };
+		1755ABC11913CA8F00C0A3A2 /* rybb_graph@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1755ABBB1913CA8F00C0A3A2 /* rybb_graph@2x.png */; };
+		1755ABC41913CD9F00C0A3A2 /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1755ABC31913CD9F00C0A3A2 /* InfoViewController.m */; };
 		177D0FB518F44B8A0055496E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 177D0FB418F44B8A0055496E /* Foundation.framework */; };
 		177D0FB718F44B8A0055496E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 177D0FB618F44B8A0055496E /* CoreGraphics.framework */; };
 		177D0FB918F44B8A0055496E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 177D0FB818F44B8A0055496E /* UIKit.framework */; };
@@ -138,6 +145,14 @@
 		174A0DE41903196F00988D91 /* tetromino6@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tetromino6@2x.png"; path = "Assets/tetromino6@2x.png"; sourceTree = "<group>"; };
 		174A0DE51903196F00988D91 /* yellow_circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = yellow_circle.png; path = Assets/yellow_circle.png; sourceTree = "<group>"; };
 		174A0DE61903196F00988D91 /* yellow_circle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yellow_circle@2x.png"; path = "Assets/yellow_circle@2x.png"; sourceTree = "<group>"; };
+		1755ABB61913CA8F00C0A3A2 /* cmyk_graph.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cmyk_graph.png; path = Assets/cmyk_graph.png; sourceTree = "<group>"; };
+		1755ABB71913CA8F00C0A3A2 /* cmyk_graph@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cmyk_graph@2x.png"; path = "Assets/cmyk_graph@2x.png"; sourceTree = "<group>"; };
+		1755ABB81913CA8F00C0A3A2 /* rgbw_graph.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = rgbw_graph.png; path = Assets/rgbw_graph.png; sourceTree = "<group>"; };
+		1755ABB91913CA8F00C0A3A2 /* rgbw_graph@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "rgbw_graph@2x.png"; path = "Assets/rgbw_graph@2x.png"; sourceTree = "<group>"; };
+		1755ABBA1913CA8F00C0A3A2 /* rybb_graph.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = rybb_graph.png; path = Assets/rybb_graph.png; sourceTree = "<group>"; };
+		1755ABBB1913CA8F00C0A3A2 /* rybb_graph@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "rybb_graph@2x.png"; path = "Assets/rybb_graph@2x.png"; sourceTree = "<group>"; };
+		1755ABC21913CD9F00C0A3A2 /* InfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoViewController.h; sourceTree = "<group>"; };
+		1755ABC31913CD9F00C0A3A2 /* InfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoViewController.m; sourceTree = "<group>"; };
 		177D0FB118F44B8A0055496E /* CMYK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CMYK.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		177D0FB418F44B8A0055496E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		177D0FB618F44B8A0055496E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -260,6 +275,12 @@
 		174A0DD21903195F00988D91 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				1755ABB61913CA8F00C0A3A2 /* cmyk_graph.png */,
+				1755ABB71913CA8F00C0A3A2 /* cmyk_graph@2x.png */,
+				1755ABB81913CA8F00C0A3A2 /* rgbw_graph.png */,
+				1755ABB91913CA8F00C0A3A2 /* rgbw_graph@2x.png */,
+				1755ABBA1913CA8F00C0A3A2 /* rybb_graph.png */,
+				1755ABBB1913CA8F00C0A3A2 /* rybb_graph@2x.png */,
 				178B8B601913BDA200553A05 /* info_circle.png */,
 				178B8B611913BDA200553A05 /* info_circle@2x.png */,
 				17B503AD1912EAD0006B4436 /* score_0.png */,
@@ -362,6 +383,8 @@
 				177D0FD518F44B8A0055496E /* ViewController.m */,
 				177D0FD718F44B8A0055496E /* Images.xcassets */,
 				177D0FBF18F44B8A0055496E /* Supporting Files */,
+				1755ABC21913CD9F00C0A3A2 /* InfoViewController.h */,
+				1755ABC31913CD9F00C0A3A2 /* InfoViewController.m */,
 			);
 			path = CMYK;
 			sourceTree = "<group>";
@@ -547,6 +570,7 @@
 				17B503A81912D8BC006B4436 /* recycle_circle@2x.png in Resources */,
 				174A0DF81903196F00988D91 /* tetromino6@2x.png in Resources */,
 				17B503D31912EAD0006B4436 /* score_9.png in Resources */,
+				1755ABBD1913CA8F00C0A3A2 /* cmyk_graph@2x.png in Resources */,
 				17B503CB1912EAD0006B4436 /* score_5.png in Resources */,
 				17B503C71912EAD0006B4436 /* score_3.png in Resources */,
 				174A0DEE1903196F00988D91 /* tetromino1@2x.png in Resources */,
@@ -557,8 +581,10 @@
 				17B503CE1912EAD0006B4436 /* score_6@2x.png in Resources */,
 				174A0DF71903196F00988D91 /* tetromino6.png in Resources */,
 				17B503C11912EAD0006B4436 /* score_0.png in Resources */,
+				1755ABBE1913CA8F00C0A3A2 /* rgbw_graph.png in Resources */,
 				174A0D801902BD6100988D91 /* textured.fsh in Resources */,
 				174A0DF41903196F00988D91 /* tetromino4@2x.png in Resources */,
+				1755ABBF1913CA8F00C0A3A2 /* rgbw_graph@2x.png in Resources */,
 				17B503971912CEC7006B4436 /* red_circle.png in Resources */,
 				177D0FCF18F44B8A0055496E /* Main_iPad.storyboard in Resources */,
 				17B503941912CEC7006B4436 /* blue_circle@2x.png in Resources */,
@@ -575,6 +601,7 @@
 				17B503D21912EAD0006B4436 /* score_8@2x.png in Resources */,
 				174A0DF51903196F00988D91 /* tetromino5.png in Resources */,
 				17B503C61912EAD0006B4436 /* score_2@2x.png in Resources */,
+				1755ABC11913CA8F00C0A3A2 /* rybb_graph@2x.png in Resources */,
 				174A0DF21903196F00988D91 /* tetromino3@2x.png in Resources */,
 				174A0DE91903196F00988D91 /* magenta_circle.png in Resources */,
 				174A0DEA1903196F00988D91 /* magenta_circle@2x.png in Resources */,
@@ -590,6 +617,7 @@
 				17B503CF1912EAD0006B4436 /* score_7.png in Resources */,
 				174A0DF11903196F00988D91 /* tetromino3.png in Resources */,
 				174A0DE71903196F00988D91 /* cyan_circle.png in Resources */,
+				1755ABC01913CA8F00C0A3A2 /* rybb_graph.png in Resources */,
 				17B503CD1912EAD0006B4436 /* score_6.png in Resources */,
 				17B5038C191051EE006B4436 /* additive.fsh in Resources */,
 				174A0DE81903196F00988D91 /* cyan_circle@2x.png in Resources */,
@@ -603,6 +631,7 @@
 				174A0DF31903196F00988D91 /* tetromino4.png in Resources */,
 				177D0FC318F44B8A0055496E /* InfoPlist.strings in Resources */,
 				17B503D01912EAD0006B4436 /* score_7@2x.png in Resources */,
+				1755ABBC1913CA8F00C0A3A2 /* cmyk_graph.png in Resources */,
 				17B503D11912EAD0006B4436 /* score_8.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -627,6 +656,7 @@
 				177D0FD618F44B8A0055496E /* ViewController.m in Sources */,
 				174A0D851902BFC600988D91 /* CMYKRenderableTexturedSquare.m in Sources */,
 				177D0FFC18F4658A0055496E /* QX3DScene.m in Sources */,
+				1755ABC41913CD9F00C0A3A2 /* InfoViewController.m in Sources */,
 				177D100318F520800055496E /* QX3DObject.m in Sources */,
 				17D95BF718F835BA00843ED3 /* CMYKRenderableTetrominoPreview.m in Sources */,
 				177D101A18F5941F0055496E /* CMYKRotationAnimator.m in Sources */,
@@ -795,8 +825,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CMYK/CMYK-Prefix.pch";
 				INFOPLIST_FILE = "CMYK/CMYK-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -811,8 +843,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CMYK/CMYK-Prefix.pch";
 				INFOPLIST_FILE = "CMYK/CMYK-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
