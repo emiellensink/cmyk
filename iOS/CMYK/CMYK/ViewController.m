@@ -8,12 +8,12 @@
 
 #import "ViewController.h"
 
+#import <GameKit/GameKit.h>
+
 #import "QX3D/QX3DEngine.h"
 #import "Implementation/CMYKScene.h"
 
-#import <GameKit/GameKit.h>
-
-@interface ViewController ()
+@interface ViewController () <GKGameCenterControllerDelegate>
 {
 	BOOL trackFromButton;
 	NSUInteger trackButtonIndex;
@@ -233,10 +233,30 @@
 
 #pragma mark UI
 
-- (void)restartTapped:(id)sender
+- (IBAction)restartTapped:(id)sender
 {
 	CMYKScene *scene = (CMYKScene *)self.engine.scene;
 	[scene restartGame];
+}
+
+- (IBAction)gameCenterTapped:(id)sender
+{
+	if (self.playerAuthenticated)
+	{
+		GKGameCenterViewController *vc = [[GKGameCenterViewController alloc] init];
+		vc.gameCenterDelegate = self;
+		
+		[self presentViewController:vc animated:YES completion:^{
+			
+		}];
+	}
+}
+
+- (void)gameCenterViewControllerDidFinish:(GKGameCenterViewController *)gameCenterViewController
+{
+	[gameCenterViewController dismissViewControllerAnimated:YES completion:^{
+		
+	}];
 }
 
 @end

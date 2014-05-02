@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <GLKit/GLKit.h>
 
+
 #import "Implementation/CMYKSceneDelegate.h"
 
 @interface ViewController : GLKViewController<CMYKSceneDelegate>
@@ -20,6 +21,7 @@
 
 @property (nonatomic, strong) IBOutlet UIButton *restart;
 - (IBAction)restartTapped:(id)sender;
+- (IBAction)gameCenterTapped:(id)sender;
 
 
 @end

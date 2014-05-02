@@ -38,6 +38,8 @@
 		1755ABC01913CA8F00C0A3A2 /* rybb_graph.png in Resources */ = {isa = PBXBuildFile; fileRef = 1755ABBA1913CA8F00C0A3A2 /* rybb_graph.png */; };
 		1755ABC11913CA8F00C0A3A2 /* rybb_graph@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1755ABBB1913CA8F00C0A3A2 /* rybb_graph@2x.png */; };
 		1755ABC41913CD9F00C0A3A2 /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1755ABC31913CD9F00C0A3A2 /* InfoViewController.m */; };
+		1755ABC71913D3ED00C0A3A2 /* gc_circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 1755ABC51913D3ED00C0A3A2 /* gc_circle.png */; };
+		1755ABC81913D3ED00C0A3A2 /* gc_circle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1755ABC61913D3ED00C0A3A2 /* gc_circle@2x.png */; };
 		177D0FB518F44B8A0055496E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 177D0FB418F44B8A0055496E /* Foundation.framework */; };
 		177D0FB718F44B8A0055496E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 177D0FB618F44B8A0055496E /* CoreGraphics.framework */; };
 		177D0FB918F44B8A0055496E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 177D0FB818F44B8A0055496E /* UIKit.framework */; };
@@ -153,6 +155,8 @@
 		1755ABBB1913CA8F00C0A3A2 /* rybb_graph@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "rybb_graph@2x.png"; path = "Assets/rybb_graph@2x.png"; sourceTree = "<group>"; };
 		1755ABC21913CD9F00C0A3A2 /* InfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoViewController.h; sourceTree = "<group>"; };
 		1755ABC31913CD9F00C0A3A2 /* InfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoViewController.m; sourceTree = "<group>"; };
+		1755ABC51913D3ED00C0A3A2 /* gc_circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gc_circle.png; path = Assets/gc_circle.png; sourceTree = "<group>"; };
+		1755ABC61913D3ED00C0A3A2 /* gc_circle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "gc_circle@2x.png"; path = "Assets/gc_circle@2x.png"; sourceTree = "<group>"; };
 		177D0FB118F44B8A0055496E /* CMYK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CMYK.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		177D0FB418F44B8A0055496E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		177D0FB618F44B8A0055496E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -275,6 +279,8 @@
 		174A0DD21903195F00988D91 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				1755ABC51913D3ED00C0A3A2 /* gc_circle.png */,
+				1755ABC61913D3ED00C0A3A2 /* gc_circle@2x.png */,
 				1755ABB61913CA8F00C0A3A2 /* cmyk_graph.png */,
 				1755ABB71913CA8F00C0A3A2 /* cmyk_graph@2x.png */,
 				1755ABB81913CA8F00C0A3A2 /* rgbw_graph.png */,
@@ -580,6 +586,7 @@
 				174A0DEB1903196F00988D91 /* tetromino0.png in Resources */,
 				17B503CE1912EAD0006B4436 /* score_6@2x.png in Resources */,
 				174A0DF71903196F00988D91 /* tetromino6.png in Resources */,
+				1755ABC71913D3ED00C0A3A2 /* gc_circle.png in Resources */,
 				17B503C11912EAD0006B4436 /* score_0.png in Resources */,
 				1755ABBE1913CA8F00C0A3A2 /* rgbw_graph.png in Resources */,
 				174A0D801902BD6100988D91 /* textured.fsh in Resources */,
@@ -626,6 +633,7 @@
 				174A0D821902BE5600988D91 /* texturedvertex.vsh in Resources */,
 				17B503961912CEC7006B4436 /* green_circle@2x.png in Resources */,
 				174A0DF61903196F00988D91 /* tetromino5@2x.png in Resources */,
+				1755ABC81913D3ED00C0A3A2 /* gc_circle@2x.png in Resources */,
 				174A0DEF1903196F00988D91 /* tetromino2.png in Resources */,
 				174A0DFA1903196F00988D91 /* yellow_circle@2x.png in Resources */,
 				174A0DF31903196F00988D91 /* tetromino4.png in Resources */,
