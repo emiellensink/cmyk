@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="LVB-YS-i5n">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="LVB-YS-i5n">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -60,24 +60,28 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6KK-NL-k1L">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6KK-NL-k1L">
                                 <rect key="frame" x="17" y="20" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="fv0-nt-ytb"/>
                                     <constraint firstAttribute="width" constant="40" id="jmt-CM-JU1"/>
                                 </constraints>
-                                <state key="normal" title="R">
+                                <state key="normal" image="recycle_circle.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="restartTapped:" destination="LVB-YS-i5n" eventType="touchUpInside" id="GpL-Ld-7a0"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="APM-a0-txn">
-                                <rect key="frame" x="65" y="25" width="46" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="APM-a0-txn">
+                                <rect key="frame" x="260" y="20" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="LFT-wL-zQM"/>
+                                    <constraint firstAttribute="height" constant="40" id="eHt-vh-N1H"/>
+                                </constraints>
+                                <state key="normal" image="info_circle.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -88,12 +92,14 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="APM-a0-txn" secondAttribute="trailing" constant="20" id="6uN-sX-b8a"/>
                             <constraint firstItem="Rbg-pb-c98" firstAttribute="top" secondItem="xUq-8y-JsT" secondAttribute="bottom" id="7en-oj-Md3"/>
                             <constraint firstItem="6KK-NL-k1L" firstAttribute="top" secondItem="Xaj-7Y-aV7" secondAttribute="bottom" id="AaR-Ty-Hcu"/>
                             <constraint firstItem="xUq-8y-JsT" firstAttribute="leading" secondItem="ouh-zl-ph3" secondAttribute="trailing" id="OKD-a3-pYc"/>
                             <constraint firstItem="hIw-KU-ZnC" firstAttribute="leading" secondItem="bdc-N1-crn" secondAttribute="leading" id="TcM-oh-irX"/>
                             <constraint firstItem="Rbg-pb-c98" firstAttribute="top" secondItem="RZa-RC-Mow" secondAttribute="bottom" id="VNg-aD-FFD"/>
                             <constraint firstItem="6KK-NL-k1L" firstAttribute="leading" secondItem="bdc-N1-crn" secondAttribute="leading" constant="17" id="aDy-zk-9Em"/>
+                            <constraint firstItem="APM-a0-txn" firstAttribute="top" secondItem="Xaj-7Y-aV7" secondAttribute="bottom" id="erN-oc-Q0G"/>
                             <constraint firstItem="Rbg-pb-c98" firstAttribute="top" secondItem="ouh-zl-ph3" secondAttribute="bottom" id="hDG-nu-Fj1"/>
                             <constraint firstItem="RZa-RC-Mow" firstAttribute="leading" secondItem="xUq-8y-JsT" secondAttribute="trailing" id="iK1-kd-rr2"/>
                             <constraint firstItem="ouh-zl-ph3" firstAttribute="leading" secondItem="hIw-KU-ZnC" secondAttribute="trailing" id="jLO-in-Joa"/>
@@ -123,14 +129,42 @@
                     <view key="view" contentMode="scaleToFill" id="ulF-D7-Fv1">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cAV-m6-cFw">
+                                <rect key="frame" x="163" y="454" width="137" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Restore purchases">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Zu-Ha-z3i">
+                                <rect key="frame" x="263" y="518" width="37" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Done">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bWn-eS-cyO">
+                                <rect key="frame" x="113" y="384" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Ff-ef-vSM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="569" y="-74"/>
+            <point key="canvasLocation" x="690" y="-74"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="info_circle.png" width="32" height="32"/>
+        <image name="recycle_circle.png" width="31" height="30"/>
+    </resources>
+    <color key="tintColor" cyan="0.0" magenta="1" yellow="0.0" black="0.0" alpha="1" colorSpace="custom" customColorSpace="genericCMYKColorSpace"/>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <nil key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

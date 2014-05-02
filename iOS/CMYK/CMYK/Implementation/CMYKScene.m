@@ -405,7 +405,9 @@ typedef struct tileArray
 		tetrominoTextures[i] = [GLKTextureLoader textureWithContentsOfFile:texPath options:@{GLKTextureLoaderOriginBottomLeft: @(YES)} error:&err];
 	}
 	
-	NSArray *arr = @[@"cyan_circle@2x", @"magenta_circle@2x", @"yellow_circle@2x"];
+//	NSArray *arr = @[@"cyan_circle@2x", @"magenta_circle@2x", @"yellow_circle@2x"];
+	NSArray *arr = @[@"red_circle@2x", @"green_circle@2x", @"blue_circle@2x"];
+
 	[arr enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 		NSError *err;
 		
