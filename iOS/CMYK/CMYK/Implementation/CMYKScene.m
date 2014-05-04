@@ -18,6 +18,7 @@
 #import "CMYKWaveAnimator.h"
 #import "CMYKFadeFromWhiteAnimator.h"
 #import "CMYKDarkenAnimator.h"
+#import "CMYKRenderableDigit.h"
 
 #import "CMYKTileStack.h"
 #import "CMYKTetromino.h"
@@ -42,6 +43,8 @@ typedef struct tileArray
 	
 	GLKTextureInfo *tetrominoTextures[7];
 	GLKTextureInfo *colorCircles[3];
+	
+	NSArray *digitTextures;
 	
 	QX3DObject *sources[4];
 	CMYKRenderableTexturedSquare *sourceCircleMaterials[4];
@@ -70,6 +73,7 @@ typedef struct tileArray
 	
 	NSTimeInterval idleTimer;
 	NSTimeInterval dragTimer;
+	NSTimeInterval timeLeftTimer;
 	
 	NSInteger blockcount;
 	NSInteger score;
@@ -78,6 +82,8 @@ typedef struct tileArray
 	BOOL playingIntroState;
 	
 	QX3DObject *darkOverlay;
+	
+	CMYKRenderableDigit *digits[4];
 }
 
 @end
@@ -99,7 +105,9 @@ typedef struct tileArray
 	size = _size;
 	idleTimer += timeSinceLastUpdate;
 	dragTimer += timeSinceLastUpdate;
-	
+	timeLeftTimer -= timeSinceLastUpdate;
+//	if (timeLeftTimer < 0) [self gameOver];
+
 	if (idleTimer > 1.0) [self.delegate becomeIdle];
 	
 	float rangeX = size.width / 2.0;
@@ -129,6 +137,19 @@ typedef struct tileArray
 		if (buttonTargetY[i] < buttonY[i]) buttonY[i] -= ((buttonY[i] - buttonTargetY[i]) / 7.0);
 		
 		sources[i].position = GLKVector3Make(sources[i].position.x, buttonY[i], 0);
+	}
+	
+	{
+		if (timeLeftTimer < 0) timeLeftTimer = 0;
+		
+		NSInteger left = (NSInteger)timeLeftTimer;
+		for (int i = 0; i < 4; i++)
+		{
+			NSInteger d = left % 10;
+			left /= 10;
+			
+			[digits[3 - i] switchToDigit:d];
+		}
 	}
 	
 	[super updateWithSize:size interval:timeSinceLastUpdate];
@@ -336,6 +357,7 @@ typedef struct tileArray
 	idleTimer = 0;
 	score = 0;
 	blockcount = 0;
+	timeLeftTimer = 120;
 	
 	CGPoint p;
 	
@@ -403,6 +425,22 @@ typedef struct tileArray
 		
 		NSString *texPath = [[NSBundle mainBundle] pathForResource:name ofType:@"png"];
 		tetrominoTextures[i] = [GLKTextureLoader textureWithContentsOfFile:texPath options:@{GLKTextureLoaderOriginBottomLeft: @(YES)} error:&err];
+	}
+	
+	{
+		NSMutableArray *arr = [NSMutableArray array];
+		
+		for (int i = 0; i < 10; i++)
+		{
+			NSString *name = [NSString stringWithFormat:@"score_%d@2x", i];
+
+			NSError *err;
+			
+			NSString *texPath = [[NSBundle mainBundle] pathForResource:name ofType:@"png"];
+			[arr addObject:[GLKTextureLoader textureWithContentsOfFile:texPath options:@{GLKTextureLoaderOriginBottomLeft: @(YES)} error:&err]];
+		}
+
+		digitTextures = [NSArray arrayWithArray:arr];
 	}
 	
 	NSArray *arr = @[@"cyan_circle@2x", @"magenta_circle@2x", @"yellow_circle@2x"];
@@ -479,6 +517,24 @@ typedef struct tileArray
 		
 		[obj attachToObject:self];
 	}
+	
+	for (NSInteger i = 0; i < 4; i++)
+	{
+		QX3DObject *obj = [QX3DObject new];
+		obj.orientation = GLKQuaternionMakeWithAngleAndAxis(0, 0, 0, 1);
+		obj.position = GLKVector3Make(-50 + i * 14, (size.height / 2.0) - 40, 0);
+		
+		CMYKRenderableDigit *digit = [CMYKRenderableDigit renderableForObject:obj];
+		digit.material = texturemat;
+		[digit setDigitTextures:digitTextures];
+		[digit switchToDigit:0];
+		
+		digits[i] = digit;
+		
+		[obj attachToObject:self];
+	}
+	
+	[self restartGame];
 }
 
 - (void)moveTetrominoToPoint:(CGPoint)point
@@ -606,6 +662,7 @@ typedef struct tileArray
 		subscore += blockcount * 4.0;
 		
 		dragTimer = 0;
+		timeLeftTimer += 5;
 		
 		score += subscore;
 		NSLog(@"Score: %ld (%ld)", (long)score, (long)subscore);

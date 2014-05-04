@@ -107,6 +107,7 @@
 		17D95BF118F6DF3100843ED3 /* CMYKTetromino.m in Sources */ = {isa = PBXBuildFile; fileRef = 17D95BF018F6DF3100843ED3 /* CMYKTetromino.m */; };
 		17D95BF418F830A700843ED3 /* CMYKTetrominoData.m in Sources */ = {isa = PBXBuildFile; fileRef = 17D95BF318F830A700843ED3 /* CMYKTetrominoData.m */; };
 		17D95BF718F835BA00843ED3 /* CMYKRenderableTetrominoPreview.m in Sources */ = {isa = PBXBuildFile; fileRef = 17D95BF618F835BA00843ED3 /* CMYKRenderableTetrominoPreview.m */; };
+		17EA1FF61916375D00869696 /* CMYKRenderableDigit.m in Sources */ = {isa = PBXBuildFile; fileRef = 17EA1FF51916375D00869696 /* CMYKRenderableDigit.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -247,6 +248,8 @@
 		17D95BF318F830A700843ED3 /* CMYKTetrominoData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMYKTetrominoData.m; sourceTree = "<group>"; };
 		17D95BF518F835BA00843ED3 /* CMYKRenderableTetrominoPreview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMYKRenderableTetrominoPreview.h; sourceTree = "<group>"; };
 		17D95BF618F835BA00843ED3 /* CMYKRenderableTetrominoPreview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMYKRenderableTetrominoPreview.m; sourceTree = "<group>"; };
+		17EA1FF41916375D00869696 /* CMYKRenderableDigit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMYKRenderableDigit.h; sourceTree = "<group>"; };
+		17EA1FF51916375D00869696 /* CMYKRenderableDigit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMYKRenderableDigit.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -472,6 +475,8 @@
 				173A2D69190AB9AF00BED095 /* CMYKSceneDelegate.h */,
 				17D85BBF190EEEFB00887DA0 /* CMYKDarkenAnimator.h */,
 				17D85BC0190EEEFB00887DA0 /* CMYKDarkenAnimator.m */,
+				17EA1FF41916375D00869696 /* CMYKRenderableDigit.h */,
+				17EA1FF51916375D00869696 /* CMYKRenderableDigit.m */,
 			);
 			path = Implementation;
 			sourceTree = "<group>";
@@ -668,6 +673,7 @@
 				177D100318F520800055496E /* QX3DObject.m in Sources */,
 				17D95BF718F835BA00843ED3 /* CMYKRenderableTetrominoPreview.m in Sources */,
 				177D101A18F5941F0055496E /* CMYKRotationAnimator.m in Sources */,
+				17EA1FF61916375D00869696 /* CMYKRenderableDigit.m in Sources */,
 				17D95BF118F6DF3100843ED3 /* CMYKTetromino.m in Sources */,
 				17D95BEE18F6D06B00843ED3 /* CMYKTileStack.m in Sources */,
 				177D101218F5795F0055496E /* CMYKRenderableSquare.m in Sources */,
