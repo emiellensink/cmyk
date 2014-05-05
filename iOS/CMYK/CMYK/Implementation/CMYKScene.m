@@ -106,7 +106,7 @@ typedef struct tileArray
 	idleTimer += timeSinceLastUpdate;
 	dragTimer += timeSinceLastUpdate;
 	timeLeftTimer -= timeSinceLastUpdate;
-//	if (timeLeftTimer < 0) [self gameOver];
+	if (timeLeftTimer < 0 && !gameOverState){ idleTimer = 0; [self.delegate becomeActive]; [self gameOver]; }
 
 	if (idleTimer > 1.0) [self.delegate becomeIdle];
 	
@@ -339,6 +339,8 @@ typedef struct tileArray
 	
 	[obj attachToObject:scale];
 	darkOverlay = obj;
+	
+	[tetromino detach];
 }
 
 - (void)restartGame
@@ -357,7 +359,7 @@ typedef struct tileArray
 	idleTimer = 0;
 	score = 0;
 	blockcount = 0;
-	timeLeftTimer = 120;
+	timeLeftTimer = 60;
 	
 	CGPoint p;
 	
@@ -415,6 +417,19 @@ typedef struct tileArray
 
 - (void)initializeWithSize:(CGSize)newSize
 {
+	// Remove all old objects, so we can re-initialize the scene should something important happen...
+	{
+		NSMutableArray *allObjects = [NSMutableArray array];
+		
+		[self.objects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+			[allObjects addObject:obj];
+		}];
+		
+		[allObjects enumerateObjectsUsingBlock:^(QX3DObject *obj, NSUInteger idx, BOOL *stop) {
+			[obj detach];
+		}];
+	}
+
 	size = newSize;
 	
 	for (int i = 0; i < 7; i++)
@@ -443,9 +458,14 @@ typedef struct tileArray
 		digitTextures = [NSArray arrayWithArray:arr];
 	}
 	
-	NSArray *arr = @[@"cyan_circle@2x", @"magenta_circle@2x", @"yellow_circle@2x"];
-//	NSArray *arr = @[@"red_circle@2x", @"green_circle@2x", @"blue_circle@2x"];
-
+	NSString *gameMode = [[NSUserDefaults standardUserDefaults] objectForKey:@"colorSet"];
+	if (!gameMode) gameMode = @"CMYK";
+	
+	NSArray *arr;
+	if ([gameMode isEqualToString:@"CMYK"]) arr = @[@"cyan_circle@2x", @"magenta_circle@2x", @"yellow_circle@2x"];
+	if ([gameMode isEqualToString:@"RGB"]) arr = @[@"red_circle@2x", @"green_circle@2x", @"blue_circle@2x"];
+	if ([gameMode isEqualToString:@"RYB"]) arr = @[@"red_circle@2x", @"yellow_circle@2x", @"blue_circle@2x"];
+	
 	[arr enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 		NSError *err;
 		
@@ -453,12 +473,17 @@ typedef struct tileArray
 		self->colorCircles[idx] = [GLKTextureLoader textureWithContentsOfFile:texPath options:@{GLKTextureLoaderOriginBottomLeft: @(YES)} error:&err];
 	}];
 	
-	flatmat = [QX3DMaterial materialWithVertexProgram:@"simplevertex" pixelProgram:@"flatcolor" attributes:@{@"position": @(GLKVertexAttribPosition)}];
-	
-	colormat = [QX3DMaterial materialWithVertexProgram:@"simplevertex" pixelProgram:@"subtractive" attributes:@{@"position": @(GLKVertexAttribPosition)}];
+	NSString *pixelProgram;
+	if ([gameMode isEqualToString:@"CMYK"]) pixelProgram = @"subtractive";
+	if ([gameMode isEqualToString:@"RGB"]) pixelProgram = @"additive";
+	if ([gameMode isEqualToString:@"RYB"]) pixelProgram = @"paint";
+		
+	colormat = [QX3DMaterial materialWithVertexProgram:@"simplevertex" pixelProgram:pixelProgram attributes:@{@"position": @(GLKVertexAttribPosition)}];
 	
 	texturemat = [QX3DMaterial materialWithVertexProgram:@"texturedvertex" pixelProgram:@"textured" attributes:@{@"position": @(GLKVertexAttribPosition), @"texturecoordinate": @(GLKVertexAttribTexCoord0)}];
 
+	flatmat = [QX3DMaterial materialWithVertexProgram:@"simplevertex" pixelProgram:@"flatcolor" attributes:@{@"position": @(GLKVertexAttribPosition)}];
+		
 	scale = [QX3DObject new];
 	scale.orientation = GLKQuaternionMakeWithAngleAndAxis(rotation, 0, 0, 1);
 	scale.position = GLKVector3Make(0, 0, 0);
