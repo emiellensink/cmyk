@@ -83,7 +83,8 @@ typedef struct tileArray
 	
 	QX3DObject *darkOverlay;
 	
-	CMYKRenderableDigit *digits[4];
+	CMYKRenderableDigit *digits[3];
+	CMYKRenderableDigit *scoreDigits[5];
 }
 
 @end
@@ -143,12 +144,23 @@ typedef struct tileArray
 		if (timeLeftTimer < 0) timeLeftTimer = 0;
 		
 		NSInteger left = (NSInteger)timeLeftTimer;
-		for (int i = 0; i < 4; i++)
+		for (int i = 0; i < 3; i++)
 		{
 			NSInteger d = left % 10;
 			left /= 10;
 			
-			[digits[3 - i] switchToDigit:d];
+			[digits[2 - i] switchToDigit:d];
+		}
+	}
+	
+	{
+		NSInteger left = (NSInteger)score;
+		for (int i = 0; i < 5; i++)
+		{
+			NSInteger d = left % 10;
+			left /= 10;
+			
+			[scoreDigits[4 - i] switchToDigit:d animated:YES];
 		}
 	}
 	
@@ -543,11 +555,11 @@ typedef struct tileArray
 		[obj attachToObject:self];
 	}
 	
-	for (NSInteger i = 0; i < 4; i++)
+	for (NSInteger i = 0; i < 3; i++)
 	{
 		QX3DObject *obj = [QX3DObject new];
 		obj.orientation = GLKQuaternionMakeWithAngleAndAxis(0, 0, 0, 1);
-		obj.position = GLKVector3Make(-50 + i * 14, (size.height / 2.0) - 40, 0);
+		obj.position = GLKVector3Make(10 + i * 14, (size.height / 2.0) - 40, 0);
 		
 		CMYKRenderableDigit *digit = [CMYKRenderableDigit renderableForObject:obj];
 		digit.material = texturemat;
@@ -555,6 +567,34 @@ typedef struct tileArray
 		[digit switchToDigit:0];
 		
 		digits[i] = digit;
+		
+		[obj attachToObject:self];
+	}
+
+	for (NSInteger i = 0; i < 5; i++)
+	{
+		QX3DObject *obj = [QX3DObject new];
+		obj.orientation = GLKQuaternionMakeWithAngleAndAxis(0, 0, 0, 1);
+		obj.position = GLKVector3Make(-90 + i * 14, (size.height / 2.0) - 40, 0);
+		
+		CMYKRenderableDigit *digit = [CMYKRenderableDigit renderableForObject:obj];
+		digit.material = texturemat;
+		[digit setDigitTextures:digitTextures];
+		[digit switchToDigit:0];
+		
+		scoreDigits[i] = digit;
+		
+		[obj attachToObject:self];
+	}
+	
+	{
+		QX3DObject *obj = [QX3DObject new];
+		obj.orientation = GLKQuaternionMakeWithAngleAndAxis(0, 0, 0, 1);
+		obj.position = GLKVector3Make(-10, (size.height / 2.0) - 40, 0);
+		
+		CMYKRenderableTexturedSquare *clock = [CMYKRenderableTexturedSquare renderableForObject:obj];
+		clock.material = texturemat;
+		clock.texture = @"clock@2x";
 		
 		[obj attachToObject:self];
 	}
@@ -582,7 +622,7 @@ typedef struct tileArray
 	NSInteger subscore = 0;
 	
 	GLfloat tileScale = scale.scale * 1.1;
-	CGPoint topLeft = CGPointMake(size.width / 2.0 - 2.5 * tileScale, size.height / 2.0 - 2.5* tileScale);
+	CGPoint topLeft = CGPointMake(size.width / 2.0 - 2.5 * tileScale, size.height / 2.0 - 2.5 * tileScale);
 	
 	CGPoint tetrominoTopLeft = CGPointMake(tetromino.position.x - tetromino.scale / 2.0, (-tetromino.position.y) - tetromino.scale / 2.0);
 	tetrominoTopLeft.x = tetrominoTopLeft.x + size.width / 2.0;

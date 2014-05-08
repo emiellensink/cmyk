@@ -11,6 +11,7 @@
 @interface CMYKRenderableDigit ()
 {
 	NSArray *digits;
+	NSInteger currentDigit;
 }
 
 @end
@@ -25,6 +26,21 @@
 - (void)switchToDigit:(NSInteger)digit
 {
 	[self setGlkTexture:digits[digit]];
+	currentDigit = digit;
 }
+
+- (void)switchToDigit:(NSInteger)digit animated:(BOOL)animated
+{
+	if (!animated)
+		[self setGlkTexture:digits[digit]];
+	else
+	{
+		// TODO: Animation
+		[self setGlkTexture:digits[digit]];
+	}
+	
+	currentDigit = digit;
+}
+
 
 @end

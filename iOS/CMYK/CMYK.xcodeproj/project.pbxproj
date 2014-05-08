@@ -108,6 +108,10 @@
 		17D95BF418F830A700843ED3 /* CMYKTetrominoData.m in Sources */ = {isa = PBXBuildFile; fileRef = 17D95BF318F830A700843ED3 /* CMYKTetrominoData.m */; };
 		17D95BF718F835BA00843ED3 /* CMYKRenderableTetrominoPreview.m in Sources */ = {isa = PBXBuildFile; fileRef = 17D95BF618F835BA00843ED3 /* CMYKRenderableTetrominoPreview.m */; };
 		17EA1FF61916375D00869696 /* CMYKRenderableDigit.m in Sources */ = {isa = PBXBuildFile; fileRef = 17EA1FF51916375D00869696 /* CMYKRenderableDigit.m */; };
+		17EA1FF9191C101E00869696 /* clock.png in Resources */ = {isa = PBXBuildFile; fileRef = 17EA1FF7191C101E00869696 /* clock.png */; };
+		17EA1FFA191C101E00869696 /* clock@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 17EA1FF8191C101E00869696 /* clock@2x.png */; };
+		17EA1FFD191C13DC00869696 /* plus.png in Resources */ = {isa = PBXBuildFile; fileRef = 17EA1FFB191C13DC00869696 /* plus.png */; };
+		17EA1FFE191C13DC00869696 /* plus@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 17EA1FFC191C13DC00869696 /* plus@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -250,6 +254,10 @@
 		17D95BF618F835BA00843ED3 /* CMYKRenderableTetrominoPreview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMYKRenderableTetrominoPreview.m; sourceTree = "<group>"; };
 		17EA1FF41916375D00869696 /* CMYKRenderableDigit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMYKRenderableDigit.h; sourceTree = "<group>"; };
 		17EA1FF51916375D00869696 /* CMYKRenderableDigit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMYKRenderableDigit.m; sourceTree = "<group>"; };
+		17EA1FF7191C101E00869696 /* clock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = clock.png; path = Assets/clock.png; sourceTree = "<group>"; };
+		17EA1FF8191C101E00869696 /* clock@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "clock@2x.png"; path = "Assets/clock@2x.png"; sourceTree = "<group>"; };
+		17EA1FFB191C13DC00869696 /* plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = plus.png; path = Assets/plus.png; sourceTree = "<group>"; };
+		17EA1FFC191C13DC00869696 /* plus@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "plus@2x.png"; path = "Assets/plus@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -282,6 +290,10 @@
 		174A0DD21903195F00988D91 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				17EA1FFB191C13DC00869696 /* plus.png */,
+				17EA1FFC191C13DC00869696 /* plus@2x.png */,
+				17EA1FF7191C101E00869696 /* clock.png */,
+				17EA1FF8191C101E00869696 /* clock@2x.png */,
 				1755ABC51913D3ED00C0A3A2 /* gc_circle.png */,
 				1755ABC61913D3ED00C0A3A2 /* gc_circle@2x.png */,
 				1755ABB61913CA8F00C0A3A2 /* cmyk_graph.png */,
@@ -588,9 +600,11 @@
 				17B503C91912EAD0006B4436 /* score_4.png in Resources */,
 				17B503C21912EAD0006B4436 /* score_0@2x.png in Resources */,
 				17B503931912CEC7006B4436 /* blue_circle.png in Resources */,
+				17EA1FFD191C13DC00869696 /* plus.png in Resources */,
 				174A0DEB1903196F00988D91 /* tetromino0.png in Resources */,
 				17B503CE1912EAD0006B4436 /* score_6@2x.png in Resources */,
 				174A0DF71903196F00988D91 /* tetromino6.png in Resources */,
+				17EA1FF9191C101E00869696 /* clock.png in Resources */,
 				1755ABC71913D3ED00C0A3A2 /* gc_circle.png in Resources */,
 				17B503C11912EAD0006B4436 /* score_0.png in Resources */,
 				1755ABBE1913CA8F00C0A3A2 /* rgbw_graph.png in Resources */,
@@ -636,6 +650,7 @@
 				177D0FD818F44B8A0055496E /* Images.xcassets in Resources */,
 				17B503CC1912EAD0006B4436 /* score_5@2x.png in Resources */,
 				174A0D821902BE5600988D91 /* texturedvertex.vsh in Resources */,
+				17EA1FFA191C101E00869696 /* clock@2x.png in Resources */,
 				17B503961912CEC7006B4436 /* green_circle@2x.png in Resources */,
 				174A0DF61903196F00988D91 /* tetromino5@2x.png in Resources */,
 				1755ABC81913D3ED00C0A3A2 /* gc_circle@2x.png in Resources */,
@@ -643,6 +658,7 @@
 				174A0DFA1903196F00988D91 /* yellow_circle@2x.png in Resources */,
 				174A0DF31903196F00988D91 /* tetromino4.png in Resources */,
 				177D0FC318F44B8A0055496E /* InfoPlist.strings in Resources */,
+				17EA1FFE191C13DC00869696 /* plus@2x.png in Resources */,
 				17B503D01912EAD0006B4436 /* score_7@2x.png in Resources */,
 				1755ABBC1913CA8F00C0A3A2 /* cmyk_graph.png in Resources */,
 				17B503D11912EAD0006B4436 /* score_8.png in Resources */,

@@ -12,6 +12,8 @@
 @interface CMYKRenderableDigit : CMYKRenderableTexturedSquare
 
 - (void)setDigitTextures:(NSArray *)textures;		// Array of GLKTextureInfo objects
+
 - (void)switchToDigit:(NSInteger)digit;
+- (void)switchToDigit:(NSInteger)digit animated:(BOOL)animated;
 
 @end
