@@ -112,6 +112,9 @@
 		17EA1FFA191C101E00869696 /* clock@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 17EA1FF8191C101E00869696 /* clock@2x.png */; };
 		17EA1FFD191C13DC00869696 /* plus.png in Resources */ = {isa = PBXBuildFile; fileRef = 17EA1FFB191C13DC00869696 /* plus.png */; };
 		17EA1FFE191C13DC00869696 /* plus@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 17EA1FFC191C13DC00869696 /* plus@2x.png */; };
+		17EA2002191C23CF00869696 /* icon_app.png in Resources */ = {isa = PBXBuildFile; fileRef = 17EA1FFF191C23CF00869696 /* icon_app.png */; };
+		17EA2003191C23CF00869696 /* icon_settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 17EA2000191C23CF00869696 /* icon_settings.png */; };
+		17EA2004191C23CF00869696 /* icon_spotlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 17EA2001191C23CF00869696 /* icon_spotlight.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -258,6 +261,9 @@
 		17EA1FF8191C101E00869696 /* clock@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "clock@2x.png"; path = "Assets/clock@2x.png"; sourceTree = "<group>"; };
 		17EA1FFB191C13DC00869696 /* plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = plus.png; path = Assets/plus.png; sourceTree = "<group>"; };
 		17EA1FFC191C13DC00869696 /* plus@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "plus@2x.png"; path = "Assets/plus@2x.png"; sourceTree = "<group>"; };
+		17EA1FFF191C23CF00869696 /* icon_app.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_app.png; path = CMYK/Assets/icon_app.png; sourceTree = "<group>"; };
+		17EA2000191C23CF00869696 /* icon_settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_settings.png; path = CMYK/Assets/icon_settings.png; sourceTree = "<group>"; };
+		17EA2001191C23CF00869696 /* icon_spotlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_spotlight.png; path = CMYK/Assets/icon_spotlight.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -359,6 +365,9 @@
 		177D0FA818F44B8A0055496E = {
 			isa = PBXGroup;
 			children = (
+				17EA1FFF191C23CF00869696 /* icon_app.png */,
+				17EA2000191C23CF00869696 /* icon_settings.png */,
+				17EA2001191C23CF00869696 /* icon_spotlight.png */,
 				177D0FBE18F44B8A0055496E /* CMYK */,
 				177D0FE418F44B8A0055496E /* CMYKTests */,
 				177D0FB318F44B8A0055496E /* Frameworks */,
@@ -603,6 +612,7 @@
 				17EA1FFD191C13DC00869696 /* plus.png in Resources */,
 				174A0DEB1903196F00988D91 /* tetromino0.png in Resources */,
 				17B503CE1912EAD0006B4436 /* score_6@2x.png in Resources */,
+				17EA2003191C23CF00869696 /* icon_settings.png in Resources */,
 				174A0DF71903196F00988D91 /* tetromino6.png in Resources */,
 				17EA1FF9191C101E00869696 /* clock.png in Resources */,
 				1755ABC71913D3ED00C0A3A2 /* gc_circle.png in Resources */,
@@ -613,6 +623,7 @@
 				1755ABBF1913CA8F00C0A3A2 /* rgbw_graph@2x.png in Resources */,
 				17B503971912CEC7006B4436 /* red_circle.png in Resources */,
 				177D0FCF18F44B8A0055496E /* Main_iPad.storyboard in Resources */,
+				17EA2002191C23CF00869696 /* icon_app.png in Resources */,
 				17B503941912CEC7006B4436 /* blue_circle@2x.png in Resources */,
 				17B503C41912EAD0006B4436 /* score_1@2x.png in Resources */,
 				174A0DED1903196F00988D91 /* tetromino1.png in Resources */,
@@ -635,6 +646,7 @@
 				17B503C81912EAD0006B4436 /* score_3@2x.png in Resources */,
 				174A0DEC1903196F00988D91 /* tetromino0@2x.png in Resources */,
 				17B503A71912D8BC006B4436 /* recycle_circle.png in Resources */,
+				17EA2004191C23CF00869696 /* icon_spotlight.png in Resources */,
 				177D101718F587C50055496E /* simplevertex.vsh in Resources */,
 				174A0DF01903196F00988D91 /* tetromino2@2x.png in Resources */,
 				177D101C18F59B740055496E /* flatcolor.fsh in Resources */,
@@ -848,8 +860,6 @@
 		177D0FEF18F44B8A0055496E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -866,8 +876,6 @@
 		177D0FF018F44B8A0055496E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
