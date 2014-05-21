@@ -85,6 +85,10 @@ typedef struct tileArray
 	
 	CMYKRenderableDigit *digits[3];
 	CMYKRenderableDigit *scoreDigits[5];
+	
+	QX3DObject *outoftime;
+	QX3DObject *outofmoves;
+	QX3DObject *gameoverDisplay;
 }
 
 @end
@@ -97,8 +101,16 @@ typedef struct tileArray
     if (self)
 	{
 		self.baseModelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, -4.0f);
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadBecauseOfColorsetChangeNotification) name:@"reloadBecauseOfColorsetChangeNotification" object:nil];
+		
     }
     return self;
+}
+
+- (void)reloadBecauseOfColorsetChangeNotification
+{
+	[self initializeWithSize:size];
 }
 
 - (void)updateWithSize:(CGSize)_size interval:(NSTimeInterval)timeSinceLastUpdate
@@ -107,7 +119,14 @@ typedef struct tileArray
 	idleTimer += timeSinceLastUpdate;
 	dragTimer += timeSinceLastUpdate;
 	timeLeftTimer -= timeSinceLastUpdate;
-	if (timeLeftTimer < 0 && !gameOverState){ idleTimer = 0; [self.delegate becomeActive]; [self gameOver]; }
+	if (timeLeftTimer < 0 && !gameOverState)
+	{
+		idleTimer = 0;
+		gameoverDisplay = outoftime;
+		[gameoverDisplay attachToObject:self];
+		[self.delegate becomeActive];
+		[self gameOver];
+	}
 
 	if (idleTimer > 1.0) [self.delegate becomeIdle];
 	
@@ -373,6 +392,12 @@ typedef struct tileArray
 	blockcount = 0;
 	timeLeftTimer = 60;
 	
+	if (gameoverDisplay)
+	{
+		[gameoverDisplay detach];
+		gameoverDisplay = nil;
+	}
+	
 	CGPoint p;
 	
 	for (NSInteger x = 0; x < 5; x++)
@@ -599,6 +624,30 @@ typedef struct tileArray
 		[obj attachToObject:self];
 	}
 	
+	{
+		outofmoves = [QX3DObject new];
+		outofmoves.orientation = GLKQuaternionMakeWithAngleAndAxis(0, 0, 0, 1);
+		outofmoves.position = GLKVector3Make(0, 0, 0);
+		
+		CMYKRenderableTexturedSquare *sq = [CMYKRenderableTexturedSquare renderableForObject:outofmoves];
+		sq.material = texturemat;
+		sq.texture = @"outofmoves@2x";
+		
+//		[obj attachToObject:self];
+	}
+
+	{
+		outoftime = [QX3DObject new];
+		outoftime.orientation = GLKQuaternionMakeWithAngleAndAxis(0, 0, 0, 1);
+		outoftime.position = GLKVector3Make(0, 0, 0);
+		
+		CMYKRenderableTexturedSquare *sq = [CMYKRenderableTexturedSquare renderableForObject:outoftime];
+		sq.material = texturemat;
+		sq.texture = @"outoftime@2x";
+		
+//		[obj attachToObject:self];
+	}
+	
 	[self restartGame];
 }
 
@@ -802,7 +851,12 @@ typedef struct tileArray
 				[self dropTetrominoIfAllowed];
 
 				BOOL gameOver = [self checkGameOver];
-				if (gameOver) [self gameOver];
+				if (gameOver)
+				{
+					gameoverDisplay = outofmoves;
+					[gameoverDisplay attachToObject:self];
+					[self gameOver];
+				}
 			}
 		}
 	}

@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		173A2D68190A9DCB00BED095 /* CMYKFadeFromWhiteAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 173A2D67190A9DCB00BED095 /* CMYKFadeFromWhiteAnimator.m */; };
+		173EC0F9192D4F1D00F2D014 /* outofmoves@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 173EC0F7192D4F1D00F2D014 /* outofmoves@2x.png */; };
+		173EC0FA192D4F1D00F2D014 /* outoftime@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 173EC0F8192D4F1D00F2D014 /* outoftime@2x.png */; };
+		173EC0FD192D55F100F2D014 /* cmy.png in Resources */ = {isa = PBXBuildFile; fileRef = 173EC0FB192D55F100F2D014 /* cmy.png */; };
+		173EC0FE192D55F100F2D014 /* cmy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 173EC0FC192D55F100F2D014 /* cmy@2x.png */; };
 		174A0D801902BD6100988D91 /* textured.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 174A0D7F1902BD6100988D91 /* textured.fsh */; };
 		174A0D821902BE5600988D91 /* texturedvertex.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 174A0D811902BE5600988D91 /* texturedvertex.vsh */; };
 		174A0D851902BFC600988D91 /* CMYKRenderableTexturedSquare.m in Sources */ = {isa = PBXBuildFile; fileRef = 174A0D841902BFC600988D91 /* CMYKRenderableTexturedSquare.m */; };
@@ -131,6 +135,10 @@
 		173A2D66190A9DCB00BED095 /* CMYKFadeFromWhiteAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMYKFadeFromWhiteAnimator.h; sourceTree = "<group>"; };
 		173A2D67190A9DCB00BED095 /* CMYKFadeFromWhiteAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMYKFadeFromWhiteAnimator.m; sourceTree = "<group>"; };
 		173A2D69190AB9AF00BED095 /* CMYKSceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMYKSceneDelegate.h; sourceTree = "<group>"; };
+		173EC0F7192D4F1D00F2D014 /* outofmoves@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "outofmoves@2x.png"; path = "Assets/outofmoves@2x.png"; sourceTree = "<group>"; };
+		173EC0F8192D4F1D00F2D014 /* outoftime@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "outoftime@2x.png"; path = "Assets/outoftime@2x.png"; sourceTree = "<group>"; };
+		173EC0FB192D55F100F2D014 /* cmy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cmy.png; path = Assets/cmy.png; sourceTree = "<group>"; };
+		173EC0FC192D55F100F2D014 /* cmy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cmy@2x.png"; path = "Assets/cmy@2x.png"; sourceTree = "<group>"; };
 		174A0D7F1902BD6100988D91 /* textured.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = textured.fsh; path = Shaders/textured.fsh; sourceTree = "<group>"; };
 		174A0D811902BE5600988D91 /* texturedvertex.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = texturedvertex.vsh; path = Shaders/texturedvertex.vsh; sourceTree = "<group>"; };
 		174A0D831902BFC600988D91 /* CMYKRenderableTexturedSquare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMYKRenderableTexturedSquare.h; sourceTree = "<group>"; };
@@ -296,6 +304,10 @@
 		174A0DD21903195F00988D91 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				173EC0FB192D55F100F2D014 /* cmy.png */,
+				173EC0FC192D55F100F2D014 /* cmy@2x.png */,
+				173EC0F7192D4F1D00F2D014 /* outofmoves@2x.png */,
+				173EC0F8192D4F1D00F2D014 /* outoftime@2x.png */,
 				17EA1FFB191C13DC00869696 /* plus.png */,
 				17EA1FFC191C13DC00869696 /* plus@2x.png */,
 				17EA1FF7191C101E00869696 /* clock.png */,
@@ -614,6 +626,7 @@
 				17B503CE1912EAD0006B4436 /* score_6@2x.png in Resources */,
 				17EA2003191C23CF00869696 /* icon_settings.png in Resources */,
 				174A0DF71903196F00988D91 /* tetromino6.png in Resources */,
+				173EC0FD192D55F100F2D014 /* cmy.png in Resources */,
 				17EA1FF9191C101E00869696 /* clock.png in Resources */,
 				1755ABC71913D3ED00C0A3A2 /* gc_circle.png in Resources */,
 				17B503C11912EAD0006B4436 /* score_0.png in Resources */,
@@ -623,6 +636,7 @@
 				1755ABBF1913CA8F00C0A3A2 /* rgbw_graph@2x.png in Resources */,
 				17B503971912CEC7006B4436 /* red_circle.png in Resources */,
 				177D0FCF18F44B8A0055496E /* Main_iPad.storyboard in Resources */,
+				173EC0FE192D55F100F2D014 /* cmy@2x.png in Resources */,
 				17EA2002191C23CF00869696 /* icon_app.png in Resources */,
 				17B503941912CEC7006B4436 /* blue_circle@2x.png in Resources */,
 				17B503C41912EAD0006B4436 /* score_1@2x.png in Resources */,
@@ -632,6 +646,7 @@
 				177D101618F587C50055496E /* subtractive.fsh in Resources */,
 				17B503D41912EAD0006B4436 /* score_9@2x.png in Resources */,
 				17B503C31912EAD0006B4436 /* score_1.png in Resources */,
+				173EC0F9192D4F1D00F2D014 /* outofmoves@2x.png in Resources */,
 				174A0DF91903196F00988D91 /* yellow_circle.png in Resources */,
 				17B503981912CEC7006B4436 /* red_circle@2x.png in Resources */,
 				178B8B621913BDA200553A05 /* info_circle.png in Resources */,
@@ -662,6 +677,7 @@
 				177D0FD818F44B8A0055496E /* Images.xcassets in Resources */,
 				17B503CC1912EAD0006B4436 /* score_5@2x.png in Resources */,
 				174A0D821902BE5600988D91 /* texturedvertex.vsh in Resources */,
+				173EC0FA192D4F1D00F2D014 /* outoftime@2x.png in Resources */,
 				17EA1FFA191C101E00869696 /* clock@2x.png in Resources */,
 				17B503961912CEC7006B4436 /* green_circle@2x.png in Resources */,
 				174A0DF61903196F00988D91 /* tetromino5@2x.png in Resources */,

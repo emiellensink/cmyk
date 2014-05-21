@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="LVB-YS-i5n">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="LVB-YS-i5n">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -231,14 +231,23 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cmy.png" translatesAutoresizingMaskIntoConstraints="NO" id="Oky-Uz-Jxs">
+                                <rect key="frame" x="40" y="163" width="240" height="69"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="69" id="XIZ-Wl-aCz"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="3FA-ge-Qew" secondAttribute="trailing" constant="20" id="26h-r3-0yK"/>
                             <constraint firstItem="3FA-ge-Qew" firstAttribute="leading" secondItem="ulF-D7-Fv1" secondAttribute="leading" constant="20" id="3D7-R1-DQP"/>
                             <constraint firstAttribute="trailing" secondItem="NBm-Po-6GA" secondAttribute="trailing" constant="20" id="4uF-O4-hUp"/>
+                            <constraint firstAttribute="trailing" secondItem="Oky-Uz-Jxs" secondAttribute="trailing" constant="40" id="677-xI-gqK"/>
                             <constraint firstItem="NBm-Po-6GA" firstAttribute="leading" secondItem="ulF-D7-Fv1" secondAttribute="leading" constant="20" id="9N0-zc-DaD"/>
                             <constraint firstItem="NBm-Po-6GA" firstAttribute="top" secondItem="bWn-eS-cyO" secondAttribute="bottom" constant="8" id="9lr-yW-T9n"/>
+                            <constraint firstItem="Yoa-KY-rdd" firstAttribute="top" secondItem="Oky-Uz-Jxs" secondAttribute="bottom" constant="8" id="ALG-45-8z3"/>
                             <constraint firstAttribute="trailing" secondItem="bWn-eS-cyO" secondAttribute="trailing" constant="20" id="Hwk-N3-LOE"/>
                             <constraint firstItem="bWn-eS-cyO" firstAttribute="top" secondItem="Yoa-KY-rdd" secondAttribute="bottom" constant="11" id="IkS-UA-dJL"/>
                             <constraint firstAttribute="trailing" secondItem="4Zu-Ha-z3i" secondAttribute="trailing" constant="20" id="LBf-eU-1tt"/>
@@ -250,6 +259,7 @@
                             <constraint firstItem="cAV-m6-cFw" firstAttribute="top" secondItem="3FA-ge-Qew" secondAttribute="bottom" constant="16" id="Yf3-Z0-tNp"/>
                             <constraint firstItem="x6q-LA-g6M" firstAttribute="top" secondItem="cAV-m6-cFw" secondAttribute="bottom" constant="20" id="gSL-AW-KE7"/>
                             <constraint firstItem="3FA-ge-Qew" firstAttribute="top" secondItem="NBm-Po-6GA" secondAttribute="bottom" constant="8" id="gjK-eG-Nyt"/>
+                            <constraint firstItem="Oky-Uz-Jxs" firstAttribute="leading" secondItem="ulF-D7-Fv1" secondAttribute="leading" constant="40" id="hL5-Dj-ph7"/>
                             <constraint firstItem="bWn-eS-cyO" firstAttribute="top" secondItem="Yoa-KY-rdd" secondAttribute="bottom" constant="11" id="hlG-xb-KSH"/>
                             <constraint firstItem="cAV-m6-cFw" firstAttribute="leading" secondItem="ulF-D7-Fv1" secondAttribute="leading" constant="20" id="iGS-2a-T83"/>
                             <constraint firstItem="4Zu-Ha-z3i" firstAttribute="top" secondItem="3FA-ge-Qew" secondAttribute="bottom" constant="16" id="iyk-ac-ctB"/>
@@ -271,6 +281,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="cmy.png" width="173" height="67"/>
         <image name="cmyk_graph.png" width="34" height="32"/>
         <image name="gc_circle.png" width="32" height="32"/>
         <image name="info_circle.png" width="32" height="32"/>

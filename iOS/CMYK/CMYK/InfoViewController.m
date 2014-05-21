@@ -26,7 +26,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    // TODO: Change text on buttons depending on purchases
 }
 
 - (void)didReceiveMemoryWarning
@@ -46,19 +46,47 @@
 }
 */
 
+- (NSString *)getGameMode
+{
+	NSString *gameMode = [[NSUserDefaults standardUserDefaults] objectForKey:@"colorSet"];
+	if (!gameMode) gameMode = @"CMYK";
+
+	return gameMode;
+}
+
+- (void)setGameMode:(NSString *)gameMode
+{
+	[[NSUserDefaults standardUserDefaults] setObject:gameMode forKey:@"colorSet"];
+	[[NSUserDefaults standardUserDefaults] synchronize];
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"reloadBecauseOfColorsetChangeNotification" object:nil];
+	
+	[self tappedDone:nil];
+}
+
 - (IBAction)tappedCMYK:(id)sender
 {
+	if ([[self getGameMode] isEqualToString:@"CMYK"]) return;
 	
+	[self setGameMode:@"CMYK"];
+
 }
 
 - (IBAction)tappedRGB:(id)sender
 {
+	if ([[self getGameMode] isEqualToString:@"RGB"]) return;
+	
+	// TODO: Check if purchased
+	[self setGameMode:@"RGB"];
 	
 }
 
 - (IBAction)tappedRYB:(id)sender
 {
-	
+	if ([[self getGameMode] isEqualToString:@"RYB"]) return;
+
+	// TODO: Check if purchased
+	[self setGameMode:@"RYB"];
 }
 
 - (IBAction)tappedRestore:(id)sender
