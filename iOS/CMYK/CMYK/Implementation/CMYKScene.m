@@ -632,8 +632,6 @@ typedef struct tileArray
 		CMYKRenderableTexturedSquare *sq = [CMYKRenderableTexturedSquare renderableForObject:outofmoves];
 		sq.material = texturemat;
 		sq.texture = @"outofmoves@2x";
-		
-//		[obj attachToObject:self];
 	}
 
 	{
@@ -644,8 +642,6 @@ typedef struct tileArray
 		CMYKRenderableTexturedSquare *sq = [CMYKRenderableTexturedSquare renderableForObject:outoftime];
 		sq.material = texturemat;
 		sq.texture = @"outoftime@2x";
-		
-//		[obj attachToObject:self];
 	}
 	
 	[self restartGame];

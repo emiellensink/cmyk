@@ -123,6 +123,7 @@
                         </constraints>
                     </glkView>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+                    <size key="freeformSize" width="320" height="568"/>
                     <connections>
                         <outlet property="b1" destination="hIw-KU-ZnC" id="LP9-s5-pa0"/>
                         <outlet property="b2" destination="ouh-zl-ph3" id="28o-ow-WUx"/>
