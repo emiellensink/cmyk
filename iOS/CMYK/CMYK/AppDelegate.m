@@ -8,13 +8,21 @@
 
 #import "AppDelegate.h"
 
+#import <StoreKit/StoreKit.h>
+
+@interface AppDelegate () <SKPaymentTransactionObserver>
+{
+	
+}
+
+@end
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-	
-	
+	[[SKPaymentQueue defaultQueue] addTransactionObserver:self];
 	
     return YES;
 }
@@ -44,6 +52,46 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
 	// Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+#pragma mark Store kit stuff
+
+- (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions
+{
+	NSLog(@"Updated transactions: %@", transactions);
+	
+	[transactions enumerateObjectsUsingBlock:^(SKPaymentTransaction *obj, NSUInteger idx, BOOL *stop) {
+	
+		NSLog(@"Transaction ID %@", obj.payment.productIdentifier);
+		NSLog(@"State: %d", obj.transactionState);
+		NSLog(@"Error: %@", obj.error);
+		
+	
+	}];
+	
+	[transactions enumerateObjectsUsingBlock:^(SKPaymentTransaction *obj, NSUInteger idx, BOOL *stop) {
+		
+		if (obj.transactionState == SKPaymentTransactionStatePurchased || obj.transactionState == SKPaymentTransactionStateRestored)
+		{
+		 	NSLog(@"Purchase completed for product: %@", obj.payment.productIdentifier);
+			
+			if ([obj.payment.productIdentifier isEqualToString:@"CMYK_RGB"])
+			{
+				[[NSUserDefaults standardUserDefaults] setObject:@(YES) forKey:@"purchasedRGB"];
+				[[NSUserDefaults standardUserDefaults] synchronize];
+				[[NSNotificationCenter defaultCenter] postNotificationName:@"purchaseComplete" object:nil];
+			}
+
+			if ([obj.payment.productIdentifier isEqualToString:@"CMYK_RYB"])
+			{
+				[[NSUserDefaults standardUserDefaults] setObject:@(YES) forKey:@"purchasedRYB"];
+				[[NSUserDefaults standardUserDefaults] synchronize];
+				[[NSNotificationCenter defaultCenter] postNotificationName:@"purchaseComplete" object:nil];
+			}
+			
+			[[SKPaymentQueue defaultQueue] finishTransaction:obj];
+		}
+	}];
 }
 
 @end

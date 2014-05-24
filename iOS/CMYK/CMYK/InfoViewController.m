@@ -13,6 +13,9 @@
 
 @property (nonatomic, strong) SKProductsRequest *productsRequest;
 
+@property (nonatomic, strong) SKProduct *RGBProduct;
+@property (nonatomic, strong) SKProduct *RYBProduct;
+
 @end
 
 @implementation InfoViewController
@@ -45,6 +48,8 @@
 	self.productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:products];
 	self.productsRequest.delegate = self;
 	[self.productsRequest start];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(purchaseComplete) name:@"purchaseComplete" object:nil];
 	
 	NSLog(@"Products request started");
 }
@@ -96,22 +101,30 @@
 {
 	if ([[self getGameMode] isEqualToString:@"RGB"]) return;
 	
-	// TODO: Check if purchased
-	[self setGameMode:@"RGB"];
-	
+	if ([[NSUserDefaults standardUserDefaults] objectForKey:@"purchasedRGB"])
+		[self setGameMode:@"RGB"];
+	else
+	{
+		NSLog(@"Can make payments: %d", [SKPaymentQueue canMakePayments]);
+		SKPayment *buy = [SKPayment paymentWithProduct:self.RGBProduct];
+		[[SKPaymentQueue defaultQueue] addPayment:buy];
+	}
 }
 
 - (IBAction)tappedRYB:(id)sender
 {
-	if ([[self getGameMode] isEqualToString:@"RYB"]) return;
-
-	// TODO: Check if purchased
-	[self setGameMode:@"RYB"];
+	if ([[NSUserDefaults standardUserDefaults] objectForKey:@"purchasedRYB"])
+		[self setGameMode:@"RYB"];
+	else
+	{
+		SKPayment *buy = [SKPayment paymentWithProduct:self.RYBProduct];
+		[[SKPaymentQueue defaultQueue] addPayment:buy];
+	}
 }
 
 - (IBAction)tappedRestore:(id)sender
 {
-	
+	[[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
 }
 
 - (IBAction)tappedDone:(id)sender
@@ -131,11 +144,35 @@
 		if ([obj.productIdentifier isEqualToString:@"CMYK_RGB"])
 		{
 			self.RGBButton.enabled = YES;
+			NSString *text = [self.RGBButton currentTitle];
+			
+			NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+			[numberFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
+			[numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+			[numberFormatter setLocale:obj.priceLocale];
+			NSString *formattedString = [numberFormatter stringFromNumber:obj.price];
+			
+			text = [text stringByAppendingString:[NSString stringWithFormat:@" (%@)", formattedString]];
+			
+			[self.RGBButton setTitle:text forState:UIControlStateNormal];
+			self.RGBProduct = obj;
 		}
 			
 		if ([obj.productIdentifier isEqualToString:@"CMYK_RYB"])
 		{
-			self.RGBButton.enabled = YES;
+			self.RYBButton.enabled = YES;
+			NSString *text = [self.RYBButton currentTitle];
+			
+			NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+			[numberFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
+			[numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+			[numberFormatter setLocale:obj.priceLocale];
+			NSString *formattedString = [numberFormatter stringFromNumber:obj.price];
+			
+			text = [text stringByAppendingString:[NSString stringWithFormat:@" (%@)", formattedString]];
+			
+			[self.RYBButton setTitle:text forState:UIControlStateNormal];
+			self.RYBProduct = obj;
 		}
 	}];
 }
@@ -148,6 +185,15 @@
 - (void)requestDidFinish:(SKRequest *)request
 {
 	NSLog(@"Storekit request did finish");
+}
+
+- (void)purchaseComplete
+{
+	if ([[NSUserDefaults standardUserDefaults] objectForKey:@"purchasedRGB"])
+		[self.RGBButton setTitle:@"  Red Green Blue" forState:UIControlStateNormal];
+	
+	if ([[NSUserDefaults standardUserDefaults] objectForKey:@"purchasedRYB"])
+		[self.RYBButton setTitle:@"  Red Yellow Blue" forState:UIControlStateNormal];
 }
 
 @end
