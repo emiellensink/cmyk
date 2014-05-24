@@ -64,6 +64,7 @@
 	{
 		if (viewController != nil)
 		{
+			//scene.isOccupiedBySomethingElse = YES;
 			[weakSelf presentViewController:viewController animated:YES completion:^{
 				
 			}];
@@ -245,6 +246,9 @@
 	{
 		GKGameCenterViewController *vc = [[GKGameCenterViewController alloc] init];
 		vc.gameCenterDelegate = self;
+
+		CMYKScene *scene = (CMYKScene *)self.engine.scene;
+		scene.isOccupiedBySomethingElse = YES;
 		
 		[self presentViewController:vc animated:YES completion:^{
 			
@@ -255,7 +259,8 @@
 - (void)gameCenterViewControllerDidFinish:(GKGameCenterViewController *)gameCenterViewController
 {
 	[gameCenterViewController dismissViewControllerAnimated:YES completion:^{
-		
+		CMYKScene *scene = (CMYKScene *)self.engine.scene;
+		scene.isOccupiedBySomethingElse = NO;
 	}];
 }
 

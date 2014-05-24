@@ -118,7 +118,7 @@ typedef struct tileArray
 	size = _size;
 	idleTimer += timeSinceLastUpdate;
 	dragTimer += timeSinceLastUpdate;
-	timeLeftTimer -= timeSinceLastUpdate;
+	if (!self.isOccupiedBySomethingElse) timeLeftTimer -= timeSinceLastUpdate;
 	if (timeLeftTimer < 0 && !gameOverState)
 	{
 		idleTimer = 0;
@@ -643,6 +643,8 @@ typedef struct tileArray
 		sq.material = texturemat;
 		sq.texture = @"outoftime@2x";
 	}
+	
+	timeLeftTimer = 60;
 	
 	[self restartGame];
 }

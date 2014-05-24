@@ -21,4 +21,7 @@
 
 @property (nonatomic, weak) id<CMYKSceneDelegate> delegate;
 
+// Set this if you don't want the timer to count down.
+@property (nonatomic, assign) BOOL isOccupiedBySomethingElse;
+
 @end

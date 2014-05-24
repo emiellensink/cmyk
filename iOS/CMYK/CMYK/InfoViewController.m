@@ -7,8 +7,11 @@
 //
 
 #import "InfoViewController.h"
+#import <StoreKit/StoreKit.h>
 
-@interface InfoViewController ()
+@interface InfoViewController () <SKProductsRequestDelegate>
+
+@property (nonatomic, strong) SKProductsRequest *productsRequest;
 
 @end
 
@@ -27,6 +30,23 @@
 {
     [super viewDidLoad];
     // TODO: Change text on buttons depending on purchases
+	
+	if ([[NSUserDefaults standardUserDefaults] objectForKey:@"purchasedRGB"])
+		[self.RGBButton setTitle:@"  Red Green Blue" forState:UIControlStateNormal];
+	else
+		self.RGBButton.enabled = NO;
+
+	if ([[NSUserDefaults standardUserDefaults] objectForKey:@"purchasedRYB"])
+		[self.RYBButton setTitle:@"  Red Yellow Blue" forState:UIControlStateNormal];
+	else
+		self.RYBButton.enabled = NO;
+	
+	NSSet *products = [NSSet setWithArray:@[@"CMYK_RGB", @"CMYK_RYB"]];
+	self.productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:products];
+	self.productsRequest.delegate = self;
+	[self.productsRequest start];
+	
+	NSLog(@"Products request started");
 }
 
 - (void)didReceiveMemoryWarning
@@ -99,6 +119,35 @@
 	[self dismissViewControllerAnimated:YES completion:^{
 		
 	}];
+}
+
+#pragma mark Store Kit stuff
+
+- (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response
+{
+	NSLog(@"%@ - %@", request, response);
+	
+	[response.products enumerateObjectsUsingBlock:^(SKProduct *obj, NSUInteger idx, BOOL *stop) {
+		if ([obj.productIdentifier isEqualToString:@"CMYK_RGB"])
+		{
+			self.RGBButton.enabled = YES;
+		}
+			
+		if ([obj.productIdentifier isEqualToString:@"CMYK_RYB"])
+		{
+			self.RGBButton.enabled = YES;
+		}
+	}];
+}
+
+- (void)request:(SKRequest *)request didFailWithError:(NSError *)error
+{
+	NSLog(@"Storekit error %@", error);
+}
+
+- (void)requestDidFinish:(SKRequest *)request
+{
+	NSLog(@"Storekit request did finish");
 }
 
 @end
