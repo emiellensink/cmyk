@@ -777,8 +777,6 @@ typedef struct tileArray
 		timeLeftTimer += 5;
 		
 		score += subscore;
-		NSLog(@"Score: %ld (%ld)", (long)score, (long)subscore);
-		
 		if (blockcount == 100)
 			[self.delegate achievementObtained:Played100];
 		if (blockcount == 250)

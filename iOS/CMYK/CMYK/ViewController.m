@@ -72,10 +72,6 @@
 		else if (weakPlayer.isAuthenticated)
 		{
 			weakSelf.playerAuthenticated = YES;
-			
-//			[GKAchievement loadAchievementsWithCompletionHandler:^(NSArray *achievements, NSError *achievementerror) {
-//				NSLog(@"Achievements: %@", achievements);
-//			}];
 		}
 		else
 		{
@@ -199,7 +195,6 @@
 {
 	if (self.preferredFramesPerSecond != 10)
 	{
-		NSLog(@"Became idle");
 		self.preferredFramesPerSecond = 10;
 	}
 }
@@ -208,7 +203,6 @@
 {
 	if (self.preferredFramesPerSecond != 60)
 	{
-		NSLog(@"Became active");
 		self.preferredFramesPerSecond = 60;
 	}
 }

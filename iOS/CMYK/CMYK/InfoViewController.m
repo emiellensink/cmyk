@@ -50,8 +50,6 @@
 	[self.productsRequest start];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(purchaseComplete) name:@"purchaseComplete" object:nil];
-	
-	NSLog(@"Products request started");
 }
 
 - (void)didReceiveMemoryWarning
@@ -105,7 +103,6 @@
 		[self setGameMode:@"RGB"];
 	else
 	{
-		NSLog(@"Can make payments: %d", [SKPaymentQueue canMakePayments]);
 		SKPayment *buy = [SKPayment paymentWithProduct:self.RGBProduct];
 		[[SKPaymentQueue defaultQueue] addPayment:buy];
 	}
@@ -138,8 +135,6 @@
 
 - (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response
 {
-	NSLog(@"%@ - %@", request, response);
-	
 	[response.products enumerateObjectsUsingBlock:^(SKProduct *obj, NSUInteger idx, BOOL *stop) {
 		if ([obj.productIdentifier isEqualToString:@"CMYK_RGB"] && ![[NSUserDefaults standardUserDefaults] objectForKey:@"purchasedRGB"])
 		{

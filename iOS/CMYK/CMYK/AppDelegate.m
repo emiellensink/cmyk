@@ -58,23 +58,10 @@
 
 - (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions
 {
-	NSLog(@"Updated transactions: %@", transactions);
-	
-	[transactions enumerateObjectsUsingBlock:^(SKPaymentTransaction *obj, NSUInteger idx, BOOL *stop) {
-	
-		NSLog(@"Transaction ID %@", obj.payment.productIdentifier);
-		NSLog(@"State: %d", obj.transactionState);
-		NSLog(@"Error: %@", obj.error);
-		
-	
-	}];
-	
 	[transactions enumerateObjectsUsingBlock:^(SKPaymentTransaction *obj, NSUInteger idx, BOOL *stop) {
 		
 		if (obj.transactionState == SKPaymentTransactionStatePurchased || obj.transactionState == SKPaymentTransactionStateRestored)
 		{
-		 	NSLog(@"Purchase completed for product: %@", obj.payment.productIdentifier);
-			
 			if ([obj.payment.productIdentifier isEqualToString:@"CMYK_RGB"])
 			{
 				[[NSUserDefaults standardUserDefaults] setObject:@(YES) forKey:@"purchasedRGB"];

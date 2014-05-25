@@ -129,10 +129,6 @@
 				objects[object].position = GLKVector3Make(x, -y, 0);
 				[objects[object] attachToObject:self];
 				object++;
-				if (object > 4)
-				{
-					NSLog(@"ehm");
-				}
 				if (x > w) w = x;
 				if (y > h) h = y;
 			}
