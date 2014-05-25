@@ -122,6 +122,7 @@
 		17EA2002191C23CF00869696 /* icon_app.png in Resources */ = {isa = PBXBuildFile; fileRef = 17EA1FFF191C23CF00869696 /* icon_app.png */; };
 		17EA2003191C23CF00869696 /* icon_settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 17EA2000191C23CF00869696 /* icon_settings.png */; };
 		17EA2004191C23CF00869696 /* icon_spotlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 17EA2001191C23CF00869696 /* icon_spotlight.png */; };
+		17F7425F1931D8D700A1AFBC /* paint.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7425E1931D8D700A1AFBC /* paint.fsh */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -278,6 +279,7 @@
 		17EA1FFF191C23CF00869696 /* icon_app.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_app.png; path = CMYK/Assets/icon_app.png; sourceTree = "<group>"; };
 		17EA2000191C23CF00869696 /* icon_settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_settings.png; path = CMYK/Assets/icon_settings.png; sourceTree = "<group>"; };
 		17EA2001191C23CF00869696 /* icon_spotlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_spotlight.png; path = CMYK/Assets/icon_spotlight.png; sourceTree = "<group>"; };
+		17F7425E1931D8D700A1AFBC /* paint.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = paint.fsh; path = Shaders/paint.fsh; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -527,6 +529,7 @@
 		177D101318F587AE0055496E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				17F7425E1931D8D700A1AFBC /* paint.fsh */,
 				17B5038B191051EE006B4436 /* additive.fsh */,
 				174A0D811902BE5600988D91 /* texturedvertex.vsh */,
 				174A0D7F1902BD6100988D91 /* textured.fsh */,
@@ -621,6 +624,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				17F7425F1931D8D700A1AFBC /* paint.fsh in Resources */,
 				17B503A81912D8BC006B4436 /* recycle_circle@2x.png in Resources */,
 				174A0DF81903196F00988D91 /* tetromino6@2x.png in Resources */,
 				17B503D31912EAD0006B4436 /* score_9.png in Resources */,

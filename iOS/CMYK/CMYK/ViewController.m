@@ -72,6 +72,10 @@
 		else if (weakPlayer.isAuthenticated)
 		{
 			weakSelf.playerAuthenticated = YES;
+			
+//			[GKAchievement loadAchievementsWithCompletionHandler:^(NSArray *achievements, NSError *achievementerror) {
+//				NSLog(@"Achievements: %@", achievements);
+//			}];
 		}
 		else
 		{
@@ -227,9 +231,47 @@
 	}
 }
 
-- (void)achievementObtained:(NSInteger)achievement
+- (void)achievementObtained:(enum CMYKAchievements)achievement
 {
+	NSString *identifier;
 	
+	switch(achievement)
+	{
+		case CleanSlate:
+			identifier = @"CMYK_CleanSlate";
+			break;
+		case Equal:
+			identifier = @"CMYK_Equal";
+			break;
+		case Played100:
+			identifier = @"CMYK_100";
+			break;
+		case Played250:
+			identifier = @"CMYK_250";
+			break;
+		case Played500:
+			identifier = @"CMYK_500";
+			break;
+	}
+	
+	if (self.playerAuthenticated)
+	{
+		GKAchievement *theAchievement = [[GKAchievement alloc] initWithIdentifier:identifier];
+		if (theAchievement)
+		{
+			theAchievement.percentComplete = 100;
+			theAchievement.showsCompletionBanner = YES;
+			
+			NSLog(@"Reporting achievement %@", theAchievement);
+			
+			[GKAchievement reportAchievements:@[theAchievement] withCompletionHandler:^(NSError *error) {
+				if (error)
+				{
+					NSLog(@"Error in reporting achievements: %@", error);
+				}
+			}];
+		}
+	}
 }
 
 #pragma mark UI

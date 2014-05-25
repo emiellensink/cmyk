@@ -497,7 +497,7 @@ typedef struct tileArray
 	
 	NSString *gameMode = [[NSUserDefaults standardUserDefaults] objectForKey:@"colorSet"];
 	if (!gameMode) gameMode = @"CMYK";
-	
+		
 	NSArray *arr;
 	if ([gameMode isEqualToString:@"CMYK"]) arr = @[@"cyan_circle@2x", @"magenta_circle@2x", @"yellow_circle@2x"];
 	if ([gameMode isEqualToString:@"RGB"]) arr = @[@"red_circle@2x", @"green_circle@2x", @"blue_circle@2x"];
@@ -778,6 +778,49 @@ typedef struct tileArray
 		
 		score += subscore;
 		NSLog(@"Score: %ld (%ld)", (long)score, (long)subscore);
+		
+		if (blockcount == 100)
+			[self.delegate achievementObtained:Played100];
+		if (blockcount == 250)
+			[self.delegate achievementObtained:Played250];
+		if (blockcount == 500)
+			[self.delegate achievementObtained:Played500];
+
+		{
+			BOOL empty = YES;
+			for (NSInteger x = 0; x < 5; x++)
+			{
+				for (NSInteger y = 0; y < 5; y++)
+				{
+					CMYKTileStack *t = tiles[x][y];
+					
+					if (t.l1 != 0 || t.l2 != 0 || t.l3 != 0) empty = NO;
+				}
+			}
+			
+			if (empty)
+				[self.delegate achievementObtained:CleanSlate];
+		}
+		
+		{
+			BOOL tl1 = tiles[0][0].l1;
+			BOOL tl2 = tiles[0][0].l2;
+			BOOL tl3 = tiles[0][0].l3;
+			
+			BOOL same = YES;
+			for (NSInteger x = 0; x < 5; x++)
+			{
+				for (NSInteger y = 0; y < 5; y++)
+				{
+					CMYKTileStack *t = tiles[x][y];
+					
+					if (t.l1 != tl1 || t.l2 != tl2 || t.l3 != tl3) same = NO;
+				}
+			}
+			
+			if (same)
+				[self.delegate achievementObtained:Equal];
+		}
 	}
 	else
 	{

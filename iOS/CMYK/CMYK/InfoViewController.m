@@ -141,7 +141,7 @@
 	NSLog(@"%@ - %@", request, response);
 	
 	[response.products enumerateObjectsUsingBlock:^(SKProduct *obj, NSUInteger idx, BOOL *stop) {
-		if ([obj.productIdentifier isEqualToString:@"CMYK_RGB"])
+		if ([obj.productIdentifier isEqualToString:@"CMYK_RGB"] && ![[NSUserDefaults standardUserDefaults] objectForKey:@"purchasedRGB"])
 		{
 			self.RGBButton.enabled = YES;
 			NSString *text = [self.RGBButton currentTitle];
@@ -158,7 +158,7 @@
 			self.RGBProduct = obj;
 		}
 			
-		if ([obj.productIdentifier isEqualToString:@"CMYK_RYB"])
+		if ([obj.productIdentifier isEqualToString:@"CMYK_RYB"] && ![[NSUserDefaults standardUserDefaults] objectForKey:@"purchasedRYB"])
 		{
 			self.RYBButton.enabled = YES;
 			NSString *text = [self.RYBButton currentTitle];

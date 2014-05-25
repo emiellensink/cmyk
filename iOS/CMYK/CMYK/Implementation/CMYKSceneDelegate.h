@@ -8,12 +8,21 @@
 
 #import <Foundation/Foundation.h>
 
+enum CMYKAchievements
+{
+	CleanSlate,
+	Equal,
+	Played100,
+	Played250,
+	Played500
+};
+
 @protocol CMYKSceneDelegate <NSObject>
 
 - (void)becomeIdle;
 - (void)becomeActive;
 
 - (void)gameCompletedWithScore:(NSUInteger)score;
-- (void)achievementObtained:(NSInteger)achievement;
+- (void)achievementObtained:(enum CMYKAchievements)achievement;
 
 @end
