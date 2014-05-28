@@ -1,0 +1,46 @@
+/**
+ * @license
+ * MyFonts Webfont Build ID 2784942, 2014-03-30T03:39:30-0400
+ * 
+ * The fonts listed in this notice are subject to the End User License
+ * Agreement(s) entered into by the website owner. All other parties are 
+ * explicitly restricted from using the Licensed Webfonts(s).
+ * 
+ * You may obtain a valid license at the URLs below.
+ * 
+ * Webfont: Sharik Sans Thin by Dada Studio
+ * URL: http://www.myfonts.com/fonts/dada-studio/sharik-sans/thin/
+ * 
+ * Webfont: Sharik Sans by Dada Studio
+ * URL: http://www.myfonts.com/fonts/dada-studio/sharik-sans/regular/
+ * 
+ * Webfont: Sharik Sans Bold Italic by Dada Studio
+ * URL: http://www.myfonts.com/fonts/dada-studio/sharik-sans/bold-italic/
+ * 
+ * Webfont: Sharik Sans Bold by Dada Studio
+ * URL: http://www.myfonts.com/fonts/dada-studio/sharik-sans/bold/
+ * 
+ * 
+ * License: http://www.myfonts.com/viewlicense?type=web&buildid=2784942
+ * Licensed pageviews: 10,000
+ * Webfonts copyright: Copyright &#x00A9; 2013 by Micha&#x0142; Jaroci&#x0144;ski. All rights reserved.
+ * 
+ * © 2014 MyFonts Inc
+*/
+
+
+/* @import must be at top of file, otherwise CSS will not work */
+@import url("//hello.myfonts.net/count/2a7eae");
+
+  
+@font-face {font-family: 'SharikSans-Thin';src: url('webfonts/2A7EAE_0_0.eot');src: url('webfonts/2A7EAE_0_0.eot?#iefix') format('embedded-opentype'),url('webfonts/2A7EAE_0_0.woff') format('woff'),url('webfonts/2A7EAE_0_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'SharikSans-Regular';src: url('webfonts/2A7EAE_1_0.eot');src: url('webfonts/2A7EAE_1_0.eot?#iefix') format('embedded-opentype'),url('webfonts/2A7EAE_1_0.woff') format('woff'),url('webfonts/2A7EAE_1_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'SharikSans-BoldItalic';src: url('webfonts/2A7EAE_2_0.eot');src: url('webfonts/2A7EAE_2_0.eot?#iefix') format('embedded-opentype'),url('webfonts/2A7EAE_2_0.woff') format('woff'),url('webfonts/2A7EAE_2_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'SharikSans-Bold';src: url('webfonts/2A7EAE_3_0.eot');src: url('webfonts/2A7EAE_3_0.eot?#iefix') format('embedded-opentype'),url('webfonts/2A7EAE_3_0.woff') format('woff'),url('webfonts/2A7EAE_3_0.ttf') format('truetype');}
+ 

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="34px" height="32px" viewBox="0 0 34 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.0.2 (7799) - http://www.bohemiancoding.com/sketch -->
+    <title>rybb_graph</title>
+    <description>Created with Sketch.</description>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="rybb_graph" sketch:type="MSLayerGroup">
+            <ellipse id="Oval-tc" fill="#FF0000" sketch:type="MSShapeGroup" cx="17" cy="11.0344828" rx="11.3333333" ry="11.0344828"></ellipse>
+            <ellipse id="Oval-bl" fill="#F8FF00" sketch:type="MSShapeGroup" cx="11.3333333" cy="20.9655172" rx="11.3333333" ry="11.0344828"></ellipse>
+            <ellipse id="Oval-br" fill="#0000FF" sketch:type="MSShapeGroup" cx="22.6666667" cy="20.9655172" rx="11.3333333" ry="11.0344828"></ellipse>
+            <path d="M28.3271068,11.4037475 C28.1270681,17.3269798 23.1323072,22.0689655 17,22.0689655 C14.9382758,22.0689655 13.0051344,21.5329547 11.3395598,20.5962525 C11.5395986,14.6730202 16.5343595,9.93103448 22.6666667,9.93103448 C24.7283908,9.93103448 26.6615323,10.4670453 28.3271068,11.4037475 Z" id="Oval-tr" stroke="#FF00FF" fill="#FF00FF" sketch:type="MSShapeGroup"></path>
+            <path d="M22.6604402,20.5962525 C20.9948656,21.5329547 19.0617242,22.0689655 17,22.0689655 C10.8676928,22.0689655 5.87293191,17.3269798 5.67289316,11.4037475 C7.33846768,10.4670453 9.27160918,9.93103448 11.3333333,9.93103448 C17.4656405,9.93103448 22.4604014,14.6730202 22.6604402,20.5962525 Z" id="Oval-tl" stroke="#FF8000" fill="#FF8000" sketch:type="MSShapeGroup"></path>
+            <path d="M17,30.5237827 C20.3875411,28.6158686 22.6666667,25.0498337 22.6666667,20.9655172 C22.6666667,16.8812008 20.3875411,13.3151659 17,11.4072518 C13.6124589,13.3151659 11.3333333,16.8812008 11.3333333,20.9655172 C11.3333333,25.0498337 13.6124589,28.6158686 17,30.5237827 Z" id="Oval-bc" stroke="#00FF00" fill="#00FF00" sketch:type="MSShapeGroup"></path>
+            <path d="M11.3395598,20.5962525 C13.0051344,21.5329547 14.9382758,22.0689655 17,22.0689655 C19.0617242,22.0689655 20.9948656,21.5329547 22.6604402,20.5962525 L22.6604402,20.5962525 C22.5277397,16.666934 20.2850492,13.2574409 17,11.4072518 C13.7149508,13.2574409 11.4722603,16.666934 11.3395598,20.5962525 Z" id="Oval-ct" stroke="#000000" stroke-width="1.5" fill="#000000" sketch:type="MSShapeGroup"></path>
+        </g>
+    </g>
+</svg>

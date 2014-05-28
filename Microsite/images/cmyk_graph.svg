@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="34px" height="32px" viewBox="0 0 34 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.0.2 (7799) - http://www.bohemiancoding.com/sketch -->
+    <title>cmyk_graph</title>
+    <description>Created with Sketch.</description>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="cmyk_graph" sketch:type="MSLayerGroup">
+            <ellipse id="Oval-tc" fill="#00FFFF" sketch:type="MSShapeGroup" cx="17" cy="11.0967742" rx="11.3333333" ry="11.0967742"></ellipse>
+            <ellipse id="Oval-bl" fill="#FF00FF" sketch:type="MSShapeGroup" cx="11.3333333" cy="20.9032258" rx="11.3333333" ry="11.0967742"></ellipse>
+            <ellipse id="Oval-br" fill="#F8FF00" sketch:type="MSShapeGroup" cx="22.6666667" cy="20.9032258" rx="11.3333333" ry="11.0967742"></ellipse>
+            <path d="M28.3316489,11.2900486 C28.2263063,17.3294665 23.193296,22.1935484 17,22.1935484 C14.9364014,22.1935484 13.0016195,21.6535311 11.3350178,20.7099514 C11.4403604,14.6705335 16.4733707,9.80645161 22.6666667,9.80645161 C24.7302652,9.80645161 26.6650472,10.3464689 28.3316489,11.2900486 Z" id="Oval-tr" stroke="#00FF00" fill="#00FF00" sketch:type="MSShapeGroup"></path>
+            <path d="M22.6649822,20.7099514 C20.9983805,21.6535311 19.0635986,22.1935484 17,22.1935484 C10.806704,22.1935484 5.77369375,17.3294665 5.66835109,11.2900486 C7.33495278,10.3464689 9.26973478,9.80645161 11.3333333,9.80645161 C17.5266293,9.80645161 22.5596396,14.6705335 22.6649822,20.7099514 Z" id="Oval-tl" stroke="#0000FF" fill="#0000FF" sketch:type="MSShapeGroup"></path>
+            <path d="M17,30.5154492 C20.3875411,28.5967647 22.6666667,25.0105989 22.6666667,20.9032258 C22.6666667,16.7958527 20.3875411,13.209687 17,11.2910024 C13.6124589,13.209687 11.3333333,16.7958527 11.3333333,20.9032258 C11.3333333,25.0105989 13.6124589,28.5967647 17,30.5154492 Z" id="Oval-bc" fill="#FF0000" sketch:type="MSShapeGroup"></path>
+            <path d="M11.3350178,20.7099514 C13.0016195,21.6535311 14.9364014,22.1935484 17,22.1935484 C19.0635986,22.1935484 20.9983805,21.6535311 22.6649822,20.7099514 L22.6649822,20.7099514 C22.5947515,16.6835381 20.3342996,13.1795312 17,11.2910024 C13.6657004,13.1795312 11.4052485,16.6835381 11.3350178,20.7099514 Z" id="Oval-ct" stroke="#000000" fill="#000000" sketch:type="MSShapeGroup"></path>
+        </g>
+    </g>
+</svg>
