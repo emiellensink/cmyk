@@ -817,6 +817,8 @@ typedef struct tileArray
 				}
 			}
 			
+			if (tl1 == NO && tl2 == NO && tl3 == NO) same = NO;
+			
 			if (same)
 				[self.delegate achievementObtained:Equal];
 		}
