@@ -118,7 +118,7 @@ typedef struct tileArray
 	size = _size;
 	idleTimer += timeSinceLastUpdate;
 	dragTimer += timeSinceLastUpdate;
-	if (!self.isOccupiedBySomethingElse) timeLeftTimer -= timeSinceLastUpdate;
+	if (!self.isOccupiedBySomethingElse && !gameOverState) timeLeftTimer -= timeSinceLastUpdate;
 	if (timeLeftTimer < 0 && !gameOverState)
 	{
 		idleTimer = 0;
@@ -391,6 +391,7 @@ typedef struct tileArray
 	score = 0;
 	blockcount = 0;
 	timeLeftTimer = 60;
+	targetRotation = 0;
 	
 	if (gameoverDisplay)
 	{
