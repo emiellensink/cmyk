@@ -84,7 +84,7 @@ typedef struct tileArray
 	QX3DObject *darkOverlay;
 	
 	CMYKRenderableDigit *digits[3];
-	CMYKRenderableDigit *scoreDigits[5];
+	CMYKRenderableDigit *scoreDigits[6];
 	
 	QX3DObject *outoftime;
 	QX3DObject *outofmoves;
@@ -174,12 +174,12 @@ typedef struct tileArray
 	
 	{
 		NSInteger left = (NSInteger)score;
-		for (int i = 0; i < 5; i++)
+		for (int i = 0; i < 6; i++)
 		{
 			NSInteger d = left % 10;
 			left /= 10;
 			
-			[scoreDigits[4 - i] switchToDigit:d animated:YES];
+			[scoreDigits[5 - i] switchToDigit:d animated:YES];
 		}
 	}
 	
@@ -585,7 +585,7 @@ typedef struct tileArray
 	{
 		QX3DObject *obj = [QX3DObject new];
 		obj.orientation = GLKQuaternionMakeWithAngleAndAxis(0, 0, 0, 1);
-		obj.position = GLKVector3Make(10 + i * 14, (size.height / 2.0) - 40, 0);
+		obj.position = GLKVector3Make(15 + i * 14, (size.height / 2.0) - 40, 0);
 		
 		CMYKRenderableDigit *digit = [CMYKRenderableDigit renderableForObject:obj];
 		digit.material = texturemat;
@@ -597,11 +597,11 @@ typedef struct tileArray
 		[obj attachToObject:self];
 	}
 
-	for (NSInteger i = 0; i < 5; i++)
+	for (NSInteger i = 0; i < 6; i++)
 	{
 		QX3DObject *obj = [QX3DObject new];
 		obj.orientation = GLKQuaternionMakeWithAngleAndAxis(0, 0, 0, 1);
-		obj.position = GLKVector3Make(-90 + i * 14, (size.height / 2.0) - 40, 0);
+		obj.position = GLKVector3Make(-95 + i * 14, (size.height / 2.0) - 40, 0);
 		
 		CMYKRenderableDigit *digit = [CMYKRenderableDigit renderableForObject:obj];
 		digit.material = texturemat;
@@ -616,7 +616,7 @@ typedef struct tileArray
 	{
 		QX3DObject *obj = [QX3DObject new];
 		obj.orientation = GLKQuaternionMakeWithAngleAndAxis(0, 0, 0, 1);
-		obj.position = GLKVector3Make(-10, (size.height / 2.0) - 40, 0);
+		obj.position = GLKVector3Make(-5, (size.height / 2.0) - 40, 0);
 		
 		CMYKRenderableTexturedSquare *clock = [CMYKRenderableTexturedSquare renderableForObject:obj];
 		clock.material = texturemat;

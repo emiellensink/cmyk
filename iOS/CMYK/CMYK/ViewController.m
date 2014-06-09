@@ -56,6 +56,8 @@
 	
     [self setupGL];
 	
+	self.gameCenter.enabled = NO;
+	
 	self.player = [GKLocalPlayer localPlayer];
 	__weak GKLocalPlayer *weakPlayer = self.player;
 	__weak typeof(self) weakSelf = self;
@@ -72,6 +74,7 @@
 		else if (weakPlayer.isAuthenticated)
 		{
 			weakSelf.playerAuthenticated = YES;
+			weakSelf.gameCenter.enabled = YES;
 		}
 		else
 		{

@@ -20,6 +20,8 @@
 @property (nonatomic, strong) IBOutlet UIButton *b4;
 
 @property (nonatomic, strong) IBOutlet UIButton *restart;
+@property (nonatomic, strong) IBOutlet UIButton *gameCenter;
+
 - (IBAction)restartTapped:(id)sender;
 - (IBAction)gameCenterTapped:(id)sender;
 
