@@ -8,7 +8,7 @@
 
 #import "CMYKScene.h"
 
-#import <GLKit/GLKit.h>
+@import GLKit;
 
 #import "../QX3D/QX3DObject.h"
 #import "../QX3D/QX3DMaterial.h"

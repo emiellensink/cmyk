@@ -11,7 +11,7 @@
 #import "../QX3D/QX3DMaterial.h"
 #import "../QX3D/QX3DObject.h"
 
-#import <GLKit/GLKit.h>
+@import OpenGLES.ES2;
 
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 

@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Emiel Lensink. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 @class QX3DScene;
 

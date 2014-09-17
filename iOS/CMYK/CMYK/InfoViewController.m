@@ -7,7 +7,7 @@
 //
 
 #import "InfoViewController.h"
-#import <StoreKit/StoreKit.h>
+@import StoreKit;
 
 @interface InfoViewController () <SKProductsRequestDelegate>
 

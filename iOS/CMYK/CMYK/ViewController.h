@@ -6,9 +6,8 @@
 //  Copyright (c) 2014 Emiel Lensink. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import <GLKit/GLKit.h>
-
+@import UIKit;
+@import GLKit;
 
 #import "Implementation/CMYKSceneDelegate.h"
 

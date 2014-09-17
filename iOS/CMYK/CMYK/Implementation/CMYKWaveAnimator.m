@@ -10,7 +10,7 @@
 
 #import "../QX3D/QX3DObject.h"
 
-#import <GLKit/GLKit.h>
+@import GLKit;
 
 @interface CMYKWaveAnimator ()
 {

@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 
-#import <StoreKit/StoreKit.h>
+@import StoreKit;
 
 @interface AppDelegate () <SKPaymentTransactionObserver>
 {

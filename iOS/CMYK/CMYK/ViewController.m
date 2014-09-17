@@ -8,7 +8,7 @@
 
 #import "ViewController.h"
 
-#import <GameKit/GameKit.h>
+@import GameKit;
 
 #import "QX3D/QX3DEngine.h"
 #import "Implementation/CMYKScene.h"

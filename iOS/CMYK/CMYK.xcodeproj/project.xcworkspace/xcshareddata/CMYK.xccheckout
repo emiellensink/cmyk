@@ -10,29 +10,29 @@
 	<string>CMYK</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>20D97C18-AF36-448A-A323-A2A453EE891A</key>
+		<key>C79D5AA1BB3345A906A0C3105BBFFFD08461A926</key>
 		<string>https://home.emle.nl/git/cmyk.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>iOS/CMYK/CMYK.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>20D97C18-AF36-448A-A323-A2A453EE891A</key>
+		<key>C79D5AA1BB3345A906A0C3105BBFFFD08461A926</key>
 		<string>../../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://home.emle.nl/git/cmyk.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>20D97C18-AF36-448A-A323-A2A453EE891A</string>
+	<string>C79D5AA1BB3345A906A0C3105BBFFFD08461A926</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>20D97C18-AF36-448A-A323-A2A453EE891A</string>
+			<string>C79D5AA1BB3345A906A0C3105BBFFFD08461A926</string>
 			<key>IDESourceControlWCCName</key>
 			<string>CMYK</string>
 		</dict>

@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Emiel Lensink. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <GLKit/GLKit.h>
+@import Foundation;
+@import GLKit;
 
 @interface QX3DRenderable ()
 

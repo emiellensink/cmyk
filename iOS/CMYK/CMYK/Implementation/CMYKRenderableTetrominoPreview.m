@@ -14,7 +14,8 @@
 #import "CMYKTileStack.h"
 #import "CMYKTetrominoData.h"
 
-#import <GLKit/GLKit.h>
+@import GLKit;
+@import OpenGLES.ES2;
 
 GLfloat gTetrominoPreviewVD[6 * 3 * 4] =
 {
