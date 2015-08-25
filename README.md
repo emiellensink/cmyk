@@ -12,3 +12,6 @@ http://qixis.com/cmy/video/cmy_web.mp4
 # Technical
 CMY is a simple game, both in gameplay but also in the techniques used behind it. The game started as a prototype with potential, so the code is a bit messy in some places. It does work correctly though on all iOS devices, iOS 8 and better. 
 The code includes handling of in-app purchases, gamecenter integration, achievements, OpenGL pixel shaders, and a very rudimentary 3d 'engine'.
+
+# I just want to play it?
+It's in the app store: https://itunes.apple.com/us/app/cmy/id869354956?ls=1&mt=8
